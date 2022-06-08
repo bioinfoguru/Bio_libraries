@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Search &#8212; Fundamental of Python</title>
+    <title>Introduction to Bio Libraries &#8212; Fundamental of Python</title>
     
   <link href="_static/css/theme.css" rel="stylesheet" />
   <link href="_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
@@ -33,7 +33,6 @@
     
   <link rel="preload" as="script" href="_static/js/index.1c5a1a01449ed65a7b51.js">
 
-    
     <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
@@ -43,16 +42,19 @@
     <script src="_static/copybutton.js"></script>
     <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
-    <script src="_static/searchtools.js"></script>
-    <script src="_static/language_data.js"></script>
+    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="#" />
-  <script src="searchindex.js" defer></script>
-  
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Introduction to BioPython" href="BioPython_Intro.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
     
-
   </head>
   <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
     
@@ -66,7 +68,7 @@
 <div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
     
         <div class="navbar-brand-box">
-    <a class="navbar-brand text-wrap" href="index.html">
+    <a class="navbar-brand text-wrap" href="#">
       
         <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
         
@@ -78,7 +80,7 @@
       <h1 class="site-logo" id="site-title">Fundamental of Python</h1>
       
     </a>
-</div><form class="bd-search d-flex align-items-center" action="#" method="get">
+</div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
   <i class="icon fas fa-search"></i>
   <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
 </form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
@@ -87,6 +89,11 @@
  <li class="toctree-l1">
   <a class="reference internal" href="BioPython_Intro.html">
    Introduction to BioPython
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Phylo.html">
+   Phylogenetic analysis
   </a>
  </li>
 </ul>
@@ -138,6 +145,19 @@
         <!-- Table of contents -->
         <div class="d-none d-md-block col-md-2 bd-toc show">
             
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav" aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#useful-links">
+   Useful links
+  </a>
+ </li>
+</ul>
+
+            </nav>
         </div>
     </div>
 </div>
@@ -146,27 +166,65 @@
         
               <div>
                 
-  <h1 id="search-documentation">Search</h1>
-  <div id="fallback" class="admonition warning">
-  <script>$('#fallback').hide();</script>
-  <p>
-    Please activate JavaScript to enable the search
-    functionality.
-  </p>
-  </div>
-  <p>
-    Searching for multiple words only shows matches that contain
-    all words.
-  </p>
-  <form action="" method="get">
-    <input type="text" name="q" aria-labelledby="search-documentation" value="" />
-    <input type="submit" value="search" />
-    <span id="search-progress" style="padding-left: 10px"></span>
-  </form>
-  
-  <div id="search-results">
-  
-  </div>
+  <!-- #region -->
+<div class="section" id="introduction-to-bio-libraries">
+<h1>Introduction to Bio Libraries<a class="headerlink" href="#introduction-to-bio-libraries" title="Permalink to this headline">¶</a></h1>
+<p>This notebook would provide an introduction to the Biopython library that is useful for working with biological data. This tutorial is structured by topics that we’ll be covering; the navigation bar on the left has the list of topics. Below is an outline for all the sections.</p>
+<p><a class="reference internal" href="BioPython_Intro.html"><span class="doc std std-doc">Biopython</span></a>: Introduction to the Biopython library for working with sequences and using online resources programmatically.</p>
+<p><a class="reference internal" href="Phylo.html"><span class="doc std std-doc">Phylogenetic Analysis</span></a>: Introduction to the ETE3 library for working with phylogenetic trees.</p>
+<p>Throughout the tutorial, the python code is shown as a code block with grey background, e.g.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Hello World!&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>When you hover the mouse pointer over a code cell, there will be an option to copy the contents of that cell.</p>
+</div>
+<!-- #endregion -->
+<div class="section" id="useful-links">
+<h2>Useful links<a class="headerlink" href="#useful-links" title="Permalink to this headline">¶</a></h2>
+<table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="text-align:left head"><p>Name</p></th>
+<th class="text-align:right head"><p>Website</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-align:left"><p>Anaconda</p></td>
+<td class="text-align:right"><p><a class="reference external" href="https://www.anaconda.com/products/individual">https://www.anaconda.com/products/individual</a></p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:left"><p>Google Colab</p></td>
+<td class="text-align:right"><p><a class="reference external" href="https://research.google.com/colaboratory/">https://research.google.com/colaboratory/</a></p></td>
+</tr>
+<tr class="row-even"><td class="text-align:left"><p>Biopython</p></td>
+<td class="text-align:right"><p><a class="reference external" href="https://biopython.org/">https://biopython.org/</a></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="toctree-wrapper compound">
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
 
               </div>
               
@@ -177,6 +235,15 @@
 
 <div class='prev-next-bottom'>
     
+     <div id="next">
+        <a class="right-next" href="BioPython_Intro.html" title="next page">
+            <div class="prevnext-info">
+                <p class="prevnext-label">next</p>
+                <p class="prevnext-title">Introduction to BioPython</p>
+            </div>
+            <i class="prevnext-label fas fa-angle-right"></i>
+        </a>
+     </div>
 
 </div>
         
