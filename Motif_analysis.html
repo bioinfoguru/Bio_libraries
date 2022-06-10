@@ -1,0 +1,656 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Motif creation &#8212; Introduction to Bio Libraries</title>
+    
+  <link href="_static/css/theme.css" rel="stylesheet" />
+  <link href="_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
+
+    
+  <link rel="stylesheet"
+    href="_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="_static/js/index.1c5a1a01449ed65a7b51.js">
+
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/togglebutton.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
+    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Phylogenetic analysis" href="Phylo.html" />
+    <link rel="prev" title="Introduction to BioPython" href="BioPython_Intro.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="_static/logo_final_horizontal.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">Introduction to Bio Libraries</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="BioPython_Intro.html">
+   Introduction to BioPython
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   Motif creation
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Phylo.html">
+   Phylogenetic analysis
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+   <style> .text1{font-size=18pt;} .footer1{ margin: 2em; text-align: center; } .social_media{ color: #9c51e0; font-size: 1.5em; word-spacing: 0.5em; } </style> <script src="https://kit.fontawesome.com/578801937d.js" crossorigin="anonymous"></script> <link rel="preconnect" href="https://fonts.googleapis.com"> <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> <link href="https://fonts.googleapis.com/css2?family=Geo&family=Lato&display=swap" rel="stylesheet"> <div class="footer1"> <span class="text1">Connect with </span> <span class="text1" style="color:#9c51e0;font-family:Geo;font-size:14pt">bioinfo.guru</span> <br> <span class="social_media"> <a href="https://www.facebook.com/profile.php?id=100078250833738"><i class="fa-brands fa-facebook-square social_media"></i></a> <a href="https://www.instagram.com/bioinfo.guru/"><i class="fa-brands fa-instagram-square social_media"></i></a> <a href="https://www.linkedin.com/in/bioinfo-guru-68a8b7231/"><i class="fa-brands fa-linkedin social_media"></i></a> <a href="https://twitter.com/bioinfo_guru"><i class="fa-brands fa-twitter-square social_media"></i></a> </span> </div> 
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+            <!-- Source interaction buttons -->
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav" aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#">
+   Motif creation
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#motif-for-protein-sequences">
+   Motif for protein sequences
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#logomaker">
+   Logomaker
+  </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#motif-from-msa">
+     Motif from MSA
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id1">
+   Logomaker
+  </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#decorating-logos">
+     Decorating logos
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#reading-motifs">
+   Reading motifs
+  </a>
+ </li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">Bio</span>
+<span class="kn">from</span> <span class="nn">Bio</span> <span class="kn">import</span> <span class="n">motifs</span>
+<span class="kn">from</span> <span class="nn">Bio.Seq</span> <span class="kn">import</span> <span class="n">Seq</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="motif-creation">
+<h1>Motif creation<a class="headerlink" href="#motif-creation" title="Permalink to this headline">¶</a></h1>
+<p>A set of sequences of equal length can be used to create a motif. The <code class="docutils literal notranslate"><span class="pre">create()</span></code> function in the motifs class takes a list of sequences as an argument to create the motif object.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">instances</span> <span class="o">=</span> <span class="p">[</span><span class="n">Seq</span><span class="p">(</span><span class="s2">&quot;TACAA&quot;</span><span class="p">),</span> <span class="n">Seq</span><span class="p">(</span><span class="s2">&quot;TACGC&quot;</span><span class="p">),</span> <span class="n">Seq</span><span class="p">(</span><span class="s2">&quot;TACAC&quot;</span><span class="p">),</span> <span class="n">Seq</span><span class="p">(</span><span class="s2">&quot;TACCC&quot;</span><span class="p">),</span> <span class="n">Seq</span><span class="p">(</span><span class="s2">&quot;AACCC&quot;</span><span class="p">),</span> <span class="n">Seq</span><span class="p">(</span><span class="s2">&quot;AATGC&quot;</span><span class="p">),</span> <span class="n">Seq</span><span class="p">(</span><span class="s2">&quot;AATGC&quot;</span><span class="p">)]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">m1</span> <span class="o">=</span> <span class="n">motifs</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">instances</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">m1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>TACAA
+TACGC
+TACAC
+TACCC
+AACCC
+AATGC
+AATGC
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">len</span><span class="p">(</span><span class="n">m1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>5
+</pre></div>
+</div>
+</div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">counts()</span></code> function returns the frequency of each alphabet at all the positions in the motif. Frequency of a particular alphabet at different positions within the motif can also be accessed. The <code class="docutils literal notranslate"><span class="pre">concensus()</span></code> function returns the concensus sequence for the motif.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">m1</span><span class="o">.</span><span class="n">counts</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>        0      1      2      3      4
+A:   3.00   7.00   0.00   2.00   1.00
+C:   0.00   0.00   5.00   2.00   6.00
+G:   0.00   0.00   0.00   3.00   0.00
+T:   4.00   0.00   2.00   0.00   0.00
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">m1</span><span class="o">.</span><span class="n">counts</span><span class="p">[</span><span class="s2">&quot;A&quot;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[3, 7, 0, 2, 1]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#get number of &quot;A&quot; at first position</span>
+<span class="n">m1</span><span class="o">.</span><span class="n">counts</span><span class="p">[</span><span class="s2">&quot;A&quot;</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>3
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">m1</span><span class="o">.</span><span class="n">consensus</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Seq(&#39;TACGC&#39;)
+</pre></div>
+</div>
+</div>
+</div>
+<p>To search a particular motif in a sequence, <code class="docutils literal notranslate"><span class="pre">instances.search()</span></code> function can be used.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sequence_set</span> <span class="o">=</span> <span class="p">[</span><span class="n">Seq</span><span class="p">(</span><span class="s2">&quot;AACCGGTT&quot;</span><span class="p">),</span><span class="n">Seq</span><span class="p">(</span><span class="s2">&quot;AACCCGTT&quot;</span><span class="p">),</span><span class="n">Seq</span><span class="p">(</span><span class="s2">&quot;CATTACAA&quot;</span><span class="p">)]</span>
+<span class="n">motif_p1</span> <span class="o">=</span> <span class="n">motifs</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">sequence_set</span><span class="p">)</span>
+<span class="n">motif_p1</span><span class="o">.</span><span class="n">instances</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[Seq(&#39;AACCGGTT&#39;), Seq(&#39;AACCCGTT&#39;), Seq(&#39;CATTACAA&#39;)]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">test_seq</span><span class="o">=</span><span class="n">Seq</span><span class="p">(</span><span class="s2">&quot;TACACTGCATTACAACCCAAGCATTA&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">pos</span><span class="p">,</span> <span class="n">seq</span> <span class="ow">in</span> <span class="n">motif_p1</span><span class="o">.</span><span class="n">instances</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">test_seq</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%i</span><span class="s2"> </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">pos</span><span class="p">,</span> <span class="n">seq</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>7 CATTACAA
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="motif-for-protein-sequences">
+<h1>Motif for protein sequences<a class="headerlink" href="#motif-for-protein-sequences" title="Permalink to this headline">¶</a></h1>
+<p>By default, the <code class="docutils literal notranslate"><span class="pre">create()</span></code> function considers the input sequence as a DNA sequence. For creating a motif for protein sequences, the keyword argument <code class="docutils literal notranslate"><span class="pre">alphabet</span></code> need to be specified the all the amino acids in single letter code.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">instances</span> <span class="o">=</span> <span class="p">[</span><span class="n">Seq</span><span class="p">(</span><span class="s2">&quot;LXXLL&quot;</span><span class="p">),</span><span class="n">Seq</span><span class="p">(</span><span class="s2">&quot;LXXLL&quot;</span><span class="p">)]</span>
+<span class="n">motif_prot</span> <span class="o">=</span> <span class="n">motifs</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">instances</span><span class="p">,</span><span class="n">alphabet</span><span class="o">=</span><span class="s2">&quot;ACDEFGHIKLMNPQRSTVWXY&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">motif_prot</span><span class="o">.</span><span class="n">counts</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;A&#39;: [0, 0, 0, 0, 0],
+ &#39;C&#39;: [0, 0, 0, 0, 0],
+ &#39;D&#39;: [0, 0, 0, 0, 0],
+ &#39;E&#39;: [0, 0, 0, 0, 0],
+ &#39;F&#39;: [0, 0, 0, 0, 0],
+ &#39;G&#39;: [0, 0, 0, 0, 0],
+ &#39;H&#39;: [0, 0, 0, 0, 0],
+ &#39;I&#39;: [0, 0, 0, 0, 0],
+ &#39;K&#39;: [0, 0, 0, 0, 0],
+ &#39;L&#39;: [2, 0, 0, 2, 2],
+ &#39;M&#39;: [0, 0, 0, 0, 0],
+ &#39;N&#39;: [0, 0, 0, 0, 0],
+ &#39;P&#39;: [0, 0, 0, 0, 0],
+ &#39;Q&#39;: [0, 0, 0, 0, 0],
+ &#39;R&#39;: [0, 0, 0, 0, 0],
+ &#39;S&#39;: [0, 0, 0, 0, 0],
+ &#39;T&#39;: [0, 0, 0, 0, 0],
+ &#39;V&#39;: [0, 0, 0, 0, 0],
+ &#39;W&#39;: [0, 0, 0, 0, 0],
+ &#39;X&#39;: [0, 2, 2, 0, 0],
+ &#39;Y&#39;: [0, 0, 0, 0, 0]}
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="logomaker">
+<h1>Logomaker<a class="headerlink" href="#logomaker" title="Permalink to this headline">¶</a></h1>
+<p>The <a class="reference external" href="https://logomaker.readthedocs.io/en/latest/">logomaker package</a> offers a rich set of functionality to work with sequences/motifs to create sequence logos. It can be installed via <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">logomaker</span></code>. This library uses pandas and matplotlib to generate sequence logos.</p>
+<div class="section" id="motif-from-msa">
+<h2>Motif from MSA<a class="headerlink" href="#motif-from-msa" title="Permalink to this headline">¶</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">Bio</span> <span class="kn">import</span> <span class="n">AlignIO</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#Read alignment for proteins with DEAD motif</span>
+<span class="n">DEAD_align</span> <span class="o">=</span> <span class="n">AlignIO</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="s2">&quot;DEAD2.aln&quot;</span><span class="p">,</span><span class="s2">&quot;clustal&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">DEAD_align</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Alignment with 23 rows and 1199 columns
+--------------------------------------------...--- sp|P17844|DDX5_HUMAN
+--------------------------------------------...--- sp|Q92841|DDX17_HUMAN
+MNWNKGGPGTKRGFGFGGFAISAGKKEEPKLPQQSHSAFGATSS...--- sp|Q86XP3|DDX42_HUMAN
+--------------------------------------------...--- sp|O00571|DDX3X_HUMAN
+--------------------------------------------...--- sp|O15523|DDX3Y_HUMAN
+--------------------------------------------...--- sp|Q9UHI6|DDX20_HUMAN
+--------------------------------------------...--- sp|Q13838|DX39B_HUMAN
+--------------------------------------------...--- sp|Q9UMR2|DD19B_HUMAN
+--------------------------------------------...--- sp|P38919|IF4A3_HUMAN
+--------------------------------------------...--- sp|P26196|DDX6_HUMAN
+------------------------MVLAQRRRGGCEKLRAGPQA...--- sp|Q96GQ7|DDX27_HUMAN
+--------------------------------------------...--- sp|Q9H0S4|DDX47_HUMAN
+--------------------------------------------...KRM sp|Q8TDD1|DDX54_HUMAN
+--------------------------------------------...--- sp|Q9NY93|DDX56_HUMAN
+--------------------------------------------...--- sp|Q8NHQ9|DDX55_HUMAN
+--------------------------------------------...--- sp|Q9NVP1|DDX18_HUMAN
+----------------------MAPDLASQRHSESFPSVNSRPN...--- sp|Q9H8H2|DDX31_HUMAN
+--------------------------------------------...--- sp|Q9UJV9|DDX41_HUMAN
+...
+--------------------------------------------...--- sp|Q9H2U1|DHX36_HUMAN
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">DEAD_align</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">5</span><span class="p">,</span><span class="mi">442</span><span class="p">:</span><span class="mi">448</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Alignment with 4 rows and 6 columns
+LDEADR sp|Q92841|DDX17_HUMAN
+FDEADR sp|Q86XP3|DDX42_HUMAN
+LDEADR sp|O00571|DDX3X_HUMAN
+LDEADR sp|O15523|DDX3Y_HUMAN
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">instances_DEAD</span> <span class="o">=</span> <span class="p">[</span><span class="n">s1</span><span class="o">.</span><span class="n">seq</span> <span class="k">for</span> <span class="n">s1</span> <span class="ow">in</span> <span class="n">DEAD_align</span><span class="p">[:,</span><span class="mi">442</span><span class="p">:</span><span class="mi">448</span><span class="p">]]</span>
+<span class="n">motif_DEAD</span> <span class="o">=</span> <span class="n">motifs</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">instances_DEAD</span><span class="p">,</span> <span class="n">alphabet</span><span class="o">=</span><span class="s1">&#39;ACDEFGHIKLMNPQRSTVWY&#39;</span><span class="p">)</span>
+<span class="c1">#print(motif_DEAD.counts)</span>
+<span class="n">df_DEAD_motif</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">motif_DEAD</span><span class="o">.</span><span class="n">counts</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="id1">
+<h1>Logomaker<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<p>The <a class="reference external" href="https://logomaker.readthedocs.io/en/latest/">logomaker package</a> offers a rich set of functionality to work with sequences/motifs to create sequence logos. It can be installed via <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">logomaker</span></code>. This library uses pandas and matplotlib to generate sequence logos. The <code class="docutils literal notranslate"><span class="pre">savefig()</span></code> function of the <code class="docutils literal notranslate"><span class="pre">plt</span></code> object can be used to save an image of the logo. The resolution of the reulting image can be adjusted using the <code class="docutils literal notranslate"><span class="pre">dpi</span></code> keyword argument.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">logomaker</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Matplotlib is building the font cache; this may take a moment.
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ss_logo</span> <span class="o">=</span> <span class="n">logomaker</span><span class="o">.</span><span class="n">Logo</span><span class="p">(</span><span class="n">df_DEAD_motif</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s2">&quot;fig1.png&quot;</span><span class="p">,</span><span class="n">dpi</span><span class="o">=</span><span class="mi">600</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/Motif_analysis_27_0.png" src="_images/Motif_analysis_27_0.png" />
+</div>
+</div>
+<p>To normalize the values on the y-axis use <code class="docutils literal notranslate"><span class="pre">normalize()</span></code> function.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">motif_pwm</span> <span class="o">=</span> <span class="n">motif_DEAD</span><span class="o">.</span><span class="n">counts</span><span class="o">.</span><span class="n">normalize</span><span class="p">()</span>
+<span class="n">df_motif_pwm</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">motif_pwm</span><span class="p">)</span>
+<span class="n">ss_logo_pwm</span> <span class="o">=</span> <span class="n">logomaker</span><span class="o">.</span><span class="n">Logo</span><span class="p">(</span><span class="n">df_motif_pwm</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/Motif_analysis_29_0.png" src="_images/Motif_analysis_29_0.png" />
+</div>
+</div>
+<div class="section" id="decorating-logos">
+<h2>Decorating logos<a class="headerlink" href="#decorating-logos" title="Permalink to this headline">¶</a></h2>
+<p>The logo fonts can be changed using the <code class="docutils literal notranslate"><span class="pre">font_name</span></code> argument. Positions within the logo can be highlighted by adding background color as shown below.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ss_logo_pwm</span> <span class="o">=</span> <span class="n">logomaker</span><span class="o">.</span><span class="n">Logo</span><span class="p">(</span><span class="n">df_motif_pwm</span><span class="p">,</span><span class="n">font_name</span><span class="o">=</span><span class="s1">&#39;Franklin Gothic Book&#39;</span><span class="p">)</span>
+<span class="n">ss_logo_pwm</span><span class="o">.</span><span class="n">highlight_position</span><span class="p">(</span><span class="n">p</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;pink&#39;</span><span class="p">)</span>
+<span class="n">ss_logo_pwm</span><span class="o">.</span><span class="n">highlight_position</span><span class="p">(</span><span class="n">p</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;pink&#39;</span><span class="p">)</span>
+<span class="n">ss_logo_pwm</span><span class="o">.</span><span class="n">highlight_position</span><span class="p">(</span><span class="n">p</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;pink&#39;</span><span class="p">)</span>
+<span class="n">ss_logo_pwm</span><span class="o">.</span><span class="n">highlight_position</span><span class="p">(</span><span class="n">p</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;pink&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/Motif_analysis_31_0.png" src="_images/Motif_analysis_31_0.png" />
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="reading-motifs">
+<h1>Reading motifs<a class="headerlink" href="#reading-motifs" title="Permalink to this headline">¶</a></h1>
+<p>Motif files such available from Jaspar database can be read directly to create a motif object.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_jaspar_motif</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
+<span class="n">fh</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;MA0007.2.jaspar&quot;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">motifs</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">fh</span><span class="p">,</span> <span class="s2">&quot;jaspar&quot;</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">counts</span><span class="p">)</span>
+    <span class="n">df_jaspar_motif</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">counts</span><span class="p">)</span>
+<span class="n">fh</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>        0      1      2      3      4      5      6      7      8      9     10     11     12     13     14
+A: 6277.00 6497.00   0.00 6462.00 11206.00  26.00 10426.00 1478.00 4353.00 3312.00 3241.00   0.00 2214.00 2656.00 1599.00
+C: 1112.00   0.00   0.00 1304.00   0.00 11115.00   0.00 2976.00 2096.00 3249.00 142.00 525.00 1262.00 2434.00 7032.00
+G: 3049.00 4709.00 11206.00 1254.00   0.00  65.00 107.00 4023.00 2151.00 3291.00 305.00 10681.00 671.00 2460.00 298.00
+T: 768.00   0.00   0.00 2186.00   0.00   0.00 673.00 2729.00 2606.00 1354.00 7518.00   0.00 7059.00 3656.00 2277.00
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ss_logo</span> <span class="o">=</span> <span class="n">logomaker</span><span class="o">.</span><span class="n">Logo</span><span class="p">(</span><span class="n">df_jaspar_motif</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/Motif_analysis_34_0.png" src="_images/Motif_analysis_34_0.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ss_logo</span> <span class="o">=</span> <span class="n">logomaker</span><span class="o">.</span><span class="n">Logo</span><span class="p">(</span><span class="n">df_jaspar_motif</span><span class="p">,</span><span class="n">font_name</span><span class="o">=</span><span class="s1">&#39;Franklin Gothic Book&#39;</span><span class="p">)</span>
+<span class="n">ss_logo</span><span class="o">.</span><span class="n">highlight_position</span><span class="p">(</span><span class="n">p</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;magenta&#39;</span><span class="p">)</span>
+<span class="n">ss_logo</span><span class="o">.</span><span class="n">highlight_position</span><span class="p">(</span><span class="n">p</span><span class="o">=</span><span class="mi">7</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;lightgreen&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/Motif_analysis_35_0.png" src="_images/Motif_analysis_35_0.png" />
+</div>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        
+            
+
+
+
+<div class='prev-next-bottom'>
+    
+    <div id="prev">
+        <a class="left-prev" href="BioPython_Intro.html" title="previous page">
+            <i class="prevnext-label fas fa-angle-left"></i>
+            <div class="prevnext-info">
+                <p class="prevnext-label">previous</p>
+                <p class="prevnext-title">Introduction to BioPython</p>
+            </div>
+        </a>
+    </div>
+     <div id="next">
+        <a class="right-next" href="Phylo.html" title="next page">
+            <div class="prevnext-info">
+                <p class="prevnext-label">next</p>
+                <p class="prevnext-title">Phylogenetic analysis</p>
+            </div>
+            <i class="prevnext-label fas fa-angle-right"></i>
+        </a>
+     </div>
+
+</div>
+        
+        </div>
+    </div>
+    <footer class="footer">
+    <div class="container">
+      <p>
+        
+          By Manish Datt (manish@bioinfo.guru)<br/>
+        
+            &copy; Copyright 2022 bioinfo.guru.<br/>
+          <div class="extra_footer">
+            <a href="https://bioinfo.guru">Online course catalogue</a>
+          </div>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+  
+  <script src="_static/js/index.1c5a1a01449ed65a7b51.js"></script>
+
+  
+  </body>
+</html>
