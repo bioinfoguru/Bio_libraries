@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Motif creation &#8212; Introduction to Bio Libraries</title>
+    <title>Motif analysis &#8212; Introduction to Bio Libraries</title>
     
   <link href="_static/css/theme.css" rel="stylesheet" />
   <link href="_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
@@ -94,7 +94,7 @@
  </li>
  <li class="toctree-l1 current active">
   <a class="current reference internal" href="#">
-   Motif creation
+   Motif analysis
   </a>
  </li>
  <li class="toctree-l1">
@@ -158,7 +158,7 @@
                 <ul class="visible nav section-nav flex-column">
  <li class="toc-h1 nav-item toc-entry">
   <a class="reference internal nav-link" href="#">
-   Motif creation
+   Motif analysis
   </a>
  </li>
  <li class="toc-h1 nav-item toc-entry">
@@ -167,19 +167,12 @@
   </a>
  </li>
  <li class="toc-h1 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#logomaker">
-   Logomaker
+  <a class="reference internal nav-link" href="#motif-from-msa">
+   Motif from MSA
   </a>
-  <ul class="visible nav section-nav flex-column">
-   <li class="toc-h2 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#motif-from-msa">
-     Motif from MSA
-    </a>
-   </li>
-  </ul>
  </li>
  <li class="toc-h1 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id1">
+  <a class="reference internal nav-link" href="#logomaker">
    Logomaker
   </a>
   <ul class="visible nav section-nav flex-column">
@@ -206,7 +199,10 @@
         
               <div>
                 
-  <div class="cell docutils container">
+  <div class="section" id="motif-analysis">
+<h1>Motif analysis<a class="headerlink" href="#motif-analysis" title="Permalink to this headline">¶</a></h1>
+<p>A set of sequences of equal length can be used to create a motif. The <code class="docutils literal notranslate"><span class="pre">create()</span></code> function in the motifs class takes a list of sequences as an argument to create the motif object.</p>
+<div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">Bio</span>
 <span class="kn">from</span> <span class="nn">Bio</span> <span class="kn">import</span> <span class="n">motifs</span>
@@ -215,9 +211,6 @@
 </div>
 </div>
 </div>
-<div class="section" id="motif-creation">
-<h1>Motif creation<a class="headerlink" href="#motif-creation" title="Permalink to this headline">¶</a></h1>
-<p>A set of sequences of equal length can be used to create a motif. The <code class="docutils literal notranslate"><span class="pre">create()</span></code> function in the motifs class takes a list of sequences as an argument to create the motif object.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">instances</span> <span class="o">=</span> <span class="p">[</span><span class="n">Seq</span><span class="p">(</span><span class="s2">&quot;TACAA&quot;</span><span class="p">),</span> <span class="n">Seq</span><span class="p">(</span><span class="s2">&quot;TACGC&quot;</span><span class="p">),</span> <span class="n">Seq</span><span class="p">(</span><span class="s2">&quot;TACAC&quot;</span><span class="p">),</span> <span class="n">Seq</span><span class="p">(</span><span class="s2">&quot;TACCC&quot;</span><span class="p">),</span> <span class="n">Seq</span><span class="p">(</span><span class="s2">&quot;AACCC&quot;</span><span class="p">),</span> <span class="n">Seq</span><span class="p">(</span><span class="s2">&quot;AATGC&quot;</span><span class="p">),</span> <span class="n">Seq</span><span class="p">(</span><span class="s2">&quot;AATGC&quot;</span><span class="p">)]</span>
@@ -396,11 +389,8 @@ T:   4.00   0.00   2.00   0.00   0.00
 </div>
 </div>
 </div>
-<div class="section" id="logomaker">
-<h1>Logomaker<a class="headerlink" href="#logomaker" title="Permalink to this headline">¶</a></h1>
-<p>The <a class="reference external" href="https://logomaker.readthedocs.io/en/latest/">logomaker package</a> offers a rich set of functionality to work with sequences/motifs to create sequence logos. It can be installed via <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">logomaker</span></code>. This library uses pandas and matplotlib to generate sequence logos.</p>
 <div class="section" id="motif-from-msa">
-<h2>Motif from MSA<a class="headerlink" href="#motif-from-msa" title="Permalink to this headline">¶</a></h2>
+<h1>Motif from MSA<a class="headerlink" href="#motif-from-msa" title="Permalink to this headline">¶</a></h1>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">Bio</span> <span class="kn">import</span> <span class="n">AlignIO</span>
@@ -469,20 +459,14 @@ LDEADR sp|O15523|DDX3Y_HUMAN
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="id1">
-<h1>Logomaker<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
-<p>The <a class="reference external" href="https://logomaker.readthedocs.io/en/latest/">logomaker package</a> offers a rich set of functionality to work with sequences/motifs to create sequence logos. It can be installed via <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">logomaker</span></code>. This library uses pandas and matplotlib to generate sequence logos. The <code class="docutils literal notranslate"><span class="pre">savefig()</span></code> function of the <code class="docutils literal notranslate"><span class="pre">plt</span></code> object can be used to save an image of the logo. The resolution of the reulting image can be adjusted using the <code class="docutils literal notranslate"><span class="pre">dpi</span></code> keyword argument.</p>
+<div class="section" id="logomaker">
+<h1>Logomaker<a class="headerlink" href="#logomaker" title="Permalink to this headline">¶</a></h1>
+<p>The <a class="reference external" href="https://logomaker.readthedocs.io/en/latest/">logomaker package</a> offers a rich set of functionality to work with sequences/motifs to create sequence logos. It can be installed via <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">logomaker</span></code>. This library uses pandas and matplotlib to generate sequence logos. The <code class="docutils literal notranslate"><span class="pre">savefig()</span></code> function of the <code class="docutils literal notranslate"><span class="pre">plt</span></code> object can be used to save an image of the logo. The resolution of the reulting image can be adjusted using the <code class="docutils literal notranslate"><span class="pre">dpi</span></code> keyword argument. To draw sequence logo the <code class="docutils literal notranslate"><span class="pre">Logo()</span></code> function can be used which take the sequence motif in the form of pandas dataframe as an argument.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">logomaker</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Matplotlib is building the font cache; this may take a moment.
 </pre></div>
 </div>
 </div>
@@ -495,7 +479,7 @@ LDEADR sp|O15523|DDX3Y_HUMAN
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/Motif_analysis_27_0.png" src="_images/Motif_analysis_27_0.png" />
+<img alt="_images/Motif_analysis_26_0.png" src="_images/Motif_analysis_26_0.png" />
 </div>
 </div>
 <p>To normalize the values on the y-axis use <code class="docutils literal notranslate"><span class="pre">normalize()</span></code> function.</p>
@@ -508,7 +492,7 @@ LDEADR sp|O15523|DDX3Y_HUMAN
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/Motif_analysis_29_0.png" src="_images/Motif_analysis_29_0.png" />
+<img alt="_images/Motif_analysis_28_0.png" src="_images/Motif_analysis_28_0.png" />
 </div>
 </div>
 <div class="section" id="decorating-logos">
@@ -525,7 +509,7 @@ LDEADR sp|O15523|DDX3Y_HUMAN
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/Motif_analysis_31_0.png" src="_images/Motif_analysis_31_0.png" />
+<img alt="_images/Motif_analysis_30_0.png" src="_images/Motif_analysis_30_0.png" />
 </div>
 </div>
 </div>
@@ -561,7 +545,7 @@ T: 768.00   0.00   0.00 2186.00   0.00   0.00 673.00 2729.00 2606.00 1354.00 751
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/Motif_analysis_34_0.png" src="_images/Motif_analysis_34_0.png" />
+<img alt="_images/Motif_analysis_33_0.png" src="_images/Motif_analysis_33_0.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -573,7 +557,7 @@ T: 768.00   0.00   0.00 2186.00   0.00   0.00 673.00 2729.00 2606.00 1354.00 751
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/Motif_analysis_35_0.png" src="_images/Motif_analysis_35_0.png" />
+<img alt="_images/Motif_analysis_34_0.png" src="_images/Motif_analysis_34_0.png" />
 </div>
 </div>
 </div>
