@@ -1,518 +1,322 @@
-
 <!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
-<html>
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Motif analysis &#8212; Introduction to Bio Libraries</title>
-    
-  <!-- Loaded before other Sphinx assets -->
-  <link href="_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
-<link href="_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.0.38">
 
-    
-  <link rel="stylesheet"
-    href="_static/vendor/fontawesome/5.13.0/css/all.min.css">
-  <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
-  <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=62ba249389abaaa9ffc34bf36a076bdc1d65ee18" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
-    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
-    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
-    
-  <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
 
-    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-    <script src="_static/jquery.js"></script>
-    <script src="_static/underscore.js"></script>
-    <script src="_static/doctools.js"></script>
-    <script src="_static/clipboard.min.js"></script>
-    <script src="_static/copybutton.js"></script>
-    <script src="_static/scripts/sphinx-book-theme.js?digest=f31d14ad54b65d19161ba51d4ffff3a77ae00456"></script>
-    <script>let toggleHintShow = 'Click to show';</script>
-    <script>let toggleHintHide = 'Click to hide';</script>
-    <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="_static/togglebutton.js"></script>
-    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script src="_static/design-tabs.js"></script>
-    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
-const thebe_selector = ".thebe,.cell"
-const thebe_selector_input = "pre"
-const thebe_selector_output = ".output, .cell_output"
-</script>
-    <script async="async" src="_static/sphinx-thebe.js"></script>
-    <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Phylogenetic analysis" href="Phylo.html" />
-    <link rel="prev" title="Introduction to BioPython" href="BioPython_Intro.html" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="None">
-    
+<title>Bio Libraries - 2&nbsp; Motif analysis</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
 
-    <!-- Google Analytics -->
-    
-  </head>
-  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
-<!-- Checkboxes to toggle the left sidebar -->
-<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
-<label class="overlay overlay-navbar" for="__navigation">
-    <div class="visually-hidden">Toggle navigation sidebar</div>
-</label>
-<!-- Checkboxes to toggle the in-page toc -->
-<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
-<label class="overlay overlay-pagetoc" for="__page-toc">
-    <div class="visually-hidden">Toggle in-page Table of Contents</div>
-</label>
-<!-- Headers at the top -->
-<div class="announcement header-item noprint"></div>
-<div class="header header-item noprint"></div>
 
-    
-    <div class="container-fluid" id="banner"></div>
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<link href="./Phylo.html" rel="next">
+<link href="./BioPython_Intro.html" rel="prev">
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script id="quarto-search-options" type="application/json">{
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
 
-    
 
-    <div class="container-xl">
-      <div class="row">
-          
-<!-- Sidebar -->
-<div class="bd-sidebar noprint" id="site-navigation">
-    <div class="bd-sidebar__content">
-        <div class="bd-sidebar__top"><div class="navbar-brand-box">
-    <a class="navbar-brand text-wrap" href="index.html">
-      
-        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
-        
-      
-      
-      <img src="_static/logo_final_horizontal.png" class="logo" alt="logo">
-      
-      
-      <h1 class="site-logo" id="site-title">Introduction to Bio Libraries</h1>
-      
-    </a>
-</div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
-  <i class="icon fas fa-search"></i>
-  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
-</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
-    <div class="bd-toc-item active">
-        <ul class="current nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="BioPython_Intro.html">
-   Introduction to BioPython
-  </a>
- </li>
- <li class="toctree-l1 current active">
-  <a class="current reference internal" href="#">
-   Motif analysis
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="Phylo.html">
-   Phylogenetic analysis
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="BIO_PDB.html">
-   Working with PDB files
-  </a>
- </li>
-</ul>
+<link rel="stylesheet" href="custom_css.css">
+</head>
 
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+    <div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Motif analysis</span></h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
+      </button>
     </div>
-</nav></div>
-        <div class="bd-sidebar__bottom">
-             <!-- To handle the deprecated key -->
-            
-            <div class="navbar_extra_footer">
-             <style> .text1{font-size=18pt;} .footer1{ margin: 2em; text-align: center; } .social_media{ color: #9c51e0; font-size: 1.5em; word-spacing: 0.5em; } </style> <script src="https://kit.fontawesome.com/578801937d.js" crossorigin="anonymous"></script> <link rel="preconnect" href="https://fonts.googleapis.com"> <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> <link href="https://fonts.googleapis.com/css2?family=Geo&family=Lato&display=swap" rel="stylesheet"> <div class="footer1"> <span class="text1">Connect with </span> <span class="text1" style="color:#9c51e0;font-family:Geo;font-size:14pt">bioinfo.guru</span> <br> <span class="social_media"> <a href="https://www.facebook.com/profile.php?id=100078250833738"><i class="fa-brands fa-facebook-square social_media"></i></a> <a href="https://www.instagram.com/bioinfo.guru/"><i class="fa-brands fa-instagram-square social_media"></i></a> <a href="https://www.linkedin.com/in/bioinfo-guru-68a8b7231/"><i class="fa-brands fa-linkedin social_media"></i></a> <a href="https://twitter.com/bioinfo_guru"><i class="fa-brands fa-twitter-square social_media"></i></a> </span> </div> 
-            </div>
-            
-        </div>
-    </div>
-    <div id="rtd-footer-container"></div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+      <a href="./" class="sidebar-logo-link">
+      <img src="./logo_horizontal_transparent.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
+      </a>
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Bio Libraries</a> 
+        <div class="sidebar-tools-main">
+  <a href="" class="quarto-color-scheme-toggle sidebar-tool" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+  <a href="" class="quarto-reader-toggle sidebar-tool" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
 </div>
-
-
-          
-
-
-          
-<!-- A tiny helper pixel to detect if we've scrolled -->
-<div class="sbt-scroll-pixel-helper"></div>
-<!-- Main content -->
-<div class="col py-0 content-container">
-    
-    <div class="header-article row sticky-top noprint">
-        
-
-
-
-<div class="col py-1 d-flex header-article-main">
-    <div class="header-article__left">
-        
-        <label for="__navigation"
-  class="headerbtn"
-  data-toggle="tooltip"
-data-placement="right"
-title="Toggle navigation"
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-bars"></i>
-  </span>
-
-</label>
-
-        
     </div>
-    <div class="header-article__right">
-<button onclick="toggleFullScreen()"
-  class="headerbtn"
-  data-toggle="tooltip"
-data-placement="bottom"
-title="Fullscreen mode"
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-expand"></i>
-  </span>
-
-</button>
-<label for="__page-toc"
-  class="headerbtn headerbtn-page-toc"
-  
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-list"></i>
-  </span>
-
-</label>
-
+      </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">Preface</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./BioPython_Intro.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Working with sequences</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Motif_analysis.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Motif analysis</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Phylo.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Phylogenetic analysis</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./BIO_PDB.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Working with structures</span></a>
+  </div>
+</li>
+    </ul>
     </div>
-</div>
-
-<!-- Table of contents -->
-<div class="col-md-3 bd-toc show noprint">
-    <div class="tocsection onthispage pt-5 pb-3">
-        <i class="fas fa-list"></i> Contents
-    </div>
-    <nav id="bd-toc-nav" aria-label="Page">
-        <ul class="visible nav section-nav flex-column">
- <li class="toc-h1 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#">
-   Motif analysis
-  </a>
- </li>
- <li class="toc-h1 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#motif-for-protein-sequences">
-   Motif for protein sequences
-  </a>
- </li>
- <li class="toc-h1 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#motif-from-msa">
-   Motif from MSA
-  </a>
- </li>
- <li class="toc-h1 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#logomaker">
-   Logomaker
-  </a>
-  <ul class="visible nav section-nav flex-column">
-   <li class="toc-h2 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#decorating-logos">
-     Decorating logos
-    </a>
-   </li>
+</nav>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#motif-for-protein-sequences" id="toc-motif-for-protein-sequences" class="nav-link active" data-scroll-target="#motif-for-protein-sequences"> <span class="header-section-number">2.0.1</span> Motif for protein sequences</a></li>
+  <li><a href="#motif-from-msa" id="toc-motif-from-msa" class="nav-link" data-scroll-target="#motif-from-msa"> <span class="header-section-number">2.0.2</span> Motif from MSA</a></li>
+  <li><a href="#logomaker" id="toc-logomaker" class="nav-link" data-scroll-target="#logomaker"> <span class="header-section-number">2.1</span> Logomaker</a></li>
+  <li><a href="#decorating-logos" id="toc-decorating-logos" class="nav-link" data-scroll-target="#decorating-logos"> <span class="header-section-number">2.2</span> Decorating logos</a></li>
+  <li><a href="#reading-motifs" id="toc-reading-motifs" class="nav-link" data-scroll-target="#reading-motifs"> <span class="header-section-number">2.3</span> Reading motifs</a></li>
   </ul>
- </li>
- <li class="toc-h1 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#reading-motifs">
-   Reading motifs
-  </a>
- </li>
-</ul>
-
-    </nav>
-</div>
+</nav>
     </div>
-    <div class="article row">
-        <div class="col pl-md-3 pl-lg-5 content-container">
-            <!-- Table of contents that is only displayed when printing the page -->
-            <div id="jb-print-docs-body" class="onlyprint">
-                <h1>Motif analysis</h1>
-                <!-- Table of contents -->
-                <div id="print-main-content">
-                    <div id="jb-print-toc">
-                        
-                        <div>
-                            <h2> Contents </h2>
-                        </div>
-                        <nav aria-label="Page">
-                            <ul class="visible nav section-nav flex-column">
- <li class="toc-h1 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#">
-   Motif analysis
-  </a>
- </li>
- <li class="toc-h1 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#motif-for-protein-sequences">
-   Motif for protein sequences
-  </a>
- </li>
- <li class="toc-h1 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#motif-from-msa">
-   Motif from MSA
-  </a>
- </li>
- <li class="toc-h1 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#logomaker">
-   Logomaker
-  </a>
-  <ul class="visible nav section-nav flex-column">
-   <li class="toc-h2 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#decorating-logos">
-     Decorating logos
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h1 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#reading-motifs">
-   Reading motifs
-  </a>
- </li>
-</ul>
+<!-- main -->
+<main class="content" id="quarto-document-content">
 
-                        </nav>
-                    </div>
-                </div>
-            </div>
-            <main id="main-content" role="main">
-                
-              <div>
-                
-  <div class="section" id="motif-analysis">
-<h1>Motif analysis<a class="headerlink" href="#motif-analysis" title="Permalink to this headline">#</a></h1>
-<p>A set of sequences of equal length can be used to create a motif. The <code class="docutils literal notranslate"><span class="pre">create()</span></code> function in the motifs class takes a list of sequences as an argument to create the motif object.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">Bio</span>
-<span class="kn">from</span> <span class="nn">Bio</span> <span class="kn">import</span> <span class="n">motifs</span>
-<span class="kn">from</span> <span class="nn">Bio.Seq</span> <span class="kn">import</span> <span class="n">Seq</span>
-</pre></div>
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title d-none d-lg-block"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Motif analysis</span></h1>
 </div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+    
+  </div>
+  
+
+</header>
+
+<p>A set of sequences of equal length can be used to create a motif. The <code>create()</code> function in the motifs class takes a list of sequences as an argument to instantiate a motif object.</p>
+<div class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> Bio</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> Bio <span class="im">import</span> motifs</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> Bio.Seq <span class="im">import</span> Seq</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">instances</span> <span class="o">=</span> <span class="p">[</span><span class="n">Seq</span><span class="p">(</span><span class="s2">&quot;TACAA&quot;</span><span class="p">),</span> <span class="n">Seq</span><span class="p">(</span><span class="s2">&quot;TACGC&quot;</span><span class="p">),</span> <span class="n">Seq</span><span class="p">(</span><span class="s2">&quot;TACAC&quot;</span><span class="p">),</span> <span class="n">Seq</span><span class="p">(</span><span class="s2">&quot;TACCC&quot;</span><span class="p">),</span> <span class="n">Seq</span><span class="p">(</span><span class="s2">&quot;AACCC&quot;</span><span class="p">),</span> <span class="n">Seq</span><span class="p">(</span><span class="s2">&quot;AATGC&quot;</span><span class="p">),</span> <span class="n">Seq</span><span class="p">(</span><span class="s2">&quot;AATGC&quot;</span><span class="p">)]</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">m1</span> <span class="o">=</span> <span class="n">motifs</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">instances</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">m1</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>TACAA
+<div class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>instances <span class="op">=</span> [Seq(<span class="st">"TACAA"</span>), Seq(<span class="st">"TACGC"</span>), Seq(<span class="st">"TACAC"</span>), Seq(<span class="st">"TACCC"</span>), Seq(<span class="st">"AACCC"</span>), Seq(<span class="st">"AATGC"</span>), Seq(<span class="st">"AATGC"</span>)]</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>m1 <span class="op">=</span> motifs.create(instances)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(m1)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"The length of motif is"</span>, <span class="bu">len</span>(m1))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>TACAA
 TACGC
 TACAC
 TACCC
 AACCC
 AATGC
 AATGC
-</pre></div>
+
+The length of motif is 5</code></pre>
 </div>
 </div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">len</span><span class="p">(</span><span class="n">m1</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>5
-</pre></div>
-</div>
-</div>
-</div>
-<p>The <code class="docutils literal notranslate"><span class="pre">counts()</span></code> function returns the frequency of each alphabet at all the positions in the motif. Frequency of a particular alphabet at different positions within the motif can also be accessed. The <code class="docutils literal notranslate"><span class="pre">concensus()</span></code> function returns the concensus sequence for the motif.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">m1</span><span class="o">.</span><span class="n">counts</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>        0      1      2      3      4
+<p>The <code>counts</code> function returns the frequency of each alphabet at all the positions in the motif. Frequency of a particular alphabet at different positions within the motif can also be accessed. The <code>concensus</code> function returns the concensus sequence for the motif.</p>
+<div class="cell" data-execution_count="22">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(m1.counts)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"The frequency of 'A' at different positions in the motif is:"</span>, m1.counts[<span class="st">"A"</span>])</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"The frequency of 'A' at the first position is:"</span>, m1.counts[<span class="st">"A"</span>,<span class="dv">0</span>])</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"The concensus sequence for the motif is:"</span>,m1.consensus)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>        0      1      2      3      4
 A:   3.00   7.00   0.00   2.00   1.00
 C:   0.00   0.00   5.00   2.00   6.00
 G:   0.00   0.00   0.00   3.00   0.00
 T:   4.00   0.00   2.00   0.00   0.00
-</pre></div>
+
+The frequency of 'A' at different positions in the motif is: [3, 7, 0, 2, 1]
+The frequency of 'A' at the first position is: 3
+The concensus sequence for the motif is: TACGC</code></pre>
 </div>
 </div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">m1</span><span class="o">.</span><span class="n">counts</span><span class="p">[</span><span class="s2">&quot;A&quot;</span><span class="p">]</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[3, 7, 0, 2, 1]
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#get number of &quot;A&quot; at first position</span>
-<span class="n">m1</span><span class="o">.</span><span class="n">counts</span><span class="p">[</span><span class="s2">&quot;A&quot;</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span>
-</pre></div>
+<p>To search a particular motif in a sequence, <code>instances.search</code> function can be used.</p>
+<div class="cell" data-execution_count="26">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>sequence_set <span class="op">=</span> [Seq(<span class="st">"AACCGGTT"</span>),Seq(<span class="st">"AACCCGTT"</span>),Seq(<span class="st">"CATTACAA"</span>)]</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>motif_p1 <span class="op">=</span> motifs.create(sequence_set)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(motif_p1.instances)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>AACCGGTT
+AACCCGTT
+CATTACAA
+</code></pre>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>3
-</pre></div>
+<div class="cell" data-execution_count="12">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>test_seq<span class="op">=</span>Seq(<span class="st">"TACACTGCATTACAACCCAAGCATTA"</span>)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> pos, seq <span class="kw">in</span> motif_p1.instances.search(test_seq):</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"</span><span class="sc">%i</span><span class="st"> </span><span class="sc">%s</span><span class="st">"</span> <span class="op">%</span> (pos, seq))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>7 CATTACAA</code></pre>
 </div>
 </div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">m1</span><span class="o">.</span><span class="n">consensus</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Seq(&#39;TACGC&#39;)
-</pre></div>
-</div>
-</div>
-</div>
-<p>To search a particular motif in a sequence, <code class="docutils literal notranslate"><span class="pre">instances.search()</span></code> function can be used.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sequence_set</span> <span class="o">=</span> <span class="p">[</span><span class="n">Seq</span><span class="p">(</span><span class="s2">&quot;AACCGGTT&quot;</span><span class="p">),</span><span class="n">Seq</span><span class="p">(</span><span class="s2">&quot;AACCCGTT&quot;</span><span class="p">),</span><span class="n">Seq</span><span class="p">(</span><span class="s2">&quot;CATTACAA&quot;</span><span class="p">)]</span>
-<span class="n">motif_p1</span> <span class="o">=</span> <span class="n">motifs</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">sequence_set</span><span class="p">)</span>
-<span class="n">motif_p1</span><span class="o">.</span><span class="n">instances</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[Seq(&#39;AACCGGTT&#39;), Seq(&#39;AACCCGTT&#39;), Seq(&#39;CATTACAA&#39;)]
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">test_seq</span><span class="o">=</span><span class="n">Seq</span><span class="p">(</span><span class="s2">&quot;TACACTGCATTACAACCCAAGCATTA&quot;</span><span class="p">)</span>
-</pre></div>
+<section id="motif-for-protein-sequences" class="level3" data-number="2.0.1">
+<h3 data-number="2.0.1" class="anchored" data-anchor-id="motif-for-protein-sequences"><span class="header-section-number">2.0.1</span> Motif for protein sequences</h3>
+<p>By default, the <code>create()</code> function considers the input sequence as a DNA sequence. For creating a motif for protein sequences, the keyword argument <code>alphabet</code> need to be specified the all the amino acids in single letter code.</p>
+<div class="cell" data-execution_count="27">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>instances <span class="op">=</span> [Seq(<span class="st">"LXXLL"</span>),Seq(<span class="st">"LXXLL"</span>)]</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>motif_prot <span class="op">=</span> motifs.create(instances,alphabet<span class="op">=</span><span class="st">"ACDEFGHIKLMNPQRSTVWXY"</span>)</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>motif_prot.counts</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="27">
+<pre><code>{'A': [0, 0, 0, 0, 0],
+ 'C': [0, 0, 0, 0, 0],
+ 'D': [0, 0, 0, 0, 0],
+ 'E': [0, 0, 0, 0, 0],
+ 'F': [0, 0, 0, 0, 0],
+ 'G': [0, 0, 0, 0, 0],
+ 'H': [0, 0, 0, 0, 0],
+ 'I': [0, 0, 0, 0, 0],
+ 'K': [0, 0, 0, 0, 0],
+ 'L': [2, 0, 0, 2, 2],
+ 'M': [0, 0, 0, 0, 0],
+ 'N': [0, 0, 0, 0, 0],
+ 'P': [0, 0, 0, 0, 0],
+ 'Q': [0, 0, 0, 0, 0],
+ 'R': [0, 0, 0, 0, 0],
+ 'S': [0, 0, 0, 0, 0],
+ 'T': [0, 0, 0, 0, 0],
+ 'V': [0, 0, 0, 0, 0],
+ 'W': [0, 0, 0, 0, 0],
+ 'X': [0, 2, 2, 0, 0],
+ 'Y': [0, 0, 0, 0, 0]}</code></pre>
 </div>
 </div>
+</section>
+<section id="motif-from-msa" class="level3" data-number="2.0.2">
+<h3 data-number="2.0.2" class="anchored" data-anchor-id="motif-from-msa"><span class="header-section-number">2.0.2</span> Motif from MSA</h3>
+<div class="cell" data-execution_count="25">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> Bio <span class="im">import</span> AlignIO</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>DEAD_align <span class="op">=</span> AlignIO.read(<span class="st">"DEAD2.aln"</span>,<span class="st">"clustal"</span>)</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(DEAD_align)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">pos</span><span class="p">,</span> <span class="n">seq</span> <span class="ow">in</span> <span class="n">motif_p1</span><span class="o">.</span><span class="n">instances</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">test_seq</span><span class="p">):</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%i</span><span class="s2"> </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">pos</span><span class="p">,</span> <span class="n">seq</span><span class="p">))</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>7 CATTACAA
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="section" id="motif-for-protein-sequences">
-<h1>Motif for protein sequences<a class="headerlink" href="#motif-for-protein-sequences" title="Permalink to this headline">#</a></h1>
-<p>By default, the <code class="docutils literal notranslate"><span class="pre">create()</span></code> function considers the input sequence as a DNA sequence. For creating a motif for protein sequences, the keyword argument <code class="docutils literal notranslate"><span class="pre">alphabet</span></code> need to be specified the all the amino acids in single letter code.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">instances</span> <span class="o">=</span> <span class="p">[</span><span class="n">Seq</span><span class="p">(</span><span class="s2">&quot;LXXLL&quot;</span><span class="p">),</span><span class="n">Seq</span><span class="p">(</span><span class="s2">&quot;LXXLL&quot;</span><span class="p">)]</span>
-<span class="n">motif_prot</span> <span class="o">=</span> <span class="n">motifs</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">instances</span><span class="p">,</span><span class="n">alphabet</span><span class="o">=</span><span class="s2">&quot;ACDEFGHIKLMNPQRSTVWXY&quot;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">motif_prot</span><span class="o">.</span><span class="n">counts</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;A&#39;: [0, 0, 0, 0, 0],
- &#39;C&#39;: [0, 0, 0, 0, 0],
- &#39;D&#39;: [0, 0, 0, 0, 0],
- &#39;E&#39;: [0, 0, 0, 0, 0],
- &#39;F&#39;: [0, 0, 0, 0, 0],
- &#39;G&#39;: [0, 0, 0, 0, 0],
- &#39;H&#39;: [0, 0, 0, 0, 0],
- &#39;I&#39;: [0, 0, 0, 0, 0],
- &#39;K&#39;: [0, 0, 0, 0, 0],
- &#39;L&#39;: [2, 0, 0, 2, 2],
- &#39;M&#39;: [0, 0, 0, 0, 0],
- &#39;N&#39;: [0, 0, 0, 0, 0],
- &#39;P&#39;: [0, 0, 0, 0, 0],
- &#39;Q&#39;: [0, 0, 0, 0, 0],
- &#39;R&#39;: [0, 0, 0, 0, 0],
- &#39;S&#39;: [0, 0, 0, 0, 0],
- &#39;T&#39;: [0, 0, 0, 0, 0],
- &#39;V&#39;: [0, 0, 0, 0, 0],
- &#39;W&#39;: [0, 0, 0, 0, 0],
- &#39;X&#39;: [0, 2, 2, 0, 0],
- &#39;Y&#39;: [0, 0, 0, 0, 0]}
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="section" id="motif-from-msa">
-<h1>Motif from MSA<a class="headerlink" href="#motif-from-msa" title="Permalink to this headline">#</a></h1>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">Bio</span> <span class="kn">import</span> <span class="n">AlignIO</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#Read alignment for proteins with DEAD motif</span>
-<span class="n">DEAD_align</span> <span class="o">=</span> <span class="n">AlignIO</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="s2">&quot;DEAD2.aln&quot;</span><span class="p">,</span><span class="s2">&quot;clustal&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">DEAD_align</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Alignment with 23 rows and 1199 columns
+<div class="cell" data-scrolled="true" data-execution_count="29">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Read alignment for proteins with DEAD motif</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="co">#DEAD_align = AlignIO.read("DEAD2.aln","clustal")</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="co">#print(DEAD_align)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Alignment with 23 rows and 1199 columns
 --------------------------------------------...--- sp|P17844|DDX5_HUMAN
 --------------------------------------------...--- sp|Q92841|DDX17_HUMAN
 MNWNKGGPGTKRGFGFGGFAISAGKKEEPKLPQQSHSAFGATSS...--- sp|Q86XP3|DDX42_HUMAN
@@ -532,208 +336,350 @@ MNWNKGGPGTKRGFGFGGFAISAGKKEEPKLPQQSHSAFGATSS...--- sp|Q86XP3|DDX42_HUMAN
 ----------------------MAPDLASQRHSESFPSVNSRPN...--- sp|Q9H8H2|DDX31_HUMAN
 --------------------------------------------...--- sp|Q9UJV9|DDX41_HUMAN
 ...
---------------------------------------------...--- sp|Q9H2U1|DHX36_HUMAN
-</pre></div>
+--------------------------------------------...--- sp|Q9H2U1|DHX36_HUMAN</code></pre>
 </div>
 </div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">DEAD_align</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">5</span><span class="p">,</span><span class="mi">442</span><span class="p">:</span><span class="mi">448</span><span class="p">])</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Alignment with 4 rows and 6 columns
+<div class="cell" data-scrolled="true" data-execution_count="28">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(DEAD_align[<span class="dv">1</span>:<span class="dv">5</span>,<span class="dv">442</span>:<span class="dv">448</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Alignment with 4 rows and 6 columns
 LDEADR sp|Q92841|DDX17_HUMAN
 FDEADR sp|Q86XP3|DDX42_HUMAN
 LDEADR sp|O00571|DDX3X_HUMAN
-LDEADR sp|O15523|DDX3Y_HUMAN
-</pre></div>
+LDEADR sp|O15523|DDX3Y_HUMAN</code></pre>
 </div>
 </div>
+<div class="cell" data-execution_count="46">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>instances_DEAD <span class="op">=</span> [s1.seq <span class="cf">for</span> s1 <span class="kw">in</span> DEAD_align[:,<span class="dv">442</span>:<span class="dv">448</span>]]</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>motif_DEAD <span class="op">=</span> motifs.create(instances_DEAD, alphabet<span class="op">=</span><span class="st">'ACDEFGHIKLMNPQRSTVWY'</span>)</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="co">#print(motif_DEAD.counts)</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>df_DEAD_motif <span class="op">=</span> pd.DataFrame.from_dict(motif_DEAD.counts)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">instances_DEAD</span> <span class="o">=</span> <span class="p">[</span><span class="n">s1</span><span class="o">.</span><span class="n">seq</span> <span class="k">for</span> <span class="n">s1</span> <span class="ow">in</span> <span class="n">DEAD_align</span><span class="p">[:,</span><span class="mi">442</span><span class="p">:</span><span class="mi">448</span><span class="p">]]</span>
-<span class="n">motif_DEAD</span> <span class="o">=</span> <span class="n">motifs</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">instances_DEAD</span><span class="p">,</span> <span class="n">alphabet</span><span class="o">=</span><span class="s1">&#39;ACDEFGHIKLMNPQRSTVWY&#39;</span><span class="p">)</span>
-<span class="c1">#print(motif_DEAD.counts)</span>
-<span class="n">df_DEAD_motif</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">motif_DEAD</span><span class="o">.</span><span class="n">counts</span><span class="p">)</span>
-</pre></div>
+</section>
+<section id="logomaker" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="logomaker"><span class="header-section-number">2.1</span> Logomaker</h2>
+<p>The <a href="https://logomaker.readthedocs.io/en/latest/">logomaker package</a> offers a rich set of functionality to work with sequences/motifs to create sequence logos. It can be installed via <code>pip install logomaker</code>. This library uses pandas and matplotlib to generate sequence logos. The <code>savefig()</code> function of the <code>plt</code> object can be used to save an image of the logo. The resolution of the reulting image can be adjusted using the <code>dpi</code> keyword argument. To draw sequence logo the <code>Logo()</code> function can be used which take the sequence motif in the form of pandas dataframe as an argument.</p>
+<div class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> logomaker</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</div>
-</div>
-</div>
-<div class="section" id="logomaker">
-<h1>Logomaker<a class="headerlink" href="#logomaker" title="Permalink to this headline">#</a></h1>
-<p>The <a class="reference external" href="https://logomaker.readthedocs.io/en/latest/">logomaker package</a> offers a rich set of functionality to work with sequences/motifs to create sequence logos. It can be installed via <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">logomaker</span></code>. This library uses pandas and matplotlib to generate sequence logos. The <code class="docutils literal notranslate"><span class="pre">savefig()</span></code> function of the <code class="docutils literal notranslate"><span class="pre">plt</span></code> object can be used to save an image of the logo. The resolution of the reulting image can be adjusted using the <code class="docutils literal notranslate"><span class="pre">dpi</span></code> keyword argument. To draw sequence logo the <code class="docutils literal notranslate"><span class="pre">Logo()</span></code> function can be used which take the sequence motif in the form of pandas dataframe as an argument.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">logomaker</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-</pre></div>
-</div>
+<div class="cell" data-execution_count="35">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>ss_logo <span class="op">=</span> logomaker.Logo(df_DEAD_motif)</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>plt.savefig(<span class="st">"fig1.png"</span>,dpi<span class="op">=</span><span class="dv">300</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="Motif_analysis_files/figure-html/cell-13-output-1.png" class="img-fluid"></p>
 </div>
 </div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ss_logo</span> <span class="o">=</span> <span class="n">logomaker</span><span class="o">.</span><span class="n">Logo</span><span class="p">(</span><span class="n">df_DEAD_motif</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s2">&quot;fig1.png&quot;</span><span class="p">,</span><span class="n">dpi</span><span class="o">=</span><span class="mi">600</span><span class="p">)</span>
-</pre></div>
+<p>To normalize the values on the y-axis use <code>normalize()</code> function.</p>
+<div class="cell" data-execution_count="36">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>motif_pwm <span class="op">=</span> motif_DEAD.counts.normalize()</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>df_motif_pwm <span class="op">=</span> pd.DataFrame.from_dict(motif_pwm)</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>ss_logo_pwm <span class="op">=</span> logomaker.Logo(df_motif_pwm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="Motif_analysis_files/figure-html/cell-14-output-1.png" class="img-fluid"></p>
 </div>
 </div>
-<div class="cell_output docutils container">
-<img alt="_images/Motif_analysis_26_0.png" src="_images/Motif_analysis_26_0.png" />
+</section>
+<section id="decorating-logos" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="decorating-logos"><span class="header-section-number">2.2</span> Decorating logos</h2>
+<p>The logo fonts can be changed using the <code>font_name</code> argument. Positions within the logo can be highlighted by adding background color as shown below.</p>
+<div class="cell" data-execution_count="84">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>ss_logo_pwm <span class="op">=</span> logomaker.Logo(df_motif_pwm,font_name<span class="op">=</span><span class="st">'Franklin Gothic Book'</span>)</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>ss_logo_pwm.highlight_position(p<span class="op">=</span><span class="dv">1</span>, color<span class="op">=</span><span class="st">'pink'</span>)</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>ss_logo_pwm.highlight_position(p<span class="op">=</span><span class="dv">2</span>, color<span class="op">=</span><span class="st">'pink'</span>)</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>ss_logo_pwm.highlight_position(p<span class="op">=</span><span class="dv">3</span>, color<span class="op">=</span><span class="st">'pink'</span>)</span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>ss_logo_pwm.highlight_position(p<span class="op">=</span><span class="dv">4</span>, color<span class="op">=</span><span class="st">'pink'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="Motif_analysis_files/figure-html/cell-15-output-1.png" class="img-fluid"></p>
 </div>
 </div>
-<p>To normalize the values on the y-axis use <code class="docutils literal notranslate"><span class="pre">normalize()</span></code> function.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">motif_pwm</span> <span class="o">=</span> <span class="n">motif_DEAD</span><span class="o">.</span><span class="n">counts</span><span class="o">.</span><span class="n">normalize</span><span class="p">()</span>
-<span class="n">df_motif_pwm</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">motif_pwm</span><span class="p">)</span>
-<span class="n">ss_logo_pwm</span> <span class="o">=</span> <span class="n">logomaker</span><span class="o">.</span><span class="n">Logo</span><span class="p">(</span><span class="n">df_motif_pwm</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<img alt="_images/Motif_analysis_28_0.png" src="_images/Motif_analysis_28_0.png" />
-</div>
-</div>
-<div class="section" id="decorating-logos">
-<h2>Decorating logos<a class="headerlink" href="#decorating-logos" title="Permalink to this headline">#</a></h2>
-<p>The logo fonts can be changed using the <code class="docutils literal notranslate"><span class="pre">font_name</span></code> argument. Positions within the logo can be highlighted by adding background color as shown below.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ss_logo_pwm</span> <span class="o">=</span> <span class="n">logomaker</span><span class="o">.</span><span class="n">Logo</span><span class="p">(</span><span class="n">df_motif_pwm</span><span class="p">,</span><span class="n">font_name</span><span class="o">=</span><span class="s1">&#39;Franklin Gothic Book&#39;</span><span class="p">)</span>
-<span class="n">ss_logo_pwm</span><span class="o">.</span><span class="n">highlight_position</span><span class="p">(</span><span class="n">p</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;pink&#39;</span><span class="p">)</span>
-<span class="n">ss_logo_pwm</span><span class="o">.</span><span class="n">highlight_position</span><span class="p">(</span><span class="n">p</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;pink&#39;</span><span class="p">)</span>
-<span class="n">ss_logo_pwm</span><span class="o">.</span><span class="n">highlight_position</span><span class="p">(</span><span class="n">p</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;pink&#39;</span><span class="p">)</span>
-<span class="n">ss_logo_pwm</span><span class="o">.</span><span class="n">highlight_position</span><span class="p">(</span><span class="n">p</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;pink&#39;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<img alt="_images/Motif_analysis_30_0.png" src="_images/Motif_analysis_30_0.png" />
-</div>
-</div>
-</div>
-</div>
-<div class="section" id="reading-motifs">
-<h1>Reading motifs<a class="headerlink" href="#reading-motifs" title="Permalink to this headline">#</a></h1>
+</section>
+<section id="reading-motifs" class="level2" data-number="2.3">
+<h2 data-number="2.3" class="anchored" data-anchor-id="reading-motifs"><span class="header-section-number">2.3</span> Reading motifs</h2>
 <p>Motif files such available from Jaspar database can be read directly to create a motif object.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_jaspar_motif</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
-<span class="n">fh</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;MA0007.2.jaspar&quot;</span><span class="p">)</span>
-<span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">motifs</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">fh</span><span class="p">,</span> <span class="s2">&quot;jaspar&quot;</span><span class="p">):</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">counts</span><span class="p">)</span>
-    <span class="n">df_jaspar_motif</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">counts</span><span class="p">)</span>
-<span class="n">fh</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>        0      1      2      3      4      5      6      7      8      9     10     11     12     13     14
+<div class="cell" data-execution_count="49">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>df_jaspar_motif <span class="op">=</span> pd.DataFrame()</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>fh <span class="op">=</span> <span class="bu">open</span>(<span class="st">"MA0007.2.jaspar"</span>)</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> m <span class="kw">in</span> motifs.parse(fh, <span class="st">"jaspar"</span>):</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(m.counts)</span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>    df_jaspar_motif <span class="op">=</span> pd.DataFrame.from_dict(m.counts)</span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>fh.close()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>        0      1      2      3      4      5      6      7      8      9     10     11     12     13     14
 A: 6277.00 6497.00   0.00 6462.00 11206.00  26.00 10426.00 1478.00 4353.00 3312.00 3241.00   0.00 2214.00 2656.00 1599.00
 C: 1112.00   0.00   0.00 1304.00   0.00 11115.00   0.00 2976.00 2096.00 3249.00 142.00 525.00 1262.00 2434.00 7032.00
 G: 3049.00 4709.00 11206.00 1254.00   0.00  65.00 107.00 4023.00 2151.00 3291.00 305.00 10681.00 671.00 2460.00 298.00
 T: 768.00   0.00   0.00 2186.00   0.00   0.00 673.00 2729.00 2606.00 1354.00 7518.00   0.00 7059.00 3656.00 2277.00
-</pre></div>
+</code></pre>
 </div>
 </div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ss_logo</span> <span class="o">=</span> <span class="n">logomaker</span><span class="o">.</span><span class="n">Logo</span><span class="p">(</span><span class="n">df_jaspar_motif</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<img alt="_images/Motif_analysis_33_0.png" src="_images/Motif_analysis_33_0.png" />
+<div class="cell" data-execution_count="50">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>ss_logo <span class="op">=</span> logomaker.Logo(df_jaspar_motif)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="Motif_analysis_files/figure-html/cell-17-output-1.png" class="img-fluid"></p>
 </div>
 </div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ss_logo</span> <span class="o">=</span> <span class="n">logomaker</span><span class="o">.</span><span class="n">Logo</span><span class="p">(</span><span class="n">df_jaspar_motif</span><span class="p">,</span><span class="n">font_name</span><span class="o">=</span><span class="s1">&#39;Franklin Gothic Book&#39;</span><span class="p">)</span>
-<span class="n">ss_logo</span><span class="o">.</span><span class="n">highlight_position</span><span class="p">(</span><span class="n">p</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;magenta&#39;</span><span class="p">)</span>
-<span class="n">ss_logo</span><span class="o">.</span><span class="n">highlight_position</span><span class="p">(</span><span class="n">p</span><span class="o">=</span><span class="mi">7</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;lightgreen&#39;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<img alt="_images/Motif_analysis_34_0.png" src="_images/Motif_analysis_34_0.png" />
-</div>
+<div class="cell" data-execution_count="77">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>ss_logo <span class="op">=</span> logomaker.Logo(df_jaspar_motif,font_name<span class="op">=</span><span class="st">'Franklin Gothic Book'</span>)</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>ss_logo.highlight_position(p<span class="op">=</span><span class="dv">3</span>, color<span class="op">=</span><span class="st">'magenta'</span>)</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>ss_logo.highlight_position(p<span class="op">=</span><span class="dv">7</span>, color<span class="op">=</span><span class="st">'lightgreen'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="Motif_analysis_files/figure-html/cell-18-output-1.png" class="img-fluid"></p>
 </div>
 </div>
 
-    <script type="text/x-thebe-config">
-    {
-        requestKernel: true,
-        binderOptions: {
-            repo: "binder-examples/jupyter-stacks-datascience",
-            ref: "master",
-        },
-        codeMirrorConfig: {
-            theme: "abcdef",
-            mode: "python"
-        },
-        kernelOptions: {
-            kernelName: "python3",
-            path: "./."
-        },
-        predefinedOutput: true
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
     }
-    </script>
-    <script>kernelName = 'python3'</script>
-
-              </div>
-              
-            </main>
-            <footer class="footer-article noprint">
-                
-    <!-- Previous / next buttons -->
-<div class='prev-next-area'>
-    <a class='left-prev' id="prev-link" href="BioPython_Intro.html" title="previous page">
-        <i class="fas fa-angle-left"></i>
-        <div class="prev-next-info">
-            <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">Introduction to BioPython</p>
-        </div>
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
+        }
+      }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  let localAlternateSentinel = 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } 
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    setTimeout(function() {
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      let href = ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./BioPython_Intro.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Working with sequences</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./Phylo.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Phylogenetic analysis</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">Copyright 2022, bioinfo.guru</div>   
+    <div class="nav-footer-right">
+      <ul class="footer-items list-unstyled">
+    <li class="nav-item compact">
+    <a class="nav-link" href="https://www.facebook.com/profile.php?id=100078250833738">
+      <i class="bi bi-facebook" role="img">
+</i> 
     </a>
-    <a class='right-next' id="next-link" href="Phylo.html" title="next page">
-    <div class="prev-next-info">
-        <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Phylogenetic analysis</p>
-    </div>
-    <i class="fas fa-angle-right"></i>
+  </li>  
+    <li class="nav-item compact">
+    <a class="nav-link" href="https://www.instagram.com/bioinfo.guru/">
+      <i class="bi bi-instagram" role="img">
+</i> 
     </a>
-</div>
-            </footer>
-        </div>
+  </li>  
+    <li class="nav-item compact">
+    <a class="nav-link" href="https://www.linkedin.com/in/bioinfo-guru-68a8b7231/">
+      <i class="bi bi-linkedin" role="img">
+</i> 
+    </a>
+  </li>  
+    <li class="nav-item compact">
+    <a class="nav-link" href="https://twitter.com/bioinfo_guru">
+      <i class="bi bi-twitter" role="img">
+</i> 
+    </a>
+  </li>  
+</ul>
     </div>
-    <div class="footer-content row">
-        <footer class="col footer"><p>
-  
-    By Manish Datt (manish@bioinfo.guru)<br/>
-  
-      &copy; Copyright 2022 bioinfo.guru.<br/>
-    <div class="extra_footer">
-      <a href="https://bioinfo.guru">Online course catalogue</a>
-    </div>
-</p>
-        </footer>
-    </div>
-    
-</div>
+  </div>
+</footer>
 
 
-      </div>
-    </div>
-  
-  <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
 
-
-  </body>
-</html>
+</body></html>
