@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.0.38">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Bio Libraries - 1&nbsp; Working with sequences</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<link href="./Motif_analysis.html" rel="next">
+<link href="./index.html" rel="prev">
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script id="quarto-search-options" type="application/json">{
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<link rel="stylesheet" href="custom_css.css">
+</head>
+
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+    <div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Working with sequences</span></h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+      <a href="./" class="sidebar-logo-link">
+      <img src="./logo_horizontal_transparent.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
+      </a>
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Bio Libraries</a> 
+        <div class="sidebar-tools-main">
+  <a href="" class="quarto-color-scheme-toggle sidebar-tool" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+  <a href="" class="quarto-reader-toggle sidebar-tool" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
+</div>
+    </div>
+      </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">Preface</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./BioPython_Intro.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Working with sequences</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Motif_analysis.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Motif analysis</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Phylo.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Phylogenetic analysis</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./BIO_PDB.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Working with structures</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#sequence-object" id="toc-sequence-object" class="nav-link active" data-scroll-target="#sequence-object"> <span class="header-section-number">1.1</span> Sequence Object</a></li>
+  <li><a href="#writing-sequences" id="toc-writing-sequences" class="nav-link" data-scroll-target="#writing-sequences"> <span class="header-section-number">1.2</span> Writing sequences</a></li>
+  <li><a href="#multiple-sequence-alignment" id="toc-multiple-sequence-alignment" class="nav-link" data-scroll-target="#multiple-sequence-alignment"> <span class="header-section-number">1.3</span> Multiple Sequence Alignment</a></li>
+  <li><a href="#running-blast-over-the-internet" id="toc-running-blast-over-the-internet" class="nav-link" data-scroll-target="#running-blast-over-the-internet"> <span class="header-section-number">1.4</span> Running BLAST over the internet</a></li>
+  <li><a href="#blast-search-using-sequence-file" id="toc-blast-search-using-sequence-file" class="nav-link" data-scroll-target="#blast-search-using-sequence-file"> <span class="header-section-number">1.5</span> BLAST search using sequence file</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title d-none d-lg-block"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Working with sequences</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+    
+  </div>
+  
+
+</header>
+
+<p>Python offers a variety of functions to work with text data (Strings) that in turn make it easier to work with biological data such as DNA or protein sequences. BioPython library provides a set of classes dedicated to parsing and analysis of different type of biological data. The functions avaiable in BioPython helps researcher to progammatically process the data. Below we’ll see some of the features in Biopython for working with biological data.</p>
+<p>To install Biopython library run <code>pip install biopython</code>. For more details regarding Biopython installation and tutorials, please refer to the <a href="https://biopython.org/wiki/Biopython2">Biopython wiki</a>.</p>
+<p>To check the version of Biopython, run the following command.</p>
+<div class="cell" data-scrolled="true" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> Bio </span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(Bio.__version__)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>1.79</code></pre>
+</div>
+</div>
+<section id="sequence-object" class="level2" data-number="1.1">
+<h2 data-number="1.1" class="anchored" data-anchor-id="sequence-object"><span class="header-section-number">1.1</span> Sequence Object</h2>
+<p>To work with sequences, we’ll need the <code>Bio.Seq</code> class which has the required functions for reading and writing sequence data. Once we have imported this class we can create objects having required data. The example below shows constructing a sequence object with a DNA sequence and then using the <code>complement</code> and <code>translate</code> functions to find the sequence of the complementary strand and the translated protein sequence, respectively.</p>
+<div class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> Bio.Seq <span class="im">import</span> Seq</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>new_sequence <span class="op">=</span> Seq(<span class="st">'AATTGGAACCTT'</span>)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(new_sequence)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(new_sequence.complement())</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(new_sequence.translate())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>AATTGGAACCTT
+TTAACCTTGGAA
+NWNL</code></pre>
+</div>
+</div>
+<p>To create a sequence object by reading sequence from a file, we can use the <code>SeqIO</code> class. The <code>parse</code> function in this class can read and write sequences in different formats. This function take two arguments - file name and format, and return an iterator having all the sequences. The code below shows reading a file having multiple sequences and printing the sequences using the seq attribute. Note that this would print sequnces without any annotations. The <code>description</code> attribute of SeqIO object can used to print the description of a sequence as given in the input file. In the code below, the output would be restricted to first three sequences. If you need to print the data for all sequences then remove the <code>if</code> block. The sequence file used in the code below is available <a href="https://doi.org/10.1371/journal.pcbi.1005975.s002">here</a>.</p>
+<div class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> Bio <span class="im">import</span> SeqIO</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>count<span class="op">=</span><span class="dv">0</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> all_seqs <span class="kw">in</span> SeqIO.parse(<span class="st">"kinases.txt"</span>, <span class="st">"fasta"</span>):</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(all_seqs.description)</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(all_seqs.seq)</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    count <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span>(count <span class="op">==</span> <span class="dv">3</span>):</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>        <span class="cf">break</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>consensus seq
+YELLKVL-GKGAFGE--------------------------------------------------------------------V-Y---KAR-D-----------KD-------------------T------G-----E--E--VAVKV----LK-K---G----E-SS----------------K--K-R--K-------------E-------F-LR-EIKI-LKK------L------------------R--------H---PNIVRLYGVF-----------Q-----E-D----------E----D----P----LY--------LVME-YM-------P-GG----SLFD---L---L-R---K--R---R------------------------------------------------------------------------------G-------L-------S-E-------KTLRFIAAQIASGLEYLH-S-K-GI---------IHRDLKPENIL---L--------D--------------------------S------------------D-G-HVKLADF---GL---AR-----------E-----------L-Y----------S---D-------D---------------------------------G-Y--R-------------------T----------T-----T-FVG-T----P-------------------RY--MAPEV--L---------L-------G-------------GG--Y-SKKSDVWSL---GVLLYELLTG---------G--K---P-----P-F------P----G-E-------S---------------NE---E----LL----E-----------KIL------K---------------------G--------------------Y----------------------R---------------------L---P-I-P---E--P----D----C-----S-----P--E---AK---DLIKK--------CLQK-DPEKRPT
+sp|Q22RR1||agc:agc-sar|Tetrahymena sp|Q22RR1||agc:agc-sar|Tetrahymena
+LVYIKEL-GRGNFGS--------------------------------------------------------------------V-N---LVN-E-----------KQ-------------------K------D-----R--L--FAMKV----FI-S---N----Y-IFqr--------------G--I-E--K-------------Y-------I-LR-EKST-LQK------C------------------N--------F---PFIMRYYRSF-----------Y-------D----------N----Y----H----IY--------FMNE-FI-------N-GM----DFFT---V---M-R---E--V---G------------------------------------------------------------------------------L-------F-------N-K-------QQAQFYTAFIILTLQYLN-N-Q-GI---------VYRDLKPENIL---I--------D--------------------------H------------------E-G-WPKLVDM---GT---AK-----------Y-----------L------------Y---D-------Kn--------------------------------Q-Q--L-------------------T----------Rty---S-LVG-T----P-------------------HY--MAPEV--I---------Q-------Q-------------KG--Y-GFAVDIYSL---GVILYELLV----------G--Y---L-----P-Y------Ged--V-D-------D---------------PI---E----VY----Q-----------LIL------E---------------------G-------------------------------------------R---------------------L---G-F-P---N--H----M----K-----N-----R--L---SK---KLISQ--------LMAK-SPEVRLG
+sp|Q234E6||agc:agc-sar|Tetrahymena sp|Q234E6||agc:agc-sar|Tetrahymena
+LIVIKKL-GFGQFGS--------------------------------------------------------------------V-F---LVK-E-----------KG-------------------K------K-----K--L--YGLKC----VS-K---A----Q-VVeq--------------S--L-E--K-------------H-------I-QN-EKQV-MEF------N------------------N--------F---PFVMKFLRSF-----------K-------D----------D----R----C----IY--------FLLE-FI-------Q-GM----ELFD---V---I-R---E--I---G------------------------------------------------------------------------------L-------L-------S-T-------YDSQFYIGSLILTLEYLH-S-N-YI---------IYRDIKPENIM---V--------D--------------------------H------------------A-G-YLKLIDM---GT---AK-----------I-----------M------------K---S-------Ka--------------------------------G-T--V-------------------T----------Rtf---T-IIG-T----P-------------------HY--MAPEV--I---------S-------G-------------KG--Y-NFLVDLWSV---GICLYEFMC----------G--Y---V-----P-F------Aee--A-E-------D---------------PY---E----IY----E-----------EII------K---------------------K-------------------------------------------E---------------------I---Q-F-P---A--Y----M----K-----D-----A--V---AK---QLMLQ--------LLNK-IPEIRLG</code></pre>
+</div>
+</div>
+</section>
+<section id="writing-sequences" class="level2" data-number="1.2">
+<h2 data-number="1.2" class="anchored" data-anchor-id="writing-sequences"><span class="header-section-number">1.2</span> Writing sequences</h2>
+<p>The <code>write</code> function takes three arguments — 1) a sequence object, 2) filename, and 3) file format. The code below reads a fasta file with multiple sequences and then save the first 10 sequences in a new file.</p>
+<div class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>all_seqs <span class="op">=</span> []</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> seq_record <span class="kw">in</span> SeqIO.parse(<span class="st">"kinases.txt"</span>, <span class="st">"fasta"</span>):</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    all_seqs.append(seq_record)</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">len</span>(all_seqs))</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>SeqIO.write(all_seqs[<span class="dv">0</span>:<span class="dv">10</span>],<span class="st">"test.aln"</span>,<span class="st">"clustal"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>5489</code></pre>
+</div>
+<div class="cell-output cell-output-display" data-execution_count="5">
+<pre><code>10</code></pre>
+</div>
+</div>
+</section>
+<section id="multiple-sequence-alignment" class="level2" data-number="1.3">
+<h2 data-number="1.3" class="anchored" data-anchor-id="multiple-sequence-alignment"><span class="header-section-number">1.3</span> Multiple Sequence Alignment</h2>
+<p>The <code>AlignIO</code> class has functions to parse alignment files. The <code>read</code> and <code>write</code> functions have a similar syntax to the corresponding functions in the <code>SeqIO</code> class. The alignment object stores sequences in 2D array format such that the rows are number of sequences and columns represent alignment length. To extract a sub-set of an alignment, slicing feature can be used. The code below shows reading an alignment file in fasta format followed by selecting a portion of this alignment and save it in a new file in clustal format. The subset is extracted by giving the range for the rows and columns within square brackets. The numbering for both rows and columns starts from zero. In the example below first ten sequences in the alignment are selected since range of rows is <code>:10</code> and the colums range is <code>3:12</code>.</p>
+<div class="cell" data-scrolled="true" data-execution_count="32">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> Bio <span class="im">import</span> AlignIO</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>align1 <span class="op">=</span> AlignIO.read(<span class="st">"kinases.txt"</span>, <span class="st">"fasta"</span>)</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="co"># slicing - [row range, col range]</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> align1[:<span class="dv">10</span>,<span class="dv">3</span>:<span class="dv">12</span>]</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(x)</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>AlignIO.write(x,<span class="st">"msa1.aln"</span>,<span class="st">"clustal"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Alignment with 10 rows and 9 columns
+LKVL-GKGA consensus
+IKEL-GRGN sp|Q22RR1||agc:agc-sar|Tetrahymena
+IKKL-GFGQ sp|Q234E6||agc:agc-sar|Tetrahymena
+VKKL-GNGQ sp|Q23KG5||agc:agc-sar|Tetrahymena
+IKTL-AFGQ sp|Q23DN8||agc:agc-sar|Tetrahymena
+IKKL-GVGQ sp|I7MFS4||agc:agc-sar|Tetrahymena
+IKKL-GFGQ sp|I7M3B5||agc:agc-sar|Tetrahymena
+IKKL-GFGQ sp|I7MD55||agc:agc-sar|Tetrahymena
+IKKL-GEGQ sp|Q869J9|pkg-2|agc:pkg|Paramecium
+IRVL-GKGC sp|A8N3F0||agc:agc-unique|Coprinopsis</code></pre>
+</div>
+<div class="cell-output cell-output-display" data-execution_count="32">
+<pre><code>1</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># %load msa1.aln</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>CLUSTAL X (<span class="fl">1.81</span>) multiple sequence alignment</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>consensus                           LKVL<span class="op">-</span>GKGA</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>sp<span class="op">|</span>Q22RR1<span class="op">||</span>agc:agc<span class="op">-</span>sar<span class="op">|</span>Tetrahy      IKEL<span class="op">-</span>GRGN</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>sp<span class="op">|</span>Q234E6<span class="op">||</span>agc:agc<span class="op">-</span>sar<span class="op">|</span>Tetrahy      IKKL<span class="op">-</span>GFGQ</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>sp<span class="op">|</span>Q23KG5<span class="op">||</span>agc:agc<span class="op">-</span>sar<span class="op">|</span>Tetrahy      VKKL<span class="op">-</span>GNGQ</span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>sp<span class="op">|</span>Q23DN8<span class="op">||</span>agc:agc<span class="op">-</span>sar<span class="op">|</span>Tetrahy      IKTL<span class="op">-</span>AFGQ</span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>sp<span class="op">|</span>I7MFS4<span class="op">||</span>agc:agc<span class="op">-</span>sar<span class="op">|</span>Tetrahy      IKKL<span class="op">-</span>GVGQ</span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>sp<span class="op">|</span>I7M3B5<span class="op">||</span>agc:agc<span class="op">-</span>sar<span class="op">|</span>Tetrahy      IKKL<span class="op">-</span>GFGQ</span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>sp<span class="op">|</span>I7MD55<span class="op">||</span>agc:agc<span class="op">-</span>sar<span class="op">|</span>Tetrahy      IKKL<span class="op">-</span>GFGQ</span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>sp<span class="op">|</span>Q869J9<span class="op">|</span>pkg<span class="op">-</span><span class="dv">2</span><span class="op">|</span>agc:pkg<span class="op">|</span>Parame      IKKL<span class="op">-</span>GEGQ</span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>sp<span class="op">|</span>A8N3F0<span class="op">||</span>agc:agc<span class="op">-</span>unique<span class="op">|</span>Copr      IRVL<span class="op">-</span>GKGC</span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="running-blast-over-the-internet" class="level2" data-number="1.4">
+<h2 data-number="1.4" class="anchored" data-anchor-id="running-blast-over-the-internet"><span class="header-section-number">1.4</span> Running BLAST over the internet</h2>
+<p>Biopython offers a functionality to programmatically run BLAST on the NCBI servers using the <code>Bio.Blast</code> class. To run blast online at NCBI servers, <code>Bio.Blast</code> can be used which has different function to run Blast and also to parse the output. The <code>NCBIWWW</code> library has <code>qblast</code> function that takes three arguments &amp;emdash; 1) blast program (blastp, blastn, etc.), 2) database (any of the databases available at NCBI, and 3) sequence. Once the blast serach is over the output can be saved in a file. This output would be in XML format. We can use the <code>read</code> function within the NCBIXML class to parse this output. The code below shows running a blast search using <code>qblast</code> against the non-redundant database available at in NCBI. The output file saved in the previous step has all the hits identified in the Blast search. These hits follow a hierarchical manner such that each result would have multiple alignments and within each alignment would be multiple high scoring pairs (hsps) i.e.&nbsp;Blast object <span class="math inline">\(\longrightarrow\)</span> Alignment <span class="math inline">\(\longrightarrow\)</span> hsps. For more details on this you may refer to the Blast documentation available at NCBI.</p>
+<div class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> Bio.Blast <span class="im">import</span> NCBIWWW</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> Bio.Blast <span class="im">import</span> NCBIXML</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>result_ncbi <span class="op">=</span> NCBIWWW.qblast(<span class="st">"blastn"</span>, <span class="st">"nt"</span>, <span class="st">"8332116"</span>)</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">"my_blast.xml"</span>, <span class="st">"w"</span>) <span class="im">as</span> file_handle:</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>    file_handle.write(result_ncbi.read())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>result_handle <span class="op">=</span> <span class="bu">open</span>(<span class="st">"my_blast.xml"</span>)</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>blast_record <span class="op">=</span> NCBIXML.read(result_handle)</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>count <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> alignment <span class="kw">in</span> blast_record.alignments:</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> hsp <span class="kw">in</span> alignment.hsps:</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(hsp)</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>    count <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span>(count<span class="op">==</span><span class="dv">5</span>):</span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>        <span class="cf">break</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Score 482 (435 bits), expectation 5.5e-117, alignment length 624
+Query:      59 ACAGAAAATGGGGAGAGAAATGAAGTACTTGGCCATGAAAACTGA...GTA 678
+               || ||||||||| |||| | |||| ||  |||| |||| | ||||... ||
+Sbjct:     278 ACCGAAAATGGGCAGAGGAGTGAATTATATGGCAATGACACCTGA...TTA 901
+Score 468 (423 bits), expectation 3.4e-113, alignment length 590
+Query:      63 AAAATGGGGAGAGAAATGAAGTACTTGGCCATGAAAACTGATCAA...CCC 649
+               |||||||| |||  |||| | || ||||| |||||||| || |||...|||
+Sbjct:      11 AAAATGGGTAGACGAATGGATTATTTGGCGATGAAAACCGAGCAA...CCC 600
+Score 443 (400 bits), expectation 3.9e-106, alignment length 597
+Query:      87 TTGGCCATGAAAACTGATCAATTGGCCGTGGCTAATATGATCGAT...TAG 679
+               ||||||||||||||||| ||| ||||  |||||||| |||| |||...|||
+Sbjct:      25 TTGGCCATGAAAACTGAGCAAATGGCGTTGGCTAATTTGATAGAT...TAG 621
+Score 441 (398 bits), expectation 1.4e-105, alignment length 593
+Query:      65 AATGGGGAGAGAAATGAAGTACTTGGCCATGAAAACTGATCAATT...CTG 655
+               ||||||||| |||  | |  | |||||||||||||||||||    ... ||
+Sbjct:     254 AATGGGGAG-GAA--GGATAATTTGGCCATGAAAACTGATCC---...ATG 838
+Score 439 (397 bits), expectation 4.8e-105, alignment length 596
+Query:      63 AAAATGGGGAGAGAAATGAAGTACTTGGCCATGAAAACTGATCAA...CTG 655
+               |||||||||||    ||| |||  ||||| |||| |||||||| |...|||
+Sbjct:     171 AAAATGGGGAGG---ATGGAGTTTTTGGCTATGAGAACTGATCCA...CTG 757</code></pre>
+</div>
+</div>
+<p>The <code>hsps</code> object has several attributes including the BLAST statistics such as evalue, score, positives, etc. These can be used to extract hits based on certain conditions. E.g., the code below shows saving hits from the previous Blast search with evalue greater than 1e-105 to a new file.</p>
+<div class="cell" data-scrolled="true" data-execution_count="38">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">"new_file.txt"</span>, <span class="st">"w"</span>) <span class="im">as</span> file_handle:</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> alignment <span class="kw">in</span> blast_record.alignments:</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> hsp <span class="kw">in</span> alignment.hsps:</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> (hsp.expect <span class="op">&lt;</span> <span class="fl">1e-105</span>):</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>                <span class="bu">print</span>(hsp)</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>                file_handle.write(<span class="bu">str</span>(hsp)<span class="op">+</span><span class="st">"</span><span class="ch">\n</span><span class="st">"</span>)</span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>                file_handle.write(<span class="st">"</span><span class="ch">\n</span><span class="st">"</span>)</span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"DONE"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Score 482 (435 bits), expectation 5.5e-117, alignment length 624
+Query:      59 ACAGAAAATGGGGAGAGAAATGAAGTACTTGGCCATGAAAACTGA...GTA 678
+               || ||||||||| |||| | |||| ||  |||| |||| | ||||... ||
+Sbjct:     278 ACCGAAAATGGGCAGAGGAGTGAATTATATGGCAATGACACCTGA...TTA 901
+Score 468 (423 bits), expectation 3.4e-113, alignment length 590
+Query:      63 AAAATGGGGAGAGAAATGAAGTACTTGGCCATGAAAACTGATCAA...CCC 649
+               |||||||| |||  |||| | || ||||| |||||||| || |||...|||
+Sbjct:      11 AAAATGGGTAGACGAATGGATTATTTGGCGATGAAAACCGAGCAA...CCC 600
+Score 443 (400 bits), expectation 3.9e-106, alignment length 597
+Query:      87 TTGGCCATGAAAACTGATCAATTGGCCGTGGCTAATATGATCGAT...TAG 679
+               ||||||||||||||||| ||| ||||  |||||||| |||| |||...|||
+Sbjct:      25 TTGGCCATGAAAACTGAGCAAATGGCGTTGGCTAATTTGATAGAT...TAG 621
+DONE</code></pre>
+</div>
+</div>
+</section>
+<section id="blast-search-using-sequence-file" class="level2" data-number="1.5">
+<h2 data-number="1.5" class="anchored" data-anchor-id="blast-search-using-sequence-file"><span class="header-section-number">1.5</span> BLAST search using sequence file</h2>
+<p>To run the Blast search using a sequence file instead of gi number, we first need to create a seqeunce object and then pass it on to the <code>qblast</code> function as shown below. To run this code, save the protein sequence below in a new file example1.fasta.</p>
+<p>MFHPGMTSQPSTSNQMYYDPLYGAEQIVQCNPMDYHQANILCGMQYFNNSHNRYPLLPQMPPQFTNDHPY DFPNVPTISTLDEASSFNGFLIPSQPSSYNNNNISCVFTPTPCTSSQASSQPPPTPTVNPTPIPPNAGAV LTTAMDSCQQISHVLQCYQQGGEDSDFVRKAIESLVKKLKDKRIELDALITAVTSNGKQPTGCVTIQRSL DGRLQVAGRKGVPHVVYARIWRWPKVSKNELVKLVQCQTSSDHPDNICINPYHYERVVSNRITSADQSLH VENSPMKSEYLGDAGVIDSCSDWPNTPPDNNFNGGFAPDQPQLVTPIISDIPIDLNQIYVPTPPQLLDNW CSIIYYELDTPIGETFKVSARDHGKVIVDGGMDPHGENEGRLCLGALSNVHRTEASEKARIHIGRGVELT AHADGNISITSNCKIFVRSGYLDYTHGSEYSSKAHRFTPNESSFTVFDIRWAYMQMLRRSRSSNEAVRAQ AAAVAGYAPMSVMPAIMPDSGVDRMRRDFCTIAISFVKAWGDVYQRKTIKETPCWIEVTLHRPLQILDQL LKNSSQFGSS</p>
+<div class="cell" data-execution_count="28">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>seq_file <span class="op">=</span> <span class="bu">open</span>(<span class="st">'example1.fasta'</span>)</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>result_handle2 <span class="op">=</span> NCBIWWW.qblast(<span class="st">"blastp"</span>, <span class="st">"nr"</span>, seq_file.read())</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>seq_file.close()</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">"test_blast.xml"</span>, <span class="st">"w"</span>) <span class="im">as</span> out_handle:</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>    out_handle.write(result_handle2.read())</span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>blast_output <span class="op">=</span> <span class="bu">open</span>(<span class="st">"test_blast.xml"</span>)    </span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>blast_record <span class="op">=</span> NCBIXML.read(blast_output)</span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(blast_record.alignments[<span class="dv">0</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>sp|P45897.1| RecName: Full=Dwarfin sma-4; AltName: Full=MAD protein homolog 3 [Caenorhabditis elegans] &gt;gb|AAA97605.1| SMA-4 [Caenorhabditis elegans]
+           Length = 570
+</code></pre>
+</div>
+</div>
+<p>Let’s say we need only the alignment with the mouse sequence, then, to print first 50 characters of each alignment with the mouse sequence along with corresponding statistics, the following code can be used.</p>
+<div class="cell" data-execution_count="31">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> alignment <span class="kw">in</span> blast_record.alignments:</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="st">"Mus musculus"</span> <span class="kw">in</span> alignment.title:</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(alignment.title)</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> hsp <span class="kw">in</span> alignment.hsps:</span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>            <span class="bu">print</span>(hsp.query[<span class="dv">0</span>:<span class="dv">50</span>])</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>            <span class="bu">print</span>(hsp.match[<span class="dv">0</span>:<span class="dv">50</span>])</span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>            <span class="bu">print</span>(hsp.sbjct[<span class="dv">0</span>:<span class="dv">50</span>])</span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>            <span class="bu">print</span>(hsp.positives, hsp.score, hsp.expect)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>gb|KAI2586911.1| SMAD family member 4 [Homo sapiens] &gt;gb|KAI4046350.1| SMAD family member 4 [Homo sapiens] &gt;gb|PNI70022.1| SMAD4 isoform 6 [Pan troglodytes] &gt;gb|PNJ43713.1| SMAD4 isoform 9 [Pongo abelii]
+TAMDSCQQISHVLQCYQQGGEDSDFVRKAIESLVKKLKDKRIELDALITA
+T+ D+C  I H L C++QGGE   F ++AIESLVKKLK+K+ ELD+LITA
+TSNDACLSIVHSLMCHRQGGESETFAKRAIESLVKKLKEKKDELDSLITA
+274 795.0 8.00678e-96</code></pre>
+</div>
+</div>
+<p>To save the Blast output in csv format, we can use the <code>csv</code> library as shown below.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> csv</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>csv_out <span class="op">=</span> <span class="bu">open</span>(<span class="st">"blast_out.csv"</span>, <span class="st">"w"</span>, newline<span class="op">=</span><span class="st">''</span>)</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> alignment <span class="kw">in</span> blast_record.alignments:</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> hsp <span class="kw">in</span> alignment.hsps:</span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>        new_row <span class="op">=</span> csv.writer(csv_out, delimiter<span class="op">=</span><span class="st">","</span>)</span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>        new_row.writerow([alignment.title.split(<span class="st">"|"</span>)[<span class="op">-</span><span class="dv">1</span>], hsp.positives, hsp.expect])</span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>csv_out.close()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
+        }
+      }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  let localAlternateSentinel = 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } 
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    setTimeout(function() {
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      let href = ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./index.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Preface</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./Motif_analysis.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Motif analysis</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">Copyright 2022, bioinfo.guru</div>   
+    <div class="nav-footer-right">
+      <ul class="footer-items list-unstyled">
+    <li class="nav-item compact">
+    <a class="nav-link" href="https://www.facebook.com/profile.php?id=100078250833738">
+      <i class="bi bi-facebook" role="img">
+</i> 
+    </a>
+  </li>  
+    <li class="nav-item compact">
+    <a class="nav-link" href="https://www.instagram.com/bioinfo.guru/">
+      <i class="bi bi-instagram" role="img">
+</i> 
+    </a>
+  </li>  
+    <li class="nav-item compact">
+    <a class="nav-link" href="https://www.linkedin.com/in/bioinfo-guru-68a8b7231/">
+      <i class="bi bi-linkedin" role="img">
+</i> 
+    </a>
+  </li>  
+    <li class="nav-item compact">
+    <a class="nav-link" href="https://twitter.com/bioinfo_guru">
+      <i class="bi bi-twitter" role="img">
+</i> 
+    </a>
+  </li>  
+</ul>
+    </div>
+  </div>
+</footer>
+
+
+
+</body></html>
