@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Bio Libraries - 4&nbsp; Working with structures</title>
+<title>Bio Libraries - 4&nbsp; Working with PDB files</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -123,7 +123,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
     <div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Working with structures</span></h1>
+      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Working with PDB files</span></h1>
       <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
         <i class="bi bi-chevron-right"></i>
       </button>
@@ -174,7 +174,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./BIO_PDB.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Working with structures</span></a>
+  <a href="./BIO_PDB.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Working with PDB files</span></a>
   </div>
 </li>
     </ul>
@@ -206,7 +206,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title d-none d-lg-block"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Working with structures</span></h1>
+<h1 class="title d-none d-lg-block"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Working with PDB files</span></h1>
 </div>
 
 
@@ -223,7 +223,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <section id="pdb-format" class="level3 unnumbered">
 <h3 class="unnumbered anchored" data-anchor-id="pdb-format">PDB format</h3>
 <p>Biomolecular structures can be saved in different formats such as PDB, mmCIF, XML, etc. The PDB format is the most common format and is supported by all visualization and docking programs. In this format the annotations for the structure are stored as different tags such as TITLE, COMPND, SOURCE, REMARK, etc. The atomic coordinates are saved under ATOM and HETATM tags. The <code>PDB</code> class of Bio library has a <code>PDBParser()</code> function to instantiate a PDB parser object which can be used to read and write structure files in pdb format. The <code>get_structure</code> function takes two arguments — a name for the new structure object and a pdb file name.</p>
-<div class="cell" data-execution_count="1">
+<div class="cell" data-execution_count="2">
 <div class="cell-output cell-output-stdout">
 <pre><code>    ...ANNOTATIONS...
 
@@ -252,12 +252,12 @@ ATOM      9  O   GLU A  19      41.122  31.517 120.240  1.00 47.32           O
 ATOM     10  CB  GLU A  19      38.918  31.467 122.431  1.00 55.27           C  </code></pre>
 </div>
 </div>
-<div class="cell">
+<div class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> Bio.PDB <span class="im">import</span> <span class="op">*</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>structure <span class="op">=</span> PDBParser().get_structure(<span class="st">"Protease"</span>, <span class="st">"7jtl.pdb"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The structure object has a attribute <code>header</code> that stores the annotations for the structure as a dictionary.</p>
-<div class="cell" data-execution_count="73">
+<div class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"The structure title is:"</span>,structure.header[<span class="st">"name"</span>])</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"The structure resolution is:"</span>,structure.header[<span class="st">"resolution"</span>])</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"The structure keywords are:"</span>,structure.header[<span class="st">"keywords"</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -293,7 +293,7 @@ flowchart LR
 </div>
 </div>
 <p>Iterating the hierarchical organization using tandem <code>for</code> loops. The code below creates a dictionary having chain names as keys and a list of residues in that chain as values.</p>
-<div class="cell" data-execution_count="174">
+<div class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> collections</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>chain_residues <span class="op">=</span> collections.defaultdict(<span class="bu">list</span>)</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> model <span class="kw">in</span> structure:</span>
@@ -307,8 +307,8 @@ flowchart LR
 </div>
 </div>
 <p>The <code>Selection</code> module in <code>Bio.PDB</code> has <code>unfold_entities</code> function that facilitates navigation through different levels in the structure object. This function takes two arguments – an entity list and the target level. The targen level is a single letter code via <strong>A</strong>tom, <strong>R</strong>esidue, <strong>C</strong>hain, <strong>M</strong>odel, or <strong>S</strong>tructure. E.g. we can get all the atoms in a structure object using <code>Selection.unfold_entities(structure, 'A')</code>. The diagram below shows the different arguments for the <code>unfold_entities</code> function to unpack at different levels starting at the structure level. Note that <code>structure</code> here refers to the name of the structure object instantiated using <code>PDBParser()</code>.</p>
-<div class="cell" data-execution_count="7">
-<div class="cell-output cell-output-display" data-execution_count="7">
+<div class="cell" data-scrolled="true" data-execution_count="6">
+<div class="cell-output cell-output-display" data-execution_count="6">
 <iframe srcdoc="<html>
     <body>
         <script src=&quot;https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js&quot;></script>
@@ -335,7 +335,7 @@ flowchart LR
 </div>
 </div>
 <p class="popquiz">
-<b>Quiz: </b>Write a code to get a dictionary having chain names as keys and a list of residues in that chain as values <i>using unfold_entities()</i>.
+<b>Quiz:</b> Write a code to get a dictionary having chain names as keys and a list of residues in that chain as values <i>using unfold_entities()</i>.
 </p>
 <div class="cell">
 <details>
@@ -352,11 +352,10 @@ flowchart LR
 <h2 data-number="4.1" class="anchored" data-anchor-id="sequence-from-pdb-file"><span class="header-section-number">4.1</span> Sequence from pdb file</h2>
 <p>The <code>parse</code> function in the <code>Bio.SeqIO</code> module can be used to retrive the sequences of polymers in the pdb file. There are two different types of sequences that can be retrieved. 1) sequence from the ATOM record and 2) sequence from the SEQRES record (if present). The residues which are disordered in the structure would not appear in the sequence retrived using the <code>pdb-atom</code> argument while those residues would be there in the output with <code>pdb-seqres</code> argument.</p>
 <div class="cell" data-execution_count="188">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="op">%%</span>capture <span class="op">--</span>no<span class="op">-</span>stdout</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> Bio <span class="im">import</span> SeqIO</span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> record <span class="kw">in</span> SeqIO.parse(<span class="st">"7jtl.pdb"</span>, <span class="st">"pdb-atom"</span>):</span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Chain"</span>, record.annotations[<span class="st">"chain"</span>])</span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(record.seq)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> Bio <span class="im">import</span> SeqIO</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> record <span class="kw">in</span> SeqIO.parse(<span class="st">"7jtl.pdb"</span>, <span class="st">"pdb-atom"</span>):</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Chain"</span>, record.annotations[<span class="st">"chain"</span>])</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(record.seq)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Chain A
 QECSLQSCTQHQPYVVDDPCPIHFYSKWYIRVGARKSAPLIELCVDEXXSKSPIQYIDIGNYTVSCLPFTINCQEPKLGSLVVRCSFYEDFLEYHDVRVVLDFI
@@ -364,7 +363,7 @@ Chain B
 QECSLQSCTQHQPYVVDDPCPIHFYSKWYIRVGARKSAPLIELCVDEAXXXSPIQYIDIGNYTVSCLPFTINCQEPKLGSLVVRCSFYEDFLEYHDVRVVLDFI</code></pre>
 </div>
 </div>
-<div class="cell" data-execution_count="183">
+<div class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> Bio <span class="im">import</span> SeqIO</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> record <span class="kw">in</span> SeqIO.parse(<span class="st">"7jtl.pdb"</span>, <span class="st">"pdb-seqres"</span>):</span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Chain"</span>, record.annotations[<span class="st">"chain"</span>])</span>
@@ -379,7 +378,7 @@ SNAQECSLQSCTQHQPYVVDDPCPIHFYSKWYIRVGARKSAPLIELCVDEAGSKSPIQYIDIGNYTVSCLPFTINCQEPK
 <section id="the-residue-object" class="level3 unnumbered">
 <h3 class="unnumbered anchored" data-anchor-id="the-residue-object">The residue object</h3>
 <p>To get a list of residues within an object at any level above residue, we can use the <code>get_residue</code> function. To get the residue name and id for a particular residue, <code>resname</code> and <code>id</code> attributes for the residue object can be used. The <code>get_parent</code> function returns the corresponding chain for a residue object. The <code>get_list</code> function for the residue object return a list having all the atoms within that residue.</p>
-<div class="cell" data-execution_count="16">
+<div class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>ctr<span class="op">=</span><span class="dv">0</span></span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>prot_seq<span class="op">=</span><span class="st">""</span></span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> residue <span class="kw">in</span> model.get_residues():</span>
@@ -399,15 +398,15 @@ GLNGLUCYSSERLEU</code></pre>
 </div>
 </div>
 <p>To convert the sequence in three letter code to single letter code, we can use <code>SeqUtils</code> package available in biopython. The <code>seq1()</code> function returns single letter sequence for a three letter sequence. Similarly, to convert single letter sequence to three letter we have <code>seq3()</code> function.</p>
-<div class="cell" data-execution_count="17">
+<div class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> Bio.SeqUtils <span class="im">import</span> seq1</span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>seq1(prot_seq)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="17">
+<div class="cell-output cell-output-display" data-execution_count="9">
 <pre><code>'QECSL'</code></pre>
 </div>
 </div>
 <p>In case the structure has some modified residues then custom mapping of three letter code to single letter code can be done using the <code>custom_map</code> keyword argument to <code>seq1()</code> function. E.g., let say a protein has a phosphorylated serine residue for which the three letter code is SEP and there is no standard single letter code for this. We can add custom mapping for SEP to S as follows.</p>
-<div class="cell" data-execution_count="18">
+<div class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>prot_seq<span class="op">+=</span><span class="st">"SEP"</span></span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(seq1(prot_seq)) <span class="co">#without custom map</span></span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(seq1(prot_seq,custom_map<span class="op">=</span>{<span class="st">"SEP"</span>: <span class="st">"S"</span>}))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -421,7 +420,7 @@ QECSLS</code></pre>
 <section id="atom-object" class="level2" data-number="4.2">
 <h2 data-number="4.2" class="anchored" data-anchor-id="atom-object"><span class="header-section-number">4.2</span> Atom object</h2>
 <p>The information within an atom object can be accessed using different functions specific of a particular property. E.g., to get the name and coordinates for an atom, <code>get_name</code> and <code>get_coord</code> functions can be used. Similarly, to modify a value for any property, functions with <code>set_</code> prefix can be used.</p>
-<div class="cell" data-execution_count="22">
+<div class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>res_list <span class="op">=</span> <span class="bu">list</span>(structure[<span class="dv">0</span>][<span class="st">"A"</span>].get_residues())</span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(res_list[<span class="dv">3</span>])</span>
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>atoms_resi3 <span class="op">=</span> res_list[<span class="dv">3</span>].get_list()</span>
@@ -437,7 +436,7 @@ QECSLS</code></pre>
 <section id="distance-calculations" class="level2" data-number="4.3">
 <h2 data-number="4.3" class="anchored" data-anchor-id="distance-calculations"><span class="header-section-number">4.3</span> Distance Calculations</h2>
 <p>The distance between any two atoms can be easily calculated using the <code>-</code> operator.</p>
-<div class="cell" data-execution_count="23">
+<div class="cell" data-execution_count="12">
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>ca_3 <span class="op">=</span> res_list[<span class="dv">3</span>].get_list()[<span class="dv">1</span>]</span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>ca_15 <span class="op">=</span> res_list[<span class="dv">15</span>].get_list()[<span class="dv">1</span>]</span>
 <span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>distance <span class="op">=</span> ca_3 <span class="op">-</span> ca_15 <span class="co"># distance between two atoms</span></span>
@@ -523,45 +522,53 @@ QECSLS</code></pre>
 <section id="binana" class="level2" data-number="4.5">
 <h2 data-number="4.5" class="anchored" data-anchor-id="binana"><span class="header-section-number">4.5</span> Binana</h2>
 <p>BINANA (BINding ANAlyzer) is a python library that can be used for protein-ligand binding analysis. The tool is of particular use when analyzing protein-ligand docking results. The source code is available for <a href="https://git.durrantlab.pitt.edu/jdurrant/binana">download</a>. After download the file, unzip the archive and add the path of the location where binana is there to <code>sys.path</code> as shown below. You should now be able to import binana.</p>
-<div class="cell" data-execution_count="60">
+<div class="cell" data-scrolled="true" data-execution_count="21">
 <div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> sys</span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>sys.path.append(<span class="st">"&lt;fullpath&gt;/binana-2.1/python/"</span>)</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>sys.path.append(<span class="st">"C:/Users/bioinfo guru/Downloads/binana-2.1/python"</span>)</span>
 <span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> binana</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The first thing that we need to do is to load the receptor and the ligand files. Once we have the these two files as binana objects we can proceed with interaction analysis. The interactions class has a set of functions for retriving different types of inter-molecular interactions. E.g., getting a list of hydrogen bonds between the receptor and the ligand using <code>get_hydrogen_bonds()</code>. This function returns a dictionary having information about each hydrogen bond between the receptor and the ligand. Similarly, we can get information about all types of intermolecular interactions (including hydrogen bonding) using <code>get_all_interactions</code> function.</p>
-<div class="cell" data-execution_count="62">
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>ligand, receptor <span class="op">=</span> binana.load_ligand_receptor.from_files(<span class="st">"&lt;fullpath&gt;/binana-2.1/python/example/ligand.pdbqt"</span>, <span class="op">\</span></span>
-<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>                                                          <span class="st">"&lt;fullpath&gt;/binana-2.1/python/example/receptor.pdbqt"</span>)</span>
+<div class="cell" data-execution_count="22">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>ligand, receptor <span class="op">=</span> binana.load_ligand_receptor.from_files(<span class="st">"C:/Users/bioinfo guru/Downloads/binana-2.1/python/example/ligand.pdbqt"</span>, <span class="op">\</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>                                                          <span class="st">"C:/Users/bioinfo guru/Downloads/binana-2.1/python/example/receptor.pdbqt"</span>)</span>
 <span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>hbond_inf <span class="op">=</span> binana.interactions.get_hydrogen_bonds(ligand, receptor)</span>
 <span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> hbond_label <span class="kw">in</span> hbond_inf[<span class="st">"labels"</span>]:</span>
 <span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(hbond_label)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell" data-execution_count="64">
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>('A:CHT(1):N1(14)', 'A:CHT(1):H1(16)', 'A:ASP(157):OD2(285)', 'LIGAND', {'distance': 2.6500811308335455, 'angle': 16.087842801376098})
 ('A:CHT(1):O6(22)', 'A:ASN(156):2HD2(276)', 'A:ASN(156):ND2(274)', 'RECEPTOR', {'distance': 2.9006795755477723, 'angle': 35.51562311681741})</code></pre>
 </div>
 </div>
-<div class="cell" data-execution_count="68">
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>all_inf <span class="op">=</span> binana.interactions.get_all_interactions(ligand, receptor) </span>
-<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>all_inf.keys()</span>
-<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>all_inf[<span class="st">"hydrogen_bonds"</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell" data-execution_count="66">
-<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co">#delete</span></span>
-<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>all_inf.keys()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="66">
+<div class="cell" data-execution_count="24">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>all_inf <span class="op">=</span> binana.interactions.get_all_interactions(ligand, receptor) </span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(all_inf.keys())</span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>all_inf[<span class="st">"hydrogen_bonds"</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
 <pre><code>dict_keys(['closest', 'close', 'electrostatic_energies', 'active_site_flexibility', 'hydrophobics', 'hydrogen_bonds', 'halogen_bonds', 'ligand_atom_types', 'pi_pi', 'cat_pi', 'salt_bridges', 'metal_coordinations', 'ligand_rotatable_bonds'])</code></pre>
 </div>
+<div class="cell-output cell-output-display" data-execution_count="24">
+<pre><code>{'counts': {'HDONOR_LIGAND_SIDECHAIN_OTHER': 1,
+  'HDONOR_RECEPTOR_SIDECHAIN_OTHER': 1},
+ 'mol': &lt;binana._structure.mol.Mol at 0x1c1af8dc460&gt;,
+ 'labels': [('A:CHT(1):N1(14)',
+   'A:CHT(1):H1(16)',
+   'A:ASP(157):OD2(285)',
+   'LIGAND',
+   {'distance': 2.6500811308335455, 'angle': 16.087842801376098}),
+  ('A:CHT(1):O6(22)',
+   'A:ASN(156):2HD2(276)',
+   'A:ASN(156):ND2(274)',
+   'RECEPTOR',
+   {'distance': 2.9006795755477723, 'angle': 35.51562311681741})]}</code></pre>
 </div>
-<div class="cell" data-execution_count="69">
-<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>all_data <span class="op">=</span> binana.output.dictionary.collect_all(all_inf)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-execution_count="73">
-<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">len</span>(all_data[<span class="st">"hydrogenBonds"</span>]))</span>
-<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> x <span class="kw">in</span> all_data[<span class="st">"hydrogenBonds"</span>]:</span>
-<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-execution_count="25">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>all_data <span class="op">=</span> binana.output.dictionary.collect_all(all_inf)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="26">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">len</span>(all_data[<span class="st">"hydrogenBonds"</span>]))</span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> x <span class="kw">in</span> all_data[<span class="st">"hydrogenBonds"</span>]:</span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>2
 {'ligandAtoms': [{'chain': 'A', 'resID': 1, 'resName': 'CHT', 'atomName': 'N1', 'atomIndex': 14}, {'chain': 'A', 'resID': 1, 'resName': 'CHT', 'atomName': 'H1', 'atomIndex': 16}], 'receptorAtoms': [{'chain': 'A', 'resID': 157, 'resName': 'ASP', 'atomName': 'OD2', 'atomIndex': 285}], 'metrics': {'distance': 2.6500811308335455, 'angle': 16.087842801376098}}
