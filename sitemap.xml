@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://biopython.bioinfo.guru/index.html</loc>
+    <lastmod>2022-09-07T05:05:25.000Z</lastmod>
+  </url>
+  <url>
     <loc>https://biopython.bioinfo.guru/BioPython_Intro.html</loc>
-    <lastmod>2024-06-12T07:21:44.137Z</lastmod>
+    <lastmod>2025-05-11T09:48:17.546Z</lastmod>
   </url>
   <url>
     <loc>https://biopython.bioinfo.guru/Motif_analysis.html</loc>
-    <lastmod>2024-06-12T07:18:29.254Z</lastmod>
+    <lastmod>2024-06-12T07:18:29.000Z</lastmod>
   </url>
   <url>
     <loc>https://biopython.bioinfo.guru/Phylo.html</loc>
-    <lastmod>2024-06-12T07:18:16.204Z</lastmod>
+    <lastmod>2024-06-12T07:18:16.000Z</lastmod>
   </url>
   <url>
     <loc>https://biopython.bioinfo.guru/BIO_PDB.html</loc>
-    <lastmod>2024-04-12T09:53:20.296Z</lastmod>
-  </url>
-  <url>
-    <loc>https://biopython.bioinfo.guru/index.html</loc>
-    <lastmod>2022-09-07T05:05:25.180Z</lastmod>
+    <lastmod>2024-06-14T02:55:48.000Z</lastmod>
   </url>
 </urlset>

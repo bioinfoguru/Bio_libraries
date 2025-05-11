@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.5.25">
+<meta name="generator" content="quarto-1.7.30">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Bio Libraries – 1&nbsp; Introduction to BioPython</title>
+<title>1&nbsp; Introduction to BioPython – Bio Libraries</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -21,8 +21,9 @@ ul.task-list li input[type="checkbox"] {
   vertical-align: middle;
 }
 /* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -57,22 +58,25 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script><script src="site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="site_libs/quarto-nav/headroom.min.js"></script>
 <link href="./Motif_analysis.html" rel="next">
 <link href="./index.html" rel="prev">
 <script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-b194c1a1b3b5fe72c175427f7f6a988c.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-ec2e7bac608ed61d1180efb60042dfb4.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-b194c1a1b3b5fe72c175427f7f6a988c.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="site_libs/bootstrap/bootstrap-db5a06d822cc38b49178833586c4970b.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark-80479c5937f5fe26fd70b0b3d5cb28c7.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="site_libs/bootstrap/bootstrap-db5a06d822cc38b49178833586c4970b.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "language": {
     "search-no-results-text": "No results",
@@ -88,6 +92,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-label": "Search"
   }
 }</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
 
   <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
@@ -122,17 +129,179 @@ window.Quarto = {
 <link rel="stylesheet" href="custom_css.css">
 </head>
 
-<body class="nav-sidebar floating">
+<body class="nav-sidebar floating quarto-light"><script id="quarto-html-before-body" type="application/javascript">
+    const toggleBodyColorMode = (bsSheetEl) => {
+      const mode = bsSheetEl.getAttribute("data-mode");
+      const bodyEl = window.document.querySelector("body");
+      if (mode === "dark") {
+        bodyEl.classList.add("quarto-dark");
+        bodyEl.classList.remove("quarto-light");
+      } else {
+        bodyEl.classList.add("quarto-light");
+        bodyEl.classList.remove("quarto-dark");
+      }
+    }
+    const toggleBodyColorPrimary = () => {
+      const bsSheetEl = window.document.querySelector("link#quarto-bootstrap:not([rel=disabled-stylesheet])");
+      if (bsSheetEl) {
+        toggleBodyColorMode(bsSheetEl);
+      }
+    }
+    const setColorSchemeToggle = (alternate) => {
+      const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+      for (let i=0; i < toggles.length; i++) {
+        const toggle = toggles[i];
+        if (toggle) {
+          if (alternate) {
+            toggle.classList.add("alternate");
+          } else {
+            toggle.classList.remove("alternate");
+          }
+        }
+      }
+    };
+    const toggleColorMode = (alternate) => {
+      // Switch the stylesheets
+      const primaryStylesheets = window.document.querySelectorAll('link.quarto-color-scheme:not(.quarto-color-alternate)');
+      const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+      manageTransitions('#quarto-margin-sidebar .nav-link', false);
+      if (alternate) {
+        // note: dark is layered on light, we don't disable primary!
+        enableStylesheet(alternateStylesheets);
+        for (const sheetNode of alternateStylesheets) {
+          if (sheetNode.id === "quarto-bootstrap") {
+            toggleBodyColorMode(sheetNode);
+          }
+        }
+      } else {
+        disableStylesheet(alternateStylesheets);
+        enableStylesheet(primaryStylesheets)
+        toggleBodyColorPrimary();
+      }
+      manageTransitions('#quarto-margin-sidebar .nav-link', true);
+      // Switch the toggles
+      setColorSchemeToggle(alternate)
+      // Hack to workaround the fact that safari doesn't
+      // properly recolor the scrollbar when toggling (#1455)
+      if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+        manageTransitions("body", false);
+        window.scrollTo(0, 1);
+        setTimeout(() => {
+          window.scrollTo(0, 0);
+          manageTransitions("body", true);
+        }, 40);
+      }
+    }
+    const disableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        stylesheet.rel = 'disabled-stylesheet';
+      }
+    }
+    const enableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        if(stylesheet.rel !== 'stylesheet') { // for Chrome, which will still FOUC without this check
+          stylesheet.rel = 'stylesheet';
+        }
+      }
+    }
+    const manageTransitions = (selector, allowTransitions) => {
+      const els = window.document.querySelectorAll(selector);
+      for (let i=0; i < els.length; i++) {
+        const el = els[i];
+        if (allowTransitions) {
+          el.classList.remove('notransition');
+        } else {
+          el.classList.add('notransition');
+        }
+      }
+    }
+    const isFileUrl = () => {
+      return window.location.protocol === 'file:';
+    }
+    const hasAlternateSentinel = () => {
+      let styleSentinel = getColorSchemeSentinel();
+      if (styleSentinel !== null) {
+        return styleSentinel === "alternate";
+      } else {
+        return false;
+      }
+    }
+    const setStyleSentinel = (alternate) => {
+      const value = alternate ? "alternate" : "default";
+      if (!isFileUrl()) {
+        window.localStorage.setItem("quarto-color-scheme", value);
+      } else {
+        localAlternateSentinel = value;
+      }
+    }
+    const getColorSchemeSentinel = () => {
+      if (!isFileUrl()) {
+        const storageValue = window.localStorage.getItem("quarto-color-scheme");
+        return storageValue != null ? storageValue : localAlternateSentinel;
+      } else {
+        return localAlternateSentinel;
+      }
+    }
+    const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+      const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+      const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+      let newTheme = '';
+      if(authorPrefersDark) {
+        newTheme = isAlternate ? baseTheme : alternateTheme;
+      } else {
+        newTheme = isAlternate ? alternateTheme : baseTheme;
+      }
+      const changeGiscusTheme = () => {
+        // From: https://github.com/giscus/giscus/issues/336
+        const sendMessage = (message) => {
+          const iframe = document.querySelector('iframe.giscus-frame');
+          if (!iframe) return;
+          iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+        }
+        sendMessage({
+          setConfig: {
+            theme: newTheme
+          }
+        });
+      }
+      const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+      if (isGiscussLoaded) {
+        changeGiscusTheme();
+      }
+    };
+    const authorPrefersDark = false;
+    const darkModeDefault = authorPrefersDark;
+      document.querySelector('link#quarto-text-highlighting-styles.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+      document.querySelector('link#quarto-bootstrap.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+    let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+    // Dark / light mode switch
+    window.quartoToggleColorScheme = () => {
+      // Read the current dark / light value
+      let toAlternate = !hasAlternateSentinel();
+      toggleColorMode(toAlternate);
+      setStyleSentinel(toAlternate);
+      toggleGiscusIfUsed(toAlternate, darkModeDefault);
+      window.dispatchEvent(new Event('resize'));
+    };
+    // Switch to dark mode if need be
+    if (hasAlternateSentinel()) {
+      toggleColorMode(true);
+    } else {
+      toggleColorMode(false);
+    }
+  </script>
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav">
     <div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
         <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./BioPython_Intro.html"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction to BioPython</span></a></li></ol></nav>
-        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
   </nav>
@@ -206,13 +375,18 @@ window.Quarto = {
   <li><a href="#writing-sequences" id="toc-writing-sequences" class="nav-link" data-scroll-target="#writing-sequences"><span class="header-section-number">1.3.1</span> Writing sequences</a></li>
   </ul></li>
   <li><a href="#multiple-sequence-alignment" id="toc-multiple-sequence-alignment" class="nav-link" data-scroll-target="#multiple-sequence-alignment"><span class="header-section-number">1.4</span> Multiple Sequence Alignment</a></li>
-  <li><a href="#running-blast-over-the-internet" id="toc-running-blast-over-the-internet" class="nav-link" data-scroll-target="#running-blast-over-the-internet"><span class="header-section-number">1.5</span> Running BLAST over the internet</a></li>
-  <li><a href="#blast-search-using-sequence-file" id="toc-blast-search-using-sequence-file" class="nav-link" data-scroll-target="#blast-search-using-sequence-file"><span class="header-section-number">1.6</span> BLAST search using sequence file</a></li>
+  <li><a href="#accessing-databases-using-api" id="toc-accessing-databases-using-api" class="nav-link" data-scroll-target="#accessing-databases-using-api"><span class="header-section-number">1.5</span> Accessing databases using API</a></li>
+  <li><a href="#accessing-databases-without-api" id="toc-accessing-databases-without-api" class="nav-link" data-scroll-target="#accessing-databases-without-api"><span class="header-section-number">1.6</span> Accessing databases without API</a></li>
+  <li><a href="#running-blast-over-the-internet" id="toc-running-blast-over-the-internet" class="nav-link" data-scroll-target="#running-blast-over-the-internet"><span class="header-section-number">1.7</span> Running BLAST over the internet</a></li>
+  <li><a href="#creating-a-dataframe-of-blast-results" id="toc-creating-a-dataframe-of-blast-results" class="nav-link" data-scroll-target="#creating-a-dataframe-of-blast-results"><span class="header-section-number">1.8</span> Creating a dataframe of BLAST results</a></li>
+  <li><a href="#plotting-blast-result" id="toc-plotting-blast-result" class="nav-link" data-scroll-target="#plotting-blast-result"><span class="header-section-number">1.9</span> Plotting BLAST result</a></li>
+  <li><a href="#blast-search-using-sequence-file" id="toc-blast-search-using-sequence-file" class="nav-link" data-scroll-target="#blast-search-using-sequence-file"><span class="header-section-number">1.10</span> BLAST search using sequence file</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
+
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
@@ -240,7 +414,7 @@ window.Quarto = {
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> Bio </span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(Bio.__version__)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>1.83</code></pre>
+<pre><code>1.84</code></pre>
 </div>
 </div>
 <section id="sequence-object" class="level2" data-number="1.1">
@@ -373,38 +547,128 @@ IRVL-GKGC sp|A8N3F0||agc:agc-unique|Coprinopsis</code></pre>
 <span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="running-blast-over-the-internet" class="level2" data-number="1.5">
-<h2 data-number="1.5" class="anchored" data-anchor-id="running-blast-over-the-internet"><span class="header-section-number">1.5</span> Running BLAST over the internet</h2>
-<p>Biopython offers a functionality to programmatically run BLAST on the NCBI servers using the <code>Bio.Blast</code> class. To run blast online at NCBI servers, <code>Bio.Blast</code> can be used which has different function to run Blast and also to parse the output. The <code>NCBIWWW</code> library has <code>qblast</code> function that takes three arguments &amp;emdash; 1) blast program (blastp, blastn, etc.), 2) database (any of the databases available at NCBI, and 3) sequence. Once the blast serach is over the output can be saved in a file. This output would be in XML format. We can use the <code>read</code> function within the NCBIXML class to parse this output. The code below shows running a blast search using <code>qblast</code> against the non-redundant database available at in NCBI. The output file saved in the previous step has all the hits identified in the Blast search. These hits follow a hierarchical manner such that each result would have multiple alignments and within each alignment would be multiple high scoring pairs (hsps) i.e.&nbsp;Blast object <span class="math inline">\(\longrightarrow\)</span> Alignment <span class="math inline">\(\longrightarrow\)</span> hsps. For more details on this you may refer to the Blast documentation available at NCBI.</p>
-<div id="cell-20" class="cell" data-execution_count="7">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> Bio.Blast <span class="im">import</span> NCBIWWW</span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> Bio.Blast <span class="im">import</span> NCBIXML</span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>result_ncbi <span class="op">=</span> NCBIWWW.qblast(<span class="st">"blastn"</span>, <span class="st">"nt"</span>, <span class="st">"8332116"</span>)</span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">"my_blast.xml"</span>, <span class="st">"w"</span>) <span class="im">as</span> file_handle:</span>
-<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>    file_handle.write(result_ncbi.read())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<section id="accessing-databases-using-api" class="level2" data-number="1.5">
+<h2 data-number="1.5" class="anchored" data-anchor-id="accessing-databases-using-api"><span class="header-section-number">1.5</span> Accessing databases using API</h2>
+<div id="cell-20" class="cell" data-execution_count="66">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> Bio <span class="im">import</span> Entrez, SeqIO</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>Entrez.email <span class="op">=</span> <span class="st">"you@example.com"</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>handle1 <span class="op">=</span> Entrez.efetch(db<span class="op">=</span><span class="st">"nucleotide"</span>, <span class="bu">id</span><span class="op">=</span><span class="st">"NM_001301717"</span>, rettype<span class="op">=</span><span class="st">"gb"</span>, retmode<span class="op">=</span><span class="st">"text"</span>)</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>record1 <span class="op">=</span> SeqIO.read(handle1, <span class="st">"genbank"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-21" class="cell" data-execution_count="8">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>result_handle <span class="op">=</span> <span class="bu">open</span>(<span class="st">"my_blast.xml"</span>)</span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>blast_record <span class="op">=</span> NCBIXML.read(result_handle)</span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>count <span class="op">=</span> <span class="dv">0</span></span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> alignment <span class="kw">in</span> blast_record.alignments:</span>
-<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> hsp <span class="kw">in</span> alignment.hsps:</span>
-<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(hsp)</span>
-<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>    count <span class="op">+=</span> <span class="dv">1</span></span>
-<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span>(count<span class="op">==</span><span class="dv">5</span>):</span>
-<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>        <span class="cf">break</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-21" class="cell" data-execution_count="67">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(record1.description)</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">len</span>(record1.seq))</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(record1.seq[:<span class="dv">50</span>]) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Score 482 (435 bits), expectation 5.5e-117, alignment length 624
+<pre><code>Homo sapiens C-C motif chemokine receptor 7 (CCR7), transcript variant 4, mRNA
+2191
+CTCTAGATGAGTCAGTGGAGGGCGGGTGGAGCGTTGAACCGTGAAGAGTG</code></pre>
+</div>
+</div>
+<p>To retrieve multiple sequence, pass a comma-separated ids to the <code>id</code> keyword parameter. This time we’ll need to use the <code>parse</code> function to get the sequences from the <code>efetch</code> output.</p>
+<div id="cell-23" class="cell" data-execution_count="70">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>all_ids <span class="op">=</span> [<span class="st">"NP_000240.1"</span>, <span class="st">"NP_000549.1"</span>, <span class="st">"NP_001289656.1"</span>]</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>handle2 <span class="op">=</span> Entrez.efetch(db<span class="op">=</span><span class="st">"protein"</span>, <span class="bu">id</span><span class="op">=</span><span class="st">","</span>.join(all_ids), rettype<span class="op">=</span><span class="st">"gb"</span>, retmode<span class="op">=</span><span class="st">"text"</span>)</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>record2 <span class="op">=</span> <span class="bu">list</span>(SeqIO.parse(handle2, <span class="st">"genbank"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="cell-24" class="cell" data-execution_count="74">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"There are </span><span class="sc">{</span><span class="bu">len</span>(record2)<span class="sc">}</span><span class="ss"> sequences"</span>)</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> record <span class="kw">in</span> record2:</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(record.description)</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="bu">len</span>(record.seq))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>There are 3 sequences
+DNA mismatch repair protein Mlh1 isoform 1 [Homo sapiens]
+756
+hemoglobin subunit alpha [Homo sapiens]
+142
+floral homeotic protein GLOBOSA-like [Eucalyptus grandis]
+208</code></pre>
+</div>
+</div>
+</section>
+<section id="accessing-databases-without-api" class="level2" data-number="1.6">
+<h2 data-number="1.6" class="anchored" data-anchor-id="accessing-databases-without-api"><span class="header-section-number">1.6</span> Accessing databases without API</h2>
+<div id="cell-26" class="cell" data-execution_count="93">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> requests</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>uniprot_id <span class="op">=</span> <span class="st">"P12345"</span>  <span class="co"># Replace with the protein UniProt ID</span></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>url <span class="op">=</span> <span class="ss">f"https://www.uniprot.org/uniprot/</span><span class="sc">{</span>uniprot_id<span class="sc">}</span><span class="ss">.fasta"</span></span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>response <span class="op">=</span> requests.get(url)</span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(response.text)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>&gt;sp|P12345|AATM_RABIT Aspartate aminotransferase, mitochondrial OS=Oryctolagus cuniculus OX=9986 GN=GOT2 PE=1 SV=2
+MALLHSARVLSGVASAFHPGLAAAASARASSWWAHVEMGPPDPILGVTEAYKRDTNSKKM
+NLGVGAYRDDNGKPYVLPSVRKAEAQIAAKGLDKEYLPIGGLAEFCRASAELALGENSEV
+VKSGRFVTVQTISGTGALRIGASFLQRFFKFSRDVFLPKPSWGNHTPIFRDAGMQLQSYR
+YYDPKTCGFDFTGALEDISKIPEQSVLLLHACAHNPTGVDPRPEQWKEIATVVKKRNLFA
+FFDMAYQGFASGDGDKDAWAVRHFIEQGINVCLCQSYAKNMGLYGERVGAFTVICKDADE
+AKRVESQLKILIRPMYSNPPIHGARIASTILTSPDLRKQWLQEVKGMADRIIGMRTQLVS
+NLKKEGSTHSWQHITDQIGMFCFTGLKPEQVERLTKEFSIYMTKDGRISVAGVTSGNVGY
+LAHAIHQVTK
+</code></pre>
+</div>
+</div>
+<p>To get multiple sequences from Uniprot use the bulk query format</p>
+<div id="cell-28" class="cell" data-execution_count="90">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>uniprot_ids <span class="op">=</span> [<span class="st">"P69905"</span>, <span class="st">"P68871"</span>] </span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>query <span class="op">=</span> <span class="st">" OR "</span>.join([<span class="ss">f"accession:</span><span class="sc">{</span>uid<span class="sc">}</span><span class="ss">"</span> <span class="cf">for</span> uid <span class="kw">in</span> uniprot_ids])</span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>url <span class="op">=</span> <span class="ss">f"https://rest.uniprot.org/uniprotkb/stream?format=fasta&amp;query=</span><span class="sc">{</span>query<span class="sc">}</span><span class="ss">"</span></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>response <span class="op">=</span> requests.get(url)</span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>response.raise_for_status()  <span class="co"># Raise an error for failed requests</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="cell-29" class="cell" data-execution_count="91">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> io <span class="im">import</span> StringIO</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>fasta_io <span class="op">=</span> StringIO(response.text)</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>records <span class="op">=</span> <span class="bu">list</span>(SeqIO.parse(fasta_io, <span class="st">"fasta"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="cell-30" class="cell" data-execution_count="92">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> record <span class="kw">in</span> records:</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(record.description)</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="bu">len</span>(record.seq))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>sp|P68871|HBB_HUMAN Hemoglobin subunit beta OS=Homo sapiens OX=9606 GN=HBB PE=1 SV=2
+147
+sp|P69905|HBA_HUMAN Hemoglobin subunit alpha OS=Homo sapiens OX=9606 GN=HBA1 PE=1 SV=2
+142</code></pre>
+</div>
+</div>
+</section>
+<section id="running-blast-over-the-internet" class="level2" data-number="1.7">
+<h2 data-number="1.7" class="anchored" data-anchor-id="running-blast-over-the-internet"><span class="header-section-number">1.7</span> Running BLAST over the internet</h2>
+<p>Biopython offers a functionality to programmatically run BLAST on the NCBI servers using the <code>Bio.Blast</code> class. To run blast online at NCBI servers, <code>Bio.Blast</code> can be used which has different function to run Blast and also to parse the output. The <code>NCBIWWW</code> library has <code>qblast</code> function that takes three arguments &amp;emdash; 1) blast program (blastp, blastn, etc.), 2) database (any of the databases available at NCBI, and 3) sequence. Once the blast serach is over the output can be saved in a file. This output would be in XML format. We can use the <code>read</code> function within the NCBIXML class to parse this output. The code below shows running a blast search using <code>qblast</code> against the non-redundant database available at in NCBI. The output file saved in the previous step has all the hits identified in the Blast search. These hits follow a hierarchical manner such that each result would have multiple alignments and within each alignment would be multiple high scoring pairs (hsps) i.e.&nbsp;Blast object <span class="math inline">\(\longrightarrow\)</span> Alignment <span class="math inline">\(\longrightarrow\)</span> hsps. For more details on this you may refer to the Blast documentation available at NCBI.</p>
+<div id="cell-32" class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> Bio.Blast <span class="im">import</span> NCBIWWW</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> Bio.Blast <span class="im">import</span> NCBIXML</span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>result_ncbi <span class="op">=</span> NCBIWWW.qblast(<span class="st">"blastn"</span>, <span class="st">"nt"</span>, <span class="st">"8332116"</span>)</span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">"my_blast.xml"</span>, <span class="st">"w"</span>) <span class="im">as</span> file_handle:</span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a>    file_handle.write(result_ncbi.read())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="cell-33" class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>result_handle <span class="op">=</span> <span class="bu">open</span>(<span class="st">"my_blast.xml"</span>)</span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>blast_record <span class="op">=</span> NCBIXML.read(result_handle)</span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>count <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> alignment <span class="kw">in</span> blast_record.alignments:</span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> hsp <span class="kw">in</span> alignment.hsps:</span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(hsp)</span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a>    count <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span>(count<span class="op">==</span><span class="dv">5</span>):</span>
+<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a>        <span class="cf">break</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Score 482 (435 bits), expectation 5.6e-117, alignment length 624
 Query:      59 ACAGAAAATGGGGAGAGAAATGAAGTACTTGGCCATGAAAACTGA...GTA 678
                || ||||||||| |||| | |||| ||  |||| |||| | ||||... ||
 Sbjct:     278 ACCGAAAATGGGCAGAGGAGTGAATTATATGGCAATGACACCTGA...TTA 901
-Score 468 (423 bits), expectation 3.4e-113, alignment length 590
+Score 463 (418 bits), expectation 1.5e-111, alignment length 590
 Query:      63 AAAATGGGGAGAGAAATGAAGTACTTGGCCATGAAAACTGATCAA...CCC 649
                |||||||| |||  |||| | || ||||| |||||||| || |||...|||
-Sbjct:      11 AAAATGGGTAGACGAATGGATTATTTGGCGATGAAAACCGAGCAA...CCC 600
-Score 443 (400 bits), expectation 3.9e-106, alignment length 597
+Sbjct:      42 AAAATGGGTAGACGAATGGATTATTTGGCGATGAAAACCGAGCAA...CCC 631
+Score 443 (400 bits), expectation 4.0e-106, alignment length 597
 Query:      87 TTGGCCATGAAAACTGATCAATTGGCCGTGGCTAATATGATCGAT...TAG 679
                ||||||||||||||||| ||| ||||  |||||||| |||| |||...|||
 Sbjct:      25 TTGGCCATGAAAACTGAGCAAATGGCGTTGGCTAATTTGATAGAT...TAG 621
@@ -412,32 +676,32 @@ Score 441 (398 bits), expectation 1.4e-105, alignment length 593
 Query:      65 AATGGGGAGAGAAATGAAGTACTTGGCCATGAAAACTGATCAATT...CTG 655
                ||||||||| |||  | |  | |||||||||||||||||||    ... ||
 Sbjct:     254 AATGGGGAG-GAA--GGATAATTTGGCCATGAAAACTGATCC---...ATG 838
-Score 439 (397 bits), expectation 4.8e-105, alignment length 596
+Score 439 (397 bits), expectation 4.9e-105, alignment length 596
 Query:      63 AAAATGGGGAGAGAAATGAAGTACTTGGCCATGAAAACTGATCAA...CTG 655
                |||||||||||    ||| |||  ||||| |||| |||||||| |...|||
-Sbjct:     171 AAAATGGGGAGG---ATGGAGTTTTTGGCTATGAGAACTGATCCA...CTG 757</code></pre>
+Sbjct:     169 AAAATGGGGAGG---ATGGAGTTTTTGGCTATGAGAACTGATCCA...CTG 755</code></pre>
 </div>
 </div>
-<p>The <code>hsps</code> object has several attributes including the BLAST statistics such as evalue, score, positives, etc. These can be used to extract hits based on certain conditions. E.g., the code below shows saving hits from the previous Blast search with evalue greater than 1e-105 to a new file.</p>
-<div id="cell-23" class="cell" data-scrolled="true" data-execution_count="38">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">"new_file.txt"</span>, <span class="st">"w"</span>) <span class="im">as</span> file_handle:</span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> alignment <span class="kw">in</span> blast_record.alignments:</span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> hsp <span class="kw">in</span> alignment.hsps:</span>
-<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> (hsp.expect <span class="op">&lt;</span> <span class="fl">1e-105</span>):</span>
-<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>                <span class="bu">print</span>(hsp)</span>
-<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>                file_handle.write(<span class="bu">str</span>(hsp)<span class="op">+</span><span class="st">"</span><span class="ch">\n</span><span class="st">"</span>)</span>
-<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>                file_handle.write(<span class="st">"</span><span class="ch">\n</span><span class="st">"</span>)</span>
-<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"DONE"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>The hsps object has several attributes including the BLAST statistics such as evalue, score, positives, etc. These can be used to extract hits based on certain conditions. E.g., the code below shows saving hits from the previous Blast search with evalue greater than 1e-105 to a new file.</p>
+<div id="cell-35" class="cell" data-execution_count="21">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">"new_file.txt"</span>, <span class="st">"w"</span>) <span class="im">as</span> file_handle:</span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> alignment <span class="kw">in</span> blast_record.alignments:</span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> hsp <span class="kw">in</span> alignment.hsps:</span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> (hsp.expect <span class="op">&lt;</span> <span class="fl">1e-105</span>):</span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>                <span class="bu">print</span>(hsp)</span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a>                file_handle.write(<span class="bu">str</span>(hsp)<span class="op">+</span><span class="st">"</span><span class="ch">\n</span><span class="st">"</span>)</span>
+<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a>                file_handle.write(<span class="st">"</span><span class="ch">\n</span><span class="st">"</span>)</span>
+<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"DONE"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Score 482 (435 bits), expectation 5.5e-117, alignment length 624
+<pre><code>Score 482 (435 bits), expectation 5.6e-117, alignment length 624
 Query:      59 ACAGAAAATGGGGAGAGAAATGAAGTACTTGGCCATGAAAACTGA...GTA 678
                || ||||||||| |||| | |||| ||  |||| |||| | ||||... ||
 Sbjct:     278 ACCGAAAATGGGCAGAGGAGTGAATTATATGGCAATGACACCTGA...TTA 901
-Score 468 (423 bits), expectation 3.4e-113, alignment length 590
+Score 463 (418 bits), expectation 1.5e-111, alignment length 590
 Query:      63 AAAATGGGGAGAGAAATGAAGTACTTGGCCATGAAAACTGATCAA...CCC 649
                |||||||| |||  |||| | || ||||| |||||||| || |||...|||
-Sbjct:      11 AAAATGGGTAGACGAATGGATTATTTGGCGATGAAAACCGAGCAA...CCC 600
-Score 443 (400 bits), expectation 3.9e-106, alignment length 597
+Sbjct:      42 AAAATGGGTAGACGAATGGATTATTTGGCGATGAAAACCGAGCAA...CCC 631
+Score 443 (400 bits), expectation 4.0e-106, alignment length 597
 Query:      87 TTGGCCATGAAAACTGATCAATTGGCCGTGGCTAATATGATCGAT...TAG 679
                ||||||||||||||||| ||| ||||  |||||||| |||| |||...|||
 Sbjct:      25 TTGGCCATGAAAACTGAGCAAATGGCGTTGGCTAATTTGATAGAT...TAG 621
@@ -445,21 +709,385 @@ DONE</code></pre>
 </div>
 </div>
 </section>
-<section id="blast-search-using-sequence-file" class="level2" data-number="1.6">
-<h2 data-number="1.6" class="anchored" data-anchor-id="blast-search-using-sequence-file"><span class="header-section-number">1.6</span> BLAST search using sequence file</h2>
+<section id="creating-a-dataframe-of-blast-results" class="level2" data-number="1.8">
+<h2 data-number="1.8" class="anchored" data-anchor-id="creating-a-dataframe-of-blast-results"><span class="header-section-number">1.8</span> Creating a dataframe of BLAST results</h2>
+<p>The better approach to work with BLAST results is to create a dataframe having all the attributes for all the hits. The following code iterates through the BLAST output and creates a <code>pandas</code> dataframe having all the results.</p>
+<div id="cell-37" class="cell" data-execution_count="12">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>result_handle <span class="op">=</span> <span class="bu">open</span>(<span class="st">"my_blast.xml"</span>)</span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>blast_record <span class="op">=</span> NCBIXML.read(result_handle)</span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>blast_data <span class="op">=</span> []</span>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> alignment <span class="kw">in</span> blast_record.alignments:</span>
+<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> hsp <span class="kw">in</span> alignment.hsps:</span>
+<span id="cb35-9"><a href="#cb35-9" aria-hidden="true" tabindex="-1"></a>        <span class="co"># append a dictionary of attributes for each hit</span></span>
+<span id="cb35-10"><a href="#cb35-10" aria-hidden="true" tabindex="-1"></a>        blast_data.append({</span>
+<span id="cb35-11"><a href="#cb35-11" aria-hidden="true" tabindex="-1"></a>        <span class="st">"query_id"</span>: blast_record.query_id,</span>
+<span id="cb35-12"><a href="#cb35-12" aria-hidden="true" tabindex="-1"></a>            <span class="st">"hit_id"</span>: alignment.hit_id,</span>
+<span id="cb35-13"><a href="#cb35-13" aria-hidden="true" tabindex="-1"></a>            <span class="st">"hit_def"</span>: alignment.hit_def,</span>
+<span id="cb35-14"><a href="#cb35-14" aria-hidden="true" tabindex="-1"></a>            <span class="st">"accession"</span>: alignment.accession,</span>
+<span id="cb35-15"><a href="#cb35-15" aria-hidden="true" tabindex="-1"></a>            <span class="st">"hit_length"</span>: alignment.length,</span>
+<span id="cb35-16"><a href="#cb35-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-17"><a href="#cb35-17" aria-hidden="true" tabindex="-1"></a>            <span class="st">"e_value"</span>: hsp.expect,</span>
+<span id="cb35-18"><a href="#cb35-18" aria-hidden="true" tabindex="-1"></a>            <span class="st">"bit_score"</span>: hsp.bits,</span>
+<span id="cb35-19"><a href="#cb35-19" aria-hidden="true" tabindex="-1"></a>            <span class="st">"score"</span>: hsp.score,</span>
+<span id="cb35-20"><a href="#cb35-20" aria-hidden="true" tabindex="-1"></a>            <span class="st">"alignment_length"</span>: hsp.align_length,</span>
+<span id="cb35-21"><a href="#cb35-21" aria-hidden="true" tabindex="-1"></a>            <span class="st">"identity"</span>: hsp.identities,</span>
+<span id="cb35-22"><a href="#cb35-22" aria-hidden="true" tabindex="-1"></a>            <span class="st">"positives"</span>: hsp.positives,</span>
+<span id="cb35-23"><a href="#cb35-23" aria-hidden="true" tabindex="-1"></a>            <span class="st">"gaps"</span>: hsp.gaps,</span>
+<span id="cb35-24"><a href="#cb35-24" aria-hidden="true" tabindex="-1"></a>            <span class="st">"percent_identity"</span>: <span class="dv">100</span> <span class="op">*</span> hsp.identities <span class="op">/</span> hsp.align_length,</span>
+<span id="cb35-25"><a href="#cb35-25" aria-hidden="true" tabindex="-1"></a>            <span class="st">"percent_positives"</span>: <span class="dv">100</span> <span class="op">*</span> hsp.positives <span class="op">/</span> hsp.align_length,</span>
+<span id="cb35-26"><a href="#cb35-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-27"><a href="#cb35-27" aria-hidden="true" tabindex="-1"></a>            <span class="st">"query_start"</span>: hsp.query_start,</span>
+<span id="cb35-28"><a href="#cb35-28" aria-hidden="true" tabindex="-1"></a>            <span class="st">"query_end"</span>: hsp.query_end,</span>
+<span id="cb35-29"><a href="#cb35-29" aria-hidden="true" tabindex="-1"></a>            <span class="st">"subject_start"</span>: hsp.sbjct_start,</span>
+<span id="cb35-30"><a href="#cb35-30" aria-hidden="true" tabindex="-1"></a>            <span class="st">"subject_end"</span>: hsp.sbjct_end,</span>
+<span id="cb35-31"><a href="#cb35-31" aria-hidden="true" tabindex="-1"></a>            </span>
+<span id="cb35-32"><a href="#cb35-32" aria-hidden="true" tabindex="-1"></a>            <span class="st">"query_sequence"</span>: hsp.query,</span>
+<span id="cb35-33"><a href="#cb35-33" aria-hidden="true" tabindex="-1"></a>            <span class="st">"match_sequence"</span>: hsp.match,</span>
+<span id="cb35-34"><a href="#cb35-34" aria-hidden="true" tabindex="-1"></a>            <span class="st">"subject_sequence"</span>: hsp.sbjct,</span>
+<span id="cb35-35"><a href="#cb35-35" aria-hidden="true" tabindex="-1"></a>        })</span>
+<span id="cb35-36"><a href="#cb35-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-37"><a href="#cb35-37" aria-hidden="true" tabindex="-1"></a><span class="co"># Create DataFrame</span></span>
+<span id="cb35-38"><a href="#cb35-38" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.DataFrame(blast_data)</span>
+<span id="cb35-39"><a href="#cb35-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-40"><a href="#cb35-40" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(df.shape)</span>
+<span id="cb35-41"><a href="#cb35-41" aria-hidden="true" tabindex="-1"></a>df.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>(50, 23)</code></pre>
+</div>
+<div class="cell-output cell-output-display" data-execution_count="12">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">query_id</th>
+<th data-quarto-table-cell-role="th">hit_id</th>
+<th data-quarto-table-cell-role="th">hit_def</th>
+<th data-quarto-table-cell-role="th">accession</th>
+<th data-quarto-table-cell-role="th">hit_length</th>
+<th data-quarto-table-cell-role="th">e_value</th>
+<th data-quarto-table-cell-role="th">bit_score</th>
+<th data-quarto-table-cell-role="th">score</th>
+<th data-quarto-table-cell-role="th">alignment_length</th>
+<th data-quarto-table-cell-role="th">identity</th>
+<th data-quarto-table-cell-role="th">...</th>
+<th data-quarto-table-cell-role="th">percent_positives</th>
+<th data-quarto-table-cell-role="th">query_start</th>
+<th data-quarto-table-cell-role="th">query_end</th>
+<th data-quarto-table-cell-role="th">subject_start</th>
+<th data-quarto-table-cell-role="th">subject_end</th>
+<th data-quarto-table-cell-role="th">query_frame</th>
+<th data-quarto-table-cell-role="th">strand</th>
+<th data-quarto-table-cell-role="th">query_sequence</th>
+<th data-quarto-table-cell-role="th">match_sequence</th>
+<th data-quarto-table-cell-role="th">subject_sequence</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>BE037100.1</td>
+<td>gi|1219041180|ref|XM_021875076.1|</td>
+<td>PREDICTED: Chenopodium quinoa cold-regulated 4...</td>
+<td>XM_021875076</td>
+<td>1173</td>
+<td>5.569490e-117</td>
+<td>435.898</td>
+<td>482.0</td>
+<td>624</td>
+<td>473</td>
+<td>...</td>
+<td>75.801282</td>
+<td>59</td>
+<td>678</td>
+<td>278</td>
+<td>901</td>
+<td>None</td>
+<td>(Plus, Plus)</td>
+<td>ACAGAAAATGGGGAGAGAAATGAAGTACTTGGCCATGAAAACTGAT...</td>
+<td>|| ||||||||| |||| | |||| || |||| |||| | |||| ...</td>
+<td>ACCGAAAATGGGCAGAGGAGTGAATTATATGGCAATGACACCTGAG...</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>BE037100.1</td>
+<td>gi|2514617377|ref|XM_021992092.2|</td>
+<td>PREDICTED: Spinacia oleracea cold-regulated 41...</td>
+<td>XM_021992092</td>
+<td>752</td>
+<td>1.494500e-111</td>
+<td>418.766</td>
+<td>463.0</td>
+<td>590</td>
+<td>447</td>
+<td>...</td>
+<td>75.762712</td>
+<td>63</td>
+<td>649</td>
+<td>42</td>
+<td>631</td>
+<td>None</td>
+<td>(Plus, Plus)</td>
+<td>AAAATGGGGAGAGAAATGAAGTACTTGGCCATGAAAACTGATCAAT...</td>
+<td>|||||||| ||| |||| | || ||||| |||||||| || ||||...</td>
+<td>AAAATGGGTAGACGAATGGATTATTTGGCGATGAAAACCGAGCAAT...</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>BE037100.1</td>
+<td>gi|2518612504|ref|XM_010682658.3|</td>
+<td>PREDICTED: Beta vulgaris subsp. vulgaris cold-...</td>
+<td>XM_010682658</td>
+<td>621</td>
+<td>4.010310e-106</td>
+<td>400.732</td>
+<td>443.0</td>
+<td>597</td>
+<td>448</td>
+<td>...</td>
+<td>75.041876</td>
+<td>87</td>
+<td>679</td>
+<td>25</td>
+<td>621</td>
+<td>None</td>
+<td>(Plus, Plus)</td>
+<td>TTGGCCATGAAAACTGATCAATTGGCCGTGGCTAATATGATCGATT...</td>
+<td>||||||||||||||||| ||| |||| |||||||| |||| ||||...</td>
+<td>TTGGCCATGAAAACTGAGCAAATGGCGTTGGCTAATTTGATAGATT...</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>BE037100.1</td>
+<td>gi|2031543140|ref|XM_041168865.1|</td>
+<td>PREDICTED: Juglans microcarpa x Juglans regia ...</td>
+<td>XM_041168865</td>
+<td>1020</td>
+<td>1.399730e-105</td>
+<td>398.929</td>
+<td>441.0</td>
+<td>593</td>
+<td>448</td>
+<td>...</td>
+<td>75.548061</td>
+<td>65</td>
+<td>655</td>
+<td>254</td>
+<td>838</td>
+<td>None</td>
+<td>(Plus, Plus)</td>
+<td>AATGGGGAGAGAAATGAAGTACTTGGCCATGAAAACTGATCAATTG...</td>
+<td>||||||||| ||| | | | ||||||||||||||||||| |...</td>
+<td>AATGGGGAG-GAA--GGATAATTTGGCCATGAAAACTGATCC---G...</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>BE037100.1</td>
+<td>gi|2618480339|ref|XM_048479995.2|</td>
+<td>PREDICTED: Ziziphus jujuba cold-regulated 413 ...</td>
+<td>XM_048479995</td>
+<td>1028</td>
+<td>4.885550e-105</td>
+<td>397.126</td>
+<td>439.0</td>
+<td>596</td>
+<td>448</td>
+<td>...</td>
+<td>75.167785</td>
+<td>63</td>
+<td>655</td>
+<td>169</td>
+<td>755</td>
+<td>None</td>
+<td>(Plus, Plus)</td>
+<td>AAAATGGGGAGAGAAATGAAGTACTTGGCCATGAAAACTGATCAAT...</td>
+<td>||||||||||| ||| ||| ||||| |||| |||||||| | ...</td>
+<td>AAAATGGGGAGG---ATGGAGTTTTTGGCTATGAGAACTGATCCA-...</td>
+</tr>
+</tbody>
+</table>
+
+<p>5 rows × 23 columns</p>
+</div>
+</div>
+</div>
+<div id="cell-38" class="cell" data-execution_count="13">
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>df.columns</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="13">
+<pre><code>Index(['query_id', 'hit_id', 'hit_def', 'accession', 'hit_length', 'e_value',
+       'bit_score', 'score', 'alignment_length', 'identity', 'positives',
+       'gaps', 'percent_identity', 'percent_positives', 'query_start',
+       'query_end', 'subject_start', 'subject_end', 'query_frame', 'strand',
+       'query_sequence', 'match_sequence', 'subject_sequence'],
+      dtype='object')</code></pre>
+</div>
+</div>
+<p>Now that we have a dataframe, we can easily select hits based on desired thresholds. For instance, the code below selects all the hits with evalue less than 1e-105.</p>
+<div id="cell-40" class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>df[df[<span class="st">"e_value"</span>] <span class="op">&lt;</span> <span class="fl">1e-105</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="8">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">query_id</th>
+<th data-quarto-table-cell-role="th">hit_id</th>
+<th data-quarto-table-cell-role="th">hit_def</th>
+<th data-quarto-table-cell-role="th">e_value</th>
+<th data-quarto-table-cell-role="th">bit_score</th>
+<th data-quarto-table-cell-role="th">score</th>
+<th data-quarto-table-cell-role="th">query_start</th>
+<th data-quarto-table-cell-role="th">query_end</th>
+<th data-quarto-table-cell-role="th">subject_start</th>
+<th data-quarto-table-cell-role="th">subject_end</th>
+<th data-quarto-table-cell-role="th">alignment_length</th>
+<th data-quarto-table-cell-role="th">identity</th>
+<th data-quarto-table-cell-role="th">gaps</th>
+<th data-quarto-table-cell-role="th">query_sequence</th>
+<th data-quarto-table-cell-role="th">match_sequence</th>
+<th data-quarto-table-cell-role="th">subject_sequence</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>BE037100.1</td>
+<td>gi|1219041180|ref|XM_021875076.1|</td>
+<td>PREDICTED: Chenopodium quinoa cold-regulated 4...</td>
+<td>5.569490e-117</td>
+<td>435.898</td>
+<td>482.0</td>
+<td>59</td>
+<td>678</td>
+<td>278</td>
+<td>901</td>
+<td>624</td>
+<td>473</td>
+<td>4</td>
+<td>ACAGAAAATGGGGAGAGAAATGAAGTACTTGGCCATGAAAACTGAT...</td>
+<td>|| ||||||||| |||| | |||| || |||| |||| | |||| ...</td>
+<td>ACCGAAAATGGGCAGAGGAGTGAATTATATGGCAATGACACCTGAG...</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>BE037100.1</td>
+<td>gi|2514617377|ref|XM_021992092.2|</td>
+<td>PREDICTED: Spinacia oleracea cold-regulated 41...</td>
+<td>1.494500e-111</td>
+<td>418.766</td>
+<td>463.0</td>
+<td>63</td>
+<td>649</td>
+<td>42</td>
+<td>631</td>
+<td>590</td>
+<td>447</td>
+<td>3</td>
+<td>AAAATGGGGAGAGAAATGAAGTACTTGGCCATGAAAACTGATCAAT...</td>
+<td>|||||||| ||| |||| | || ||||| |||||||| || ||||...</td>
+<td>AAAATGGGTAGACGAATGGATTATTTGGCGATGAAAACCGAGCAAT...</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>BE037100.1</td>
+<td>gi|2518612504|ref|XM_010682658.3|</td>
+<td>PREDICTED: Beta vulgaris subsp. vulgaris cold-...</td>
+<td>4.010310e-106</td>
+<td>400.732</td>
+<td>443.0</td>
+<td>87</td>
+<td>679</td>
+<td>25</td>
+<td>621</td>
+<td>597</td>
+<td>448</td>
+<td>4</td>
+<td>TTGGCCATGAAAACTGATCAATTGGCCGTGGCTAATATGATCGATT...</td>
+<td>||||||||||||||||| ||| |||| |||||||| |||| ||||...</td>
+<td>TTGGCCATGAAAACTGAGCAAATGGCGTTGGCTAATTTGATAGATT...</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p>To save the filtered set of hits (or the entire output) to a csv file, we can use the <code>to_csv</code> function.</p>
+<div id="cell-42" class="cell" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>df_top_hits <span class="op">=</span> df[df[<span class="st">"e_value"</span>] <span class="op">&lt;</span> <span class="fl">1e-105</span>]</span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>df_top_hits.to_csv(<span class="st">"Blast_hits.csv"</span>, index<span class="op">=</span><span class="va">False</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="cell-43" class="cell" data-execution_count="24">
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="co"># %load Blast_hits.csv</span></span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>query_id,hit_id,hit_def,e_value,bit_score,score,query_start,query_end,subject_start,subject_end,alignment_length,identity,gaps,query_sequence,match_sequence,subject_sequence</span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>BE037100<span class="fl">.1</span>,gi<span class="op">|</span><span class="dv">1219041180</span><span class="op">|</span>ref<span class="op">|</span>XM_021875076<span class="fl">.1</span><span class="op">|</span>,<span class="st">"PREDICTED: Chenopodium quinoa cold-regulated 413 plasma membrane protein 2-like (LOC110697660), mRNA"</span>,<span class="fl">5.56949e-117</span>,<span class="fl">435.898</span>,<span class="fl">482.0</span>,<span class="dv">59</span>,<span class="dv">678</span>,<span class="dv">278</span>,<span class="dv">901</span>,<span class="dv">624</span>,<span class="dv">473</span>,<span class="dv">4</span>,ACAGAAAATGGGGAGAGAAATGAAGTACTTGGCCATGAAAACTGATCAATTGGCCGTGGCTAATATGATCGATTCCGATATCAATGAGCTTAAAATGGCAACAATGAGGCTCATCAATGATGCTAGTATGCTCGGT<span class="op">--</span>CATTACGGG<span class="op">-</span>TTTGGCACTCATTTCCTCAAATGGCTCGCCTGCCTTGCGGCTATTTACTTGTTGATATTGGATCGAACAAACTGGAGAACCAACATGCTCACGTCACTTTTAGTCCCTTACATATTCCTCAGTCTTCCATCCGGGCCATTTCATCTGTTCAGAGGCGAGGTCGGGAAATGGATTGCCATCATTGCAGTCGTGTTAAGGCTGTTCTTCAACCGGCATTTCCCAGTTTGGCTGGAAATGCCTGGATCGTTGATACTCCTCCTGGTGGTGGCACCAGACTTCTTTACACACAAAGTGAAGGAGAGCTGGATCGGAATTGCAATTATGATAGCGATAGGGTGTCACCTGATGCAAGAACATATCAGAGCCACTGGTGGCTTTTGGAATTCCTTCACACAGAGCCACGGAACTTTTAACACAATTGGGCTTATCCTTCTACTGGCTTACCCTGTCT<span class="op">-</span>GTTTATGGTCATCTTCATGATGTA,<span class="op">||</span> <span class="op">|||||||||</span> <span class="op">||||</span> <span class="op">|</span> <span class="op">||||</span> <span class="op">||</span>  <span class="op">||||</span> <span class="op">||||</span> <span class="op">|</span> <span class="op">||||</span> <span class="op">|||</span> <span class="op">|</span> <span class="op">||||</span> <span class="op">|||</span> <span class="op">|||</span> <span class="op">|||||</span> <span class="op">|</span> <span class="op">|||||</span> <span class="op">|||||||||||</span> <span class="op">||</span> <span class="op">||</span> <span class="op">|</span>     <span class="op">||||</span>  <span class="op">|||||</span>  <span class="op">||||||||</span>  <span class="op">||</span>  <span class="op">|||||</span>   <span class="op">||</span>   <span class="op">|</span> <span class="op">||</span> <span class="op">|||||</span> <span class="op">||||||||</span> <span class="op">||</span> <span class="op">|</span> <span class="op">||||||</span> <span class="op">||||</span>  <span class="op">|||||</span> <span class="op">|||||||||||||||||</span>  <span class="op">|||||||</span> <span class="op">|||||</span> <span class="op">||||||||||||||||||||</span> <span class="op">|||||</span> <span class="op">|||||</span> <span class="op">||</span> <span class="op">||||||||||||||||||||</span> <span class="op">||</span> <span class="op">||</span> <span class="op">||</span> <span class="op">|||</span> <span class="op">|</span> <span class="op">||</span>  <span class="op">|</span> <span class="op">||</span> <span class="op">||</span> <span class="op">|||||</span> <span class="op">||||||||||||||</span>  <span class="op">|</span>  <span class="op">|</span> <span class="op">||</span> <span class="op">||</span> <span class="op">|||</span> <span class="op">|||||||</span> <span class="op">||||||</span> <span class="op">||||</span> <span class="op">|</span>  <span class="op">|||||||</span>  <span class="op">|||</span> <span class="op">|</span> <span class="op">||</span> <span class="op">|||||</span> <span class="op">|||||</span>  <span class="op">|||||||</span>  <span class="op">|</span>  <span class="op">|||||||</span> <span class="op">||</span> <span class="op">|||||</span> <span class="op">||</span>  <span class="op">|</span>  <span class="op">||||||||</span> <span class="op">|</span> <span class="op">|||||</span> <span class="op">||</span> <span class="op">|||||</span> <span class="op">|||</span> <span class="op">|||</span> <span class="op">||||</span> <span class="op">||</span> <span class="op">||</span>   <span class="op">|||||||||</span> <span class="op">|</span>  <span class="op">||</span> <span class="op">||||||||||||||||</span> <span class="op">||</span> <span class="op">||||||||</span> <span class="op">||</span>  <span class="op">|</span> <span class="op">|||||</span> <span class="op">||</span> <span class="op">||</span> <span class="op">||</span> <span class="op">|||||</span> <span class="op">||||</span> <span class="op">||</span>   <span class="op">|</span> <span class="op">||</span> <span class="op">||||||||</span>  <span class="op">|</span> <span class="op">||</span>  <span class="op">||</span> <span class="op">||||||||||</span>  <span class="op">|</span> <span class="op">|</span> <span class="op">||</span>  <span class="op">|||||</span> <span class="op">||</span> <span class="op">||||||||</span> <span class="op">||</span>,ACCGAAAATGGGCAGAGGAGTGAATTATATGGCAATGACACCTGAGCAACTAGCCGCGGCCAATTTGATCAACTCCGACATCAATGAGCTCAAGATCGTTGTGATGACACTCATTCATGATGCTTCTAGACTCGGCGGCACCTCAGGATTTGGAACTCATTTTCTTAGATGGCTAGCCTCTCTTGCTGCTATTTACTTGTTGATCCTGGATCGCACAAATTGGAGAACCAACATGCTCACATCACTCTTAGTACCATACATATTCCTCAGTCTTCCTTCTGGCCCTTTTTACCTTCTTAGGGGTGAGGTTGGGAAATGGATTGCTTTTGTCGCGGTTGTGCTAAGGCTATTCTTCCACCGCCGCTTCCCAGAATGGTTAGAGATGCCAGGATCACTGATACTATTGTTGGTGGTAGCTCCAGAATTGCTAGCACACAAATTAAAGGATAGTTGGATGGGAGTTGTAATTCTGTTAATCATAGGGTGTTATTTGCTGCAAGAACATATCAGGGCAACTGGTGGTTTAAGAAATTCGTTTACTCAAAGCCATGGAATTTCCTATACGATTGGGCTGCTTCTCTTATTGGCTTACCCAATTTGGTCCATGGTTATTTTCATGATTTA</span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a>BE037100<span class="fl">.1</span>,gi<span class="op">|</span><span class="dv">2514617377</span><span class="op">|</span>ref<span class="op">|</span>XM_021992092<span class="fl">.2</span><span class="op">|</span>,<span class="st">"PREDICTED: Spinacia oleracea cold-regulated 413 plasma membrane protein 2-like (LOC110787470), mRNA"</span>,<span class="fl">1.4945e-111</span>,<span class="fl">418.766</span>,<span class="fl">463.0</span>,<span class="dv">63</span>,<span class="dv">649</span>,<span class="dv">42</span>,<span class="dv">631</span>,<span class="dv">590</span>,<span class="dv">447</span>,<span class="dv">3</span>,AAAATGGGGAGAGAAATGAAGTACTTGGCCATGAAAACTGATCAATTGGCCGTGGCTAATATGATCGATTCCGATATCAATGAGCTTAAAATGGCAACAATGAGGCTCATCAATGATGCTAGTATGCTCGG<span class="op">---</span>TCATTACGGGTTTGGCACTCATTTCCTCAAATGGCTCGCCTGCCTTGCGGCTATTTACTTGTTGATATTGGATCGAACAAACTGGAGAACCAACATGCTCACGTCACTTTTAGTCCCTTACATATTCCTCAGTCTTCCATCCGGGCCATTTCATCTGTTCAGAGGCGAGGTCGGGAAATGGATTGCCATCATTGCAGTCGTGTTAAGGCTGTTCTTCAACCGGCATTTCCCAGTTTGGCTGGAAATGCCTGGATCGTTGATACTCCTCCTGGTGGTGGCACCAGACTTCTTTACACACAAAGTGAAGGAGAGCTGGATCGGAATTGCAATTATGATAGCGATAGGGTGTCACCTGATGCAAGAACATATCAGAGCCACTGGTGGCTTTTGGAATTCCTTCACACAGAGCCACGGAACTTTTAACACAATTGGGCTTATCCTTCTACTGGCTTACCC,<span class="op">||||||||</span> <span class="op">|||</span>  <span class="op">||||</span> <span class="op">|</span> <span class="op">||</span> <span class="op">|||||</span> <span class="op">||||||||</span> <span class="op">||</span> <span class="op">|||||</span> <span class="op">||||</span> <span class="op">|||</span> <span class="op">|||</span> <span class="op">|||||||||||||||||||</span> <span class="op">|||||</span> <span class="op">||</span> <span class="op">||</span> <span class="op">||</span>    <span class="op">|||</span>  <span class="op">||||</span> <span class="op">|</span>  <span class="op">|||||</span> <span class="op">|||</span> <span class="op">||</span> <span class="op">||||||</span>   <span class="op">|||</span> <span class="op">|</span>  <span class="op">||</span> <span class="op">||</span> <span class="op">||</span> <span class="op">||||||||</span> <span class="op">|||</span> <span class="op">||||||||||||</span>   <span class="op">||</span> <span class="op">|</span> <span class="op">||||||||||||||</span> <span class="op">||</span>  <span class="op">|</span> <span class="op">|||||||||</span> <span class="op">|</span> <span class="op">|||||||</span> <span class="op">|||||||||</span> <span class="op">||</span> <span class="op">|||||||||||</span> <span class="op">||</span> <span class="op">|||||</span> <span class="op">|||||</span> <span class="op">|||||</span> <span class="op">|||||</span> <span class="op">||</span> <span class="op">||</span> <span class="op">|||||</span> <span class="op">||</span> <span class="op">||</span> <span class="op">|||||</span> <span class="op">|||||</span> <span class="op">||||||||||||||</span>  <span class="op">|</span>  <span class="op">|</span>  <span class="op">|</span> <span class="op">||</span> <span class="op">|||</span> <span class="op">|||||</span> <span class="op">|</span> <span class="op">||||||</span> <span class="op">||||</span>   <span class="op">||||||||</span>  <span class="op">|||</span> <span class="op">||||||||||</span> <span class="op">|</span> <span class="op">||</span>  <span class="op">||||||||</span>  <span class="op">|</span>  <span class="op">|||||||</span> <span class="op">||</span> <span class="op">|||||</span>  <span class="op">|</span>  <span class="op">||</span> <span class="op">||</span>     <span class="op">|</span> <span class="op">||||</span> <span class="op">|||||</span> <span class="op">|||||</span> <span class="op">|||</span> <span class="op">|||</span> <span class="op">|</span> <span class="op">||</span> <span class="op">||</span> <span class="op">||</span>   <span class="op">|||||</span> <span class="op">|||</span> <span class="op">||||</span>  <span class="op">|</span> <span class="op">|||||</span> <span class="op">|||||</span> <span class="op">||</span> <span class="op">||</span> <span class="op">||||||||</span> <span class="op">||</span>  <span class="op">|||||||</span> <span class="op">||||||||</span> <span class="op">||</span> <span class="op">||</span> <span class="op">||</span> <span class="op">|</span> <span class="op">||</span>  <span class="op">|||||||||||||||</span> <span class="op">|</span> <span class="op">||</span>  <span class="op">|</span>  <span class="op">||||||||||</span>,AAAATGGGTAGACGAATGGATTATTTGGCGATGAAAACCGAGCAATTAGCCGCGGCCAATTTGATCGATTCCGATATCAACGAGCTGAAGATCGCCGTGATGGCGCTCGTTCATGATACTACTACGCTCGGCGGTCAATCGGGATTCGGAACTCATTTTCTCCAATGGCTCGCCTCATTTTCTGCTATTTACTTGTTAATCCTTGATCGAACACATTGGAGAAGCAACATGCTTACTTCACTTTTAGTACCATACATTTTCCTAAGTCTCCCATCTGGCCCCTTTCACCTTTTAAGAGGTGAGGTTGGGAAATGGATTGCTTTTGTCTCGGTTGTGCTAAGGTTATTCTTCCACCGCAGTTTCCCAGAATGGTTGGAAATGCCAGTATGTTTGATACTATTATTGGTGGTAGCTCCAGAAATGCTTGCAATATCAATGAAAGAGAGTTGGATGGGAGTTGTAGTTGTGTTAATCATAGGATGTTACCTTCTACAAGAGCATATTAGGGCAACTGGTGGTTTAAGGAATTCTTTCACACAAAGACATGGGATTTCCAACACAATTGGGCTTCTTCTCTTGTTGGCTTACCC</span>
+<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a>BE037100<span class="fl">.1</span>,gi<span class="op">|</span><span class="dv">2518612504</span><span class="op">|</span>ref<span class="op">|</span>XM_010682658<span class="fl">.3</span><span class="op">|</span>,<span class="st">"PREDICTED: Beta vulgaris subsp. vulgaris cold-regulated 413 plasma membrane protein 2 (LOC104895996), mRNA"</span>,<span class="fl">4.01031e-106</span>,<span class="fl">400.732</span>,<span class="fl">443.0</span>,<span class="dv">87</span>,<span class="dv">679</span>,<span class="dv">25</span>,<span class="dv">621</span>,<span class="dv">597</span>,<span class="dv">448</span>,<span class="dv">4</span>,TTGGCCATGAAAACTGATCAATTGGCCGTGGCTAATATGATCGATTCCGATATCAATGAGCTTAAAATGGCAACAATGAGGCTCATCAATGATGCTAGTATGCTC<span class="op">---</span>GGTCATTACGGGTTTGGCACTCATTTCCTCAAATGGCTCGCCTGCCTTGCGGCTATTTACTTGTTGATATTGGATCGAACAAACTGGAGAACCAACATGCTCACGTCACTTTTAGTCCCTTACATATTCCTCAGTCTTCCATCCGGGCCATTTCATCTGTTCAGAGGCGAGGTCGGGAAATGGATTGCCATCATTGCAGTCGTGTTAAGGCTGTTCTTCAACCGGCATTTCCCAGTTTGGCTGGAAATGCCTGGATCGTTGATACTCCTCCTGGTGGTGGCACCAGACTTCTTTACACACAAAGTGAAGGAGAGCTGGATCGGAATTGCAATTATGATAGCGATAGGGTGTCACCTGATGCAAGAACATATCAGAGCCACTGGTGGCTTTTGGAATTCCTTCACACAGAGCCACGGAACTTTTAACACAATTGGGCTTATCCTTCTACTGGCTTACCCTGTCT<span class="op">-</span>GTTTATGGTCATCTTCATGATGTAG,<span class="op">|||||||||||||||||</span> <span class="op">|||</span> <span class="op">||||</span>  <span class="op">||||||||</span> <span class="op">||||</span> <span class="op">||||</span>  <span class="op">|||||</span> <span class="op">|||||</span> <span class="op">|||||</span> <span class="op">||</span> <span class="op">||</span>    <span class="op">|</span>    <span class="op">|||</span> <span class="op">||</span>  <span class="op">||||||||</span>  <span class="op">||</span>  <span class="op">|||</span>   <span class="op">|||||</span>    <span class="op">||</span> <span class="op">||</span> <span class="op">||</span> <span class="op">||||||||</span> <span class="op">|||||||||||</span> <span class="op">||</span> <span class="op">|</span>   <span class="op">||||</span> <span class="op">||||||||</span> <span class="op">|||</span> <span class="op">||||</span>  <span class="op">|||||||||||||</span> <span class="op">||||||||</span> <span class="op">||||||||</span> <span class="op">||</span> <span class="op">||||||||||||||||||||||||</span> <span class="op">||||</span> <span class="op">|||||</span>  <span class="op">|</span> <span class="op">||</span>    <span class="op">|||||</span> <span class="op">||</span> <span class="op">||</span> <span class="op">||</span> <span class="op">|||||</span> <span class="op">||</span> <span class="op">||</span> <span class="op">||</span> <span class="op">||||||||</span>  <span class="op">|</span> <span class="op">||</span> <span class="op">|||||</span> <span class="op">||</span>  <span class="op">|</span> <span class="op">|||</span> <span class="op">|</span> <span class="op">||</span> <span class="op">|||</span> <span class="op">||||</span> <span class="op">||||||||||</span> <span class="op">||||</span> <span class="op">||||||||||</span> <span class="op">||||</span>  <span class="op">||||||||</span>  <span class="op">|</span>  <span class="op">|||||||</span> <span class="op">||</span> <span class="op">||</span>  <span class="op">|</span> <span class="op">||</span> <span class="op">|||</span> <span class="op">|</span>  <span class="op">|</span> <span class="op">|</span> <span class="op">|</span> <span class="op">|||||||</span>   <span class="op">||||</span> <span class="op">|</span> <span class="op">||</span>  <span class="op">|||</span> <span class="op">|</span> <span class="op">||</span> <span class="op">||</span> <span class="op">||</span>   <span class="op">|||||||||</span> <span class="op">|</span>  <span class="op">||</span> <span class="op">|</span> <span class="op">|||||</span> <span class="op">|||||</span> <span class="op">|||||</span> <span class="op">||</span> <span class="op">|||||</span>  <span class="op">|</span>  <span class="op">|||||||||||||</span> <span class="op">||</span> <span class="op">|</span> <span class="op">|||</span> <span class="op">||</span> <span class="op">|</span> <span class="op">||</span> <span class="op">|||</span> <span class="op">||||||||||||</span> <span class="op">||||||||</span> <span class="op">||||||||||</span>  <span class="op">|</span> <span class="op">|</span> <span class="op">||</span>  <span class="op">||</span>  <span class="op">||||</span> <span class="op">||||||||||||</span>,TTGGCCATGAAAACTGAGCAAATGGCGTTGGCTAATTTGATAGATTATGATATGAATGAACTTAAGATCGCTTTGACATCGCTAATTCATGATGCTGCTAGACTCAATGGTCACGGAGGATTCGGAACTCATTTTCTCAAATGGCTTGCTTCATTTGCTGCTATTTATTTGCTGATCCTGGATCGAACAAATTGGAGAACAAACATGCTAACATCACTTTTAGTCCCTTACATATTCTTCAGCCTTCCCACAGGCATCTTTCACCTTTTAAGGGGCGAAGTTGGTAAGTGGATTGCTTTTATCGCAGTTGTACTGAGGTTATTTTTCCACCGCCATTTCCCAGATTGGTTGGAAATGCCAGGATGTTTGATACTGTTGTTGGTGGTCGCTCCCAATTTATTTGCTTATACAATGAAGGATGACTGGTTGGGGGTTGTAGTTTTGTTAATCATAGGGTGTTATTTGCTACAAGAGCATATAAGAGCGACGGGTGGTCTCAGGAATTCCTTCACTCAAACCCATGGTATTTCTAATACAATTGGGCTTCTCCTTCTATTGGCTTACCCCATTTGGTCGATATTCATATTCATGATGTAG</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="plotting-blast-result" class="level2" data-number="1.9">
+<h2 data-number="1.9" class="anchored" data-anchor-id="plotting-blast-result"><span class="header-section-number">1.9</span> Plotting BLAST result</h2>
+<div id="cell-45" class="cell" data-execution_count="19">
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Define bins and corresponding NCBI BLAST-style colors</span></span>
+<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a>bins <span class="op">=</span> [<span class="dv">0</span>, <span class="dv">50</span>, <span class="dv">70</span>, <span class="dv">80</span>, <span class="dv">90</span>, <span class="dv">100</span>, <span class="bu">float</span>(<span class="st">'inf'</span>)]</span>
+<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a>colors <span class="op">=</span> [<span class="st">'blue'</span>, <span class="st">'cyan'</span>, <span class="st">'green'</span>, <span class="st">'darkorange'</span>, <span class="st">'magenta'</span>, <span class="st">'red'</span>]</span>
+<span id="cb42-6"><a href="#cb42-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-7"><a href="#cb42-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Assign color based on percent identity</span></span>
+<span id="cb42-8"><a href="#cb42-8" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'color'</span>] <span class="op">=</span> pd.cut(df[<span class="st">'percent_identity'</span>], bins<span class="op">=</span>bins, labels<span class="op">=</span>colors, right<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb42-9"><a href="#cb42-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-10"><a href="#cb42-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot per query</span></span>
+<span id="cb42-11"><a href="#cb42-11" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> query <span class="kw">in</span> df[<span class="st">'query_id'</span>].unique():</span>
+<span id="cb42-12"><a href="#cb42-12" aria-hidden="true" tabindex="-1"></a>    sub_df <span class="op">=</span> df[df[<span class="st">'query_id'</span>] <span class="op">==</span> query]</span>
+<span id="cb42-13"><a href="#cb42-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-14"><a href="#cb42-14" aria-hidden="true" tabindex="-1"></a>    plt.figure(figsize<span class="op">=</span>(<span class="dv">12</span>, <span class="dv">2</span> <span class="op">+</span> <span class="bu">len</span>(sub_df) <span class="op">*</span> <span class="fl">0.3</span>))</span>
+<span id="cb42-15"><a href="#cb42-15" aria-hidden="true" tabindex="-1"></a>    query_length <span class="op">=</span> sub_df[<span class="st">'query_end'</span>].<span class="bu">max</span>()</span>
+<span id="cb42-16"><a href="#cb42-16" aria-hidden="true" tabindex="-1"></a>    plt.hlines(y<span class="op">=</span><span class="dv">0</span>, xmin<span class="op">=</span><span class="dv">1</span>, xmax<span class="op">=</span>query_length, colors<span class="op">=</span><span class="st">'black'</span>, linewidth<span class="op">=</span><span class="dv">2</span>, label<span class="op">=</span><span class="st">'Query'</span>)</span>
+<span id="cb42-17"><a href="#cb42-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-18"><a href="#cb42-18" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i, row <span class="kw">in</span> <span class="bu">enumerate</span>(sub_df.itertuples(), start<span class="op">=</span><span class="dv">1</span>):</span>
+<span id="cb42-19"><a href="#cb42-19" aria-hidden="true" tabindex="-1"></a>        plt.hlines(y<span class="op">=-</span>i, xmin<span class="op">=</span>row.query_start, xmax<span class="op">=</span>row.query_end, colors<span class="op">=</span>row.color, linewidth<span class="op">=</span><span class="dv">3</span>)</span>
+<span id="cb42-20"><a href="#cb42-20" aria-hidden="true" tabindex="-1"></a>        plt.text(<span class="op">-</span><span class="dv">100</span>, <span class="op">-</span>i, <span class="ss">f"</span><span class="sc">{</span>row<span class="sc">.</span>hit_id<span class="sc">}</span><span class="ss">"</span>, va<span class="op">=</span><span class="st">'center'</span>, fontsize<span class="op">=</span><span class="dv">8</span>)</span>
+<span id="cb42-21"><a href="#cb42-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-22"><a href="#cb42-22" aria-hidden="true" tabindex="-1"></a>    plt.title(<span class="ss">f"Alignment Coverage for Query: </span><span class="sc">{</span>query<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb42-23"><a href="#cb42-23" aria-hidden="true" tabindex="-1"></a>    plt.xlabel(<span class="st">"Query Position"</span>)</span>
+<span id="cb42-24"><a href="#cb42-24" aria-hidden="true" tabindex="-1"></a>    plt.yticks([<span class="dv">0</span>] <span class="op">+</span> [<span class="op">-</span>i <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>, <span class="bu">len</span>(sub_df)<span class="op">+</span><span class="dv">1</span>)], [<span class="st">'Query'</span>] <span class="op">+</span> [<span class="st">''</span>]<span class="op">*</span><span class="bu">len</span>(sub_df))</span>
+<span id="cb42-25"><a href="#cb42-25" aria-hidden="true" tabindex="-1"></a>    plt.grid(<span class="va">True</span>, axis<span class="op">=</span><span class="st">'x'</span>, linestyle<span class="op">=</span><span class="st">'--'</span>, alpha<span class="op">=</span><span class="fl">0.3</span>)</span>
+<span id="cb42-26"><a href="#cb42-26" aria-hidden="true" tabindex="-1"></a>    plt.gca().spines[[<span class="st">'top'</span>, <span class="st">'right'</span>, <span class="st">'left'</span>]].set_visible(<span class="va">False</span>)</span>
+<span id="cb42-27"><a href="#cb42-27" aria-hidden="true" tabindex="-1"></a>    plt.tight_layout()</span>
+<span id="cb42-28"><a href="#cb42-28" aria-hidden="true" tabindex="-1"></a>    plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="BioPython_Intro_files/figure-html/cell-26-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="blast-search-using-sequence-file" class="level2" data-number="1.10">
+<h2 data-number="1.10" class="anchored" data-anchor-id="blast-search-using-sequence-file"><span class="header-section-number">1.10</span> BLAST search using sequence file</h2>
 <p>To run the Blast search using a sequence file instead of gi number, we first need to create a seqeunce object and then pass it on to the <code>qblast</code> function as shown below. To run this code, save the protein sequence below in a new file example1.fasta.</p>
 <p>MFHPGMTSQPSTSNQMYYDPLYGAEQIVQCNPMDYHQANILCGMQYFNNSHNRYPLLPQMPPQFTNDHPY DFPNVPTISTLDEASSFNGFLIPSQPSSYNNNNISCVFTPTPCTSSQASSQPPPTPTVNPTPIPPNAGAV LTTAMDSCQQISHVLQCYQQGGEDSDFVRKAIESLVKKLKDKRIELDALITAVTSNGKQPTGCVTIQRSL DGRLQVAGRKGVPHVVYARIWRWPKVSKNELVKLVQCQTSSDHPDNICINPYHYERVVSNRITSADQSLH VENSPMKSEYLGDAGVIDSCSDWPNTPPDNNFNGGFAPDQPQLVTPIISDIPIDLNQIYVPTPPQLLDNW CSIIYYELDTPIGETFKVSARDHGKVIVDGGMDPHGENEGRLCLGALSNVHRTEASEKARIHIGRGVELT AHADGNISITSNCKIFVRSGYLDYTHGSEYSSKAHRFTPNESSFTVFDIRWAYMQMLRRSRSSNEAVRAQ AAAVAGYAPMSVMPAIMPDSGVDRMRRDFCTIAISFVKAWGDVYQRKTIKETPCWIEVTLHRPLQILDQL LKNSSQFGSS</p>
-<div id="cell-26" class="cell" data-execution_count="28">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>seq_file <span class="op">=</span> <span class="bu">open</span>(<span class="st">'example1.fasta'</span>)</span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>result_handle2 <span class="op">=</span> NCBIWWW.qblast(<span class="st">"blastp"</span>, <span class="st">"nr"</span>, seq_file.read())</span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>seq_file.close()</span>
-<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">"test_blast.xml"</span>, <span class="st">"w"</span>) <span class="im">as</span> out_handle:</span>
-<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>    out_handle.write(result_handle2.read())</span>
-<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>blast_output <span class="op">=</span> <span class="bu">open</span>(<span class="st">"test_blast.xml"</span>)    </span>
-<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>blast_record <span class="op">=</span> NCBIXML.read(blast_output)</span>
-<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(blast_record.alignments[<span class="dv">0</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-48" class="cell" data-execution_count="28">
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>seq_file <span class="op">=</span> <span class="bu">open</span>(<span class="st">'example1.fasta'</span>)</span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>result_handle2 <span class="op">=</span> NCBIWWW.qblast(<span class="st">"blastp"</span>, <span class="st">"nr"</span>, seq_file.read())</span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>seq_file.close()</span>
+<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">"test_blast.xml"</span>, <span class="st">"w"</span>) <span class="im">as</span> out_handle:</span>
+<span id="cb43-6"><a href="#cb43-6" aria-hidden="true" tabindex="-1"></a>    out_handle.write(result_handle2.read())</span>
+<span id="cb43-7"><a href="#cb43-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-8"><a href="#cb43-8" aria-hidden="true" tabindex="-1"></a>blast_output <span class="op">=</span> <span class="bu">open</span>(<span class="st">"test_blast.xml"</span>)    </span>
+<span id="cb43-9"><a href="#cb43-9" aria-hidden="true" tabindex="-1"></a>blast_record <span class="op">=</span> NCBIXML.read(blast_output)</span>
+<span id="cb43-10"><a href="#cb43-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(blast_record.alignments[<span class="dv">0</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>sp|P45897.1| RecName: Full=Dwarfin sma-4; AltName: Full=MAD protein homolog 3 [Caenorhabditis elegans] &gt;gb|AAA97605.1| SMA-4 [Caenorhabditis elegans]
            Length = 570
@@ -467,15 +1095,15 @@ DONE</code></pre>
 </div>
 </div>
 <p>Let’s say we need only the alignment with the mouse sequence, then, to print first 50 characters of each alignment with the mouse sequence along with corresponding statistics, the following code can be used.</p>
-<div id="cell-28" class="cell" data-execution_count="31">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> alignment <span class="kw">in</span> blast_record.alignments:</span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="st">"Mus musculus"</span> <span class="kw">in</span> alignment.title:</span>
-<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(alignment.title)</span>
-<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> hsp <span class="kw">in</span> alignment.hsps:</span>
-<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>            <span class="bu">print</span>(hsp.query[<span class="dv">0</span>:<span class="dv">50</span>])</span>
-<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>            <span class="bu">print</span>(hsp.match[<span class="dv">0</span>:<span class="dv">50</span>])</span>
-<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>            <span class="bu">print</span>(hsp.sbjct[<span class="dv">0</span>:<span class="dv">50</span>])</span>
-<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>            <span class="bu">print</span>(hsp.positives, hsp.score, hsp.expect)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-50" class="cell" data-execution_count="31">
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> alignment <span class="kw">in</span> blast_record.alignments:</span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="st">"Mus musculus"</span> <span class="kw">in</span> alignment.title:</span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(alignment.title)</span>
+<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> hsp <span class="kw">in</span> alignment.hsps:</span>
+<span id="cb45-5"><a href="#cb45-5" aria-hidden="true" tabindex="-1"></a>            <span class="bu">print</span>(hsp.query[<span class="dv">0</span>:<span class="dv">50</span>])</span>
+<span id="cb45-6"><a href="#cb45-6" aria-hidden="true" tabindex="-1"></a>            <span class="bu">print</span>(hsp.match[<span class="dv">0</span>:<span class="dv">50</span>])</span>
+<span id="cb45-7"><a href="#cb45-7" aria-hidden="true" tabindex="-1"></a>            <span class="bu">print</span>(hsp.sbjct[<span class="dv">0</span>:<span class="dv">50</span>])</span>
+<span id="cb45-8"><a href="#cb45-8" aria-hidden="true" tabindex="-1"></a>            <span class="bu">print</span>(hsp.positives, hsp.score, hsp.expect)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>gb|KAI2586911.1| SMAD family member 4 [Homo sapiens] &gt;gb|KAI4046350.1| SMAD family member 4 [Homo sapiens] &gt;gb|PNI70022.1| SMAD4 isoform 6 [Pan troglodytes] &gt;gb|PNJ43713.1| SMAD4 isoform 9 [Pongo abelii]
 TAMDSCQQISHVLQCYQQGGEDSDFVRKAIESLVKKLKDKRIELDALITA
@@ -484,399 +1112,261 @@ TSNDACLSIVHSLMCHRQGGESETFAKRAIESLVKKLKEKKDELDSLITA
 274 795.0 8.00678e-96</code></pre>
 </div>
 </div>
-<p>To save the Blast output in csv format, we can use the <code>csv</code> library as shown below.</p>
-<div id="cell-30" class="cell">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> csv</span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>csv_out <span class="op">=</span> <span class="bu">open</span>(<span class="st">"blast_out.csv"</span>, <span class="st">"w"</span>, newline<span class="op">=</span><span class="st">''</span>)</span>
-<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> alignment <span class="kw">in</span> blast_record.alignments:</span>
-<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> hsp <span class="kw">in</span> alignment.hsps:</span>
-<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>        new_row <span class="op">=</span> csv.writer(csv_out, delimiter<span class="op">=</span><span class="st">","</span>)</span>
-<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>        new_row.writerow([alignment.title.split(<span class="st">"|"</span>)[<span class="op">-</span><span class="dv">1</span>], hsp.positives, hsp.expect])</span>
-<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>csv_out.close()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
 
 
 </section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
-window.document.addEventListener("DOMContentLoaded", function (event) {
-  const toggleBodyColorMode = (bsSheetEl) => {
-    const mode = bsSheetEl.getAttribute("data-mode");
-    const bodyEl = window.document.querySelector("body");
-    if (mode === "dark") {
-      bodyEl.classList.add("quarto-dark");
-      bodyEl.classList.remove("quarto-light");
-    } else {
-      bodyEl.classList.add("quarto-light");
-      bodyEl.classList.remove("quarto-dark");
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    // Ensure there is a toggle, if there isn't float one in the top right
+    if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+      const a = window.document.createElement('a');
+      a.classList.add('top-right');
+      a.classList.add('quarto-color-scheme-toggle');
+      a.href = "";
+      a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+      const i = window.document.createElement("i");
+      i.classList.add('bi');
+      a.appendChild(i);
+      window.document.body.appendChild(a);
     }
-  }
-  const toggleBodyColorPrimary = () => {
-    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
-    if (bsSheetEl) {
-      toggleBodyColorMode(bsSheetEl);
-    }
-  }
-  toggleBodyColorPrimary();  
-  const disableStylesheet = (stylesheets) => {
-    for (let i=0; i < stylesheets.length; i++) {
-      const stylesheet = stylesheets[i];
-      stylesheet.rel = 'prefetch';
-    }
-  }
-  const enableStylesheet = (stylesheets) => {
-    for (let i=0; i < stylesheets.length; i++) {
-      const stylesheet = stylesheets[i];
-      stylesheet.rel = 'stylesheet';
-    }
-  }
-  const manageTransitions = (selector, allowTransitions) => {
-    const els = window.document.querySelectorAll(selector);
-    for (let i=0; i < els.length; i++) {
-      const el = els[i];
-      if (allowTransitions) {
-        el.classList.remove('notransition');
-      } else {
-        el.classList.add('notransition');
+    setColorSchemeToggle(hasAlternateSentinel())
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
       }
+      return false;
     }
-  }
-  const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
-    const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
-    const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
-    let newTheme = '';
-    if(darkModeDefault) {
-      newTheme = isAlternate ? baseTheme : alternateTheme;
-    } else {
-      newTheme = isAlternate ? alternateTheme : baseTheme;
-    }
-    const changeGiscusTheme = () => {
-      // From: https://github.com/giscus/giscus/issues/336
-      const sendMessage = (message) => {
-        const iframe = document.querySelector('iframe.giscus-frame');
-        if (!iframe) return;
-        iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
       }
-      sendMessage({
-        setConfig: {
-          theme: newTheme
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/biopython\.bioinfo\.guru");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
         }
       });
     }
-    const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
-    if (isGiscussLoaded) {
-      changeGiscusTheme();
-    }
-  }
-  const toggleColorMode = (alternate) => {
-    // Switch the stylesheets
-    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
-    manageTransitions('#quarto-margin-sidebar .nav-link', false);
-    if (alternate) {
-      enableStylesheet(alternateStylesheets);
-      for (const sheetNode of alternateStylesheets) {
-        if (sheetNode.id === "quarto-bootstrap") {
-          toggleBodyColorMode(sheetNode);
-        }
-      }
-    } else {
-      disableStylesheet(alternateStylesheets);
-      toggleBodyColorPrimary();
-    }
-    manageTransitions('#quarto-margin-sidebar .nav-link', true);
-    // Switch the toggles
-    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
-    for (let i=0; i < toggles.length; i++) {
-      const toggle = toggles[i];
-      if (toggle) {
-        if (alternate) {
-          toggle.classList.add("alternate");     
-        } else {
-          toggle.classList.remove("alternate");
-        }
-      }
-    }
-    // Hack to workaround the fact that safari doesn't
-    // properly recolor the scrollbar when toggling (#1455)
-    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
-      manageTransitions("body", false);
-      window.scrollTo(0, 1);
-      setTimeout(() => {
-        window.scrollTo(0, 0);
-        manageTransitions("body", true);
-      }, 40);  
-    }
-  }
-  const isFileUrl = () => { 
-    return window.location.protocol === 'file:';
-  }
-  const hasAlternateSentinel = () => {  
-    let styleSentinel = getColorSchemeSentinel();
-    if (styleSentinel !== null) {
-      return styleSentinel === "alternate";
-    } else {
-      return false;
-    }
-  }
-  const setStyleSentinel = (alternate) => {
-    const value = alternate ? "alternate" : "default";
-    if (!isFileUrl()) {
-      window.localStorage.setItem("quarto-color-scheme", value);
-    } else {
-      localAlternateSentinel = value;
-    }
-  }
-  const getColorSchemeSentinel = () => {
-    if (!isFileUrl()) {
-      const storageValue = window.localStorage.getItem("quarto-color-scheme");
-      return storageValue != null ? storageValue : localAlternateSentinel;
-    } else {
-      return localAlternateSentinel;
-    }
-  }
-  const darkModeDefault = false;
-  let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
-  // Dark / light mode switch
-  window.quartoToggleColorScheme = () => {
-    // Read the current dark / light value 
-    let toAlternate = !hasAlternateSentinel();
-    toggleColorMode(toAlternate);
-    setStyleSentinel(toAlternate);
-    toggleGiscusIfUsed(toAlternate, darkModeDefault);
-  };
-  // Ensure there is a toggle, if there isn't float one in the top right
-  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
-    const a = window.document.createElement('a');
-    a.classList.add('top-right');
-    a.classList.add('quarto-color-scheme-toggle');
-    a.href = "";
-    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
-    const i = window.document.createElement("i");
-    i.classList.add('bi');
-    a.appendChild(i);
-    window.document.body.appendChild(a);
-  }
-  // Switch to dark mode if need be
-  if (hasAlternateSentinel()) {
-    toggleColorMode(true);
-  } else {
-    toggleColorMode(false);
-  }
-  const icon = "";
-  const anchorJS = new window.AnchorJS();
-  anchorJS.options = {
-    placement: 'right',
-    icon: icon
-  };
-  anchorJS.add('.anchored');
-  const isCodeAnnotation = (el) => {
-    for (const clz of el.classList) {
-      if (clz.startsWith('code-annotation-')) {                     
-        return true;
-      }
-    }
-    return false;
-  }
-  const onCopySuccess = function(e) {
-    // button target
-    const button = e.trigger;
-    // don't keep focus
-    button.blur();
-    // flash "checked"
-    button.classList.add('code-copy-button-checked');
-    var currentTitle = button.getAttribute("title");
-    button.setAttribute("title", "Copied!");
-    let tooltip;
-    if (window.bootstrap) {
-      button.setAttribute("data-bs-toggle", "tooltip");
-      button.setAttribute("data-bs-placement", "left");
-      button.setAttribute("data-bs-title", "Copied!");
-      tooltip = new bootstrap.Tooltip(button, 
-        { trigger: "manual", 
-          customClass: "code-copy-button-tooltip",
-          offset: [0, -8]});
-      tooltip.show();    
-    }
-    setTimeout(function() {
-      if (tooltip) {
-        tooltip.hide();
-        button.removeAttribute("data-bs-title");
-        button.removeAttribute("data-bs-toggle");
-        button.removeAttribute("data-bs-placement");
-      }
-      button.setAttribute("title", currentTitle);
-      button.classList.remove('code-copy-button-checked');
-    }, 1000);
-    // clear code selection
-    e.clearSelection();
-  }
-  const getTextToCopy = function(trigger) {
-      const codeEl = trigger.previousElementSibling.cloneNode(true);
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
-        }
-      }
-      return codeEl.innerText;
-  }
-  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
-    text: getTextToCopy
-  });
-  clipboard.on('success', onCopySuccess);
-  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
-    // For code content inside modals, clipBoardJS needs to be initialized with a container option
-    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
-    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
-      text: getTextToCopy,
-      container: window.document.getElementById('quarto-embedded-source-code-modal')
-    });
-    clipboardModal.on('success', onCopySuccess);
-  }
-    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
-    var mailtoRegex = new RegExp(/^mailto:/);
-      var filterRegex = new RegExp("https:\/\/biopython\.bioinfo\.guru");
-    var isInternal = (href) => {
-        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
-    }
-    // Inspect non-navigation links and adorn them if external
- 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
-    for (var i=0; i<links.length; i++) {
-      const link = links[i];
-      if (!isInternal(link.href)) {
-        // undo the damage that might have been done by quarto-nav.js in the case of
-        // links that we want to consider external
-        if (link.dataset.originalHref !== undefined) {
-          link.href = link.dataset.originalHref;
-        }
-      }
-    }
-  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
-    const config = {
-      allowHTML: true,
-      maxWidth: 500,
-      delay: 100,
-      arrow: false,
-      appendTo: function(el) {
-          return el.parentElement;
-      },
-      interactive: true,
-      interactiveBorder: 10,
-      theme: 'quarto',
-      placement: 'bottom-start',
-    };
-    if (contentFn) {
-      config.content = contentFn;
-    }
-    if (onTriggerFn) {
-      config.onTrigger = onTriggerFn;
-    }
-    if (onUntriggerFn) {
-      config.onUntrigger = onUntriggerFn;
-    }
-    window.tippy(el, config); 
-  }
-  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
-  for (var i=0; i<noterefs.length; i++) {
-    const ref = noterefs[i];
-    tippyHover(ref, function() {
-      // use id or data attribute instead here
-      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
-      try { href = new URL(href).hash; } catch {}
-      const id = href.replace(/^#\/?/, "");
-      const note = window.document.getElementById(id);
-      if (note) {
-        return note.innerHTML;
-      } else {
-        return "";
-      }
-    });
-  }
-  const xrefs = window.document.querySelectorAll('a.quarto-xref');
-  const processXRef = (id, note) => {
-    // Strip column container classes
-    const stripColumnClz = (el) => {
-      el.classList.remove("page-full", "page-columns");
-      if (el.children) {
-        for (const child of el.children) {
-          stripColumnClz(child);
-        }
-      }
-    }
-    stripColumnClz(note)
-    if (id === null || id.startsWith('sec-')) {
-      // Special case sections, only their first couple elements
-      const container = document.createElement("div");
-      if (note.children && note.children.length > 2) {
-        container.appendChild(note.children[0].cloneNode(true));
-        for (let i = 1; i < note.children.length; i++) {
-          const child = note.children[i];
-          if (child.tagName === "P" && child.innerText === "") {
-            continue;
-          } else {
-            container.appendChild(child.cloneNode(true));
-            break;
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
           }
         }
-        if (window.Quarto?.typesetMath) {
-          window.Quarto.typesetMath(container);
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
         }
-        return container.innerHTML
       } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
         if (window.Quarto?.typesetMath) {
           window.Quarto.typesetMath(note);
         }
-        return note.innerHTML;
-      }
-    } else {
-      // Remove any anchor links if they are present
-      const anchorLink = note.querySelector('a.anchorjs-link');
-      if (anchorLink) {
-        anchorLink.remove();
-      }
-      if (window.Quarto?.typesetMath) {
-        window.Quarto.typesetMath(note);
-      }
-      // TODO in 1.5, we should make sure this works without a callout special case
-      if (note.classList.contains("callout")) {
-        return note.outerHTML;
-      } else {
-        return note.innerHTML;
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
       }
     }
-  }
-  for (var i=0; i<xrefs.length; i++) {
-    const xref = xrefs[i];
-    tippyHover(xref, undefined, function(instance) {
-      instance.disable();
-      let url = xref.getAttribute('href');
-      let hash = undefined; 
-      if (url.startsWith('#')) {
-        hash = url;
-      } else {
-        try { hash = new URL(url).hash; } catch {}
-      }
-      if (hash) {
-        const id = hash.replace(/^#\/?/, "");
-        const note = window.document.getElementById(id);
-        if (note !== null) {
-          try {
-            const html = processXRef(id, note.cloneNode(true));
-            instance.setContent(html);
-          } finally {
-            instance.enable();
-            instance.show();
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
           }
         } else {
-          // See if we can fetch this
-          fetch(url.split('#')[0])
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
           .then(res => res.text())
           .then(html => {
             const parser = new DOMParser();
             const htmlDoc = parser.parseFromString(html, "text/html");
-            const note = htmlDoc.getElementById(id);
+            const note = htmlDoc.querySelector('main.content');
             if (note !== null) {
-              const html = processXRef(id, note);
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
               instance.setContent(html);
             } 
           }).finally(() => {
@@ -884,185 +1374,161 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             instance.show();
           });
         }
-      } else {
-        // See if we can fetch a full url (with no hash to target)
-        // This is a special case and we should probably do some content thinning / targeting
-        fetch(url)
-        .then(res => res.text())
-        .then(html => {
-          const parser = new DOMParser();
-          const htmlDoc = parser.parseFromString(html, "text/html");
-          const note = htmlDoc.querySelector('main.content');
-          if (note !== null) {
-            // This should only happen for chapter cross references
-            // (since there is no id in the URL)
-            // remove the first header
-            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
-              note.children[0].remove();
-            }
-            const html = processXRef(null, note);
-            instance.setContent(html);
-          } 
-        }).finally(() => {
-          instance.enable();
-          instance.show();
-        });
-      }
-    }, function(instance) {
-    });
-  }
-      let selectedAnnoteEl;
-      const selectorForAnnotation = ( cell, annotation) => {
-        let cellAttr = 'data-code-cell="' + cell + '"';
-        let lineAttr = 'data-code-annotation="' +  annotation + '"';
-        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
-        return selector;
-      }
-      const selectCodeLines = (annoteEl) => {
-        const doc = window.document;
-        const targetCell = annoteEl.getAttribute("data-target-cell");
-        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
-        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
-        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
-        const lineIds = lines.map((line) => {
-          return targetCell + "-" + line;
-        })
-        let top = null;
-        let height = null;
-        let parent = null;
-        if (lineIds.length > 0) {
-            //compute the position of the single el (top and bottom and make a div)
-            const el = window.document.getElementById(lineIds[0]);
-            top = el.offsetTop;
-            height = el.offsetHeight;
-            parent = el.parentElement.parentElement;
-          if (lineIds.length > 1) {
-            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
-            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
-            height = bottom - top;
-          }
-          if (top !== null && height !== null && parent !== null) {
-            // cook up a div (if necessary) and position it 
-            let div = window.document.getElementById("code-annotation-line-highlight");
-            if (div === null) {
-              div = window.document.createElement("div");
-              div.setAttribute("id", "code-annotation-line-highlight");
-              div.style.position = 'absolute';
-              parent.appendChild(div);
-            }
-            div.style.top = top - 2 + "px";
-            div.style.height = height + 4 + "px";
-            div.style.left = 0;
-            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
-            if (gutterDiv === null) {
-              gutterDiv = window.document.createElement("div");
-              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
-              gutterDiv.style.position = 'absolute';
-              const codeCell = window.document.getElementById(targetCell);
-              const gutter = codeCell.querySelector('.code-annotation-gutter');
-              gutter.appendChild(gutterDiv);
-            }
-            gutterDiv.style.top = top - 2 + "px";
-            gutterDiv.style.height = height + 4 + "px";
-          }
-          selectedAnnoteEl = annoteEl;
-        }
-      };
-      const unselectCodeLines = () => {
-        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
-        elementsIds.forEach((elId) => {
-          const div = window.document.getElementById(elId);
-          if (div) {
-            div.remove();
-          }
-        });
-        selectedAnnoteEl = undefined;
-      };
-        // Handle positioning of the toggle
-    window.addEventListener(
-      "resize",
-      throttle(() => {
-        elRect = undefined;
-        if (selectedAnnoteEl) {
-          selectCodeLines(selectedAnnoteEl);
-        }
-      }, 10)
-    );
-    function throttle(fn, ms) {
-    let throttle = false;
-    let timer;
-      return (...args) => {
-        if(!throttle) { // first call gets through
-            fn.apply(this, args);
-            throttle = true;
-        } else { // all the others get throttled
-            if(timer) clearTimeout(timer); // cancel #2
-            timer = setTimeout(() => {
-              fn.apply(this, args);
-              timer = throttle = false;
-            }, ms);
-        }
-      };
-    }
-      // Attach click handler to the DT
-      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
-      for (const annoteDlNode of annoteDls) {
-        annoteDlNode.addEventListener('click', (event) => {
-          const clickedEl = event.target;
-          if (clickedEl !== selectedAnnoteEl) {
-            unselectCodeLines();
-            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
-            if (activeEl) {
-              activeEl.classList.remove('code-annotation-active');
-            }
-            selectCodeLines(clickedEl);
-            clickedEl.classList.add('code-annotation-active');
-          } else {
-            // Unselect the line
-            unselectCodeLines();
-            clickedEl.classList.remove('code-annotation-active');
-          }
-        });
-      }
-  const findCites = (el) => {
-    const parentEl = el.parentElement;
-    if (parentEl) {
-      const cites = parentEl.dataset.cites;
-      if (cites) {
-        return {
-          el,
-          cites: cites.split(' ')
-        };
-      } else {
-        return findCites(el.parentElement)
-      }
-    } else {
-      return undefined;
-    }
-  };
-  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
-  for (var i=0; i<bibliorefs.length; i++) {
-    const ref = bibliorefs[i];
-    const citeInfo = findCites(ref);
-    if (citeInfo) {
-      tippyHover(citeInfo.el, function() {
-        var popup = window.document.createElement('div');
-        citeInfo.cites.forEach(function(cite) {
-          var citeDiv = window.document.createElement('div');
-          citeDiv.classList.add('hanging-indent');
-          citeDiv.classList.add('csl-entry');
-          var biblioDiv = window.document.getElementById('ref-' + cite);
-          if (biblioDiv) {
-            citeDiv.innerHTML = biblioDiv.innerHTML;
-          }
-          popup.appendChild(citeDiv);
-        });
-        return popup.innerHTML;
+      }, function(instance) {
       });
     }
-  }
-});
-</script>
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
       <a href="./index.html" class="pagination-link" aria-label="Preface">
@@ -1079,7 +1545,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <footer class="footer">
   <div class="nav-footer">
     <div class="nav-footer-left">
-<p>Copyright 2024, bioinfo.guru</p>
+<p>Copyright 2025, bioinfo.guru</p>
 </div>   
     <div class="nav-footer-center">
       &nbsp;
